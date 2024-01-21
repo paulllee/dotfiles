@@ -1,6 +1,6 @@
 #!/bin/bash
 
-# COLORS
+# TEXT FORMATTING
 NORMAL='\033[0m'
 GREEN='\033[0;32m'
 BLUE='\033[0;34m' 
@@ -26,7 +26,24 @@ declare -a BREW_PKGS=(
     "powerlevel10k"
 )
 
-printf_h "Installing Xcode Command Lines Tools + Homebrew"
+ALL_PKGS=("${CASK_PKGS[@]}" "${BREW_PKGS[@]}")
+
+printf_h "Mac Setup"
+
+printf "This script will install Homebrew along with these packages:\n"
+for PKG in "${ALL_PKGS[@]}" 
+    do 
+        printf "    - $PKG\n" 
+    done
+
+read -p "Are you sure you want to continue with the setup? [y/n]: " -r
+if [[ ! $REPLY =~ ^[Yy]$ ]]
+then
+    printf "Aborting script...\n\n"
+    exit 0
+fi
+
+printf_h "Installing Homebrew"
 
 /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
 echo 'eval "$(/opt/homebrew/bin/brew shellenv)"' >> ~/.zprofile
