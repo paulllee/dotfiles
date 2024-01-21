@@ -1,6 +1,5 @@
 #!/bin/bash
 
-# TEXT FORMATTING
 NORMAL='\033[0m'
 GREEN='\033[0;32m'
 BLUE='\033[0;34m' 
