@@ -32,7 +32,7 @@ for PKG in "${BREW_PKGS[@]}"
         brew install $PKG
     done
 
-git clone --depth=1 git@github.com:paulllee/dotfiles.git ~/.temp/dotfiles
+git clone --depth=1 https://github.com/paulllee/dotfiles.git ~/.temp/dotfiles
 
 yes "y" | ssh-keygen -t ed25519 -N "" -f ~/.temp/dotfiles/dotfiles/.ssh/id_rsa
 
