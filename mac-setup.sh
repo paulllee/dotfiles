@@ -41,9 +41,6 @@ rsync -aP ~/.temp/dotfiles/fonts/ ~/Library/Fonts/
 
 bash ~/.temp/dotfiles/bin/update-gitconfig.sh
 
-open ~/.temp/dotfiles/configs/Main.terminal
-defaults write com.apple.terminal "Default Window Settings" -string "Main"
-
 defaults write com.apple.desktopservices DSDontWriteNetworkStores true
 
 rm -rf ~/.temp
