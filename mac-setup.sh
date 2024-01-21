@@ -1,18 +1,18 @@
 #!/bin/bash
 
 declare -a CASK_PKGS=(
-    "arc" 
-    "obsidian" 
+    "arc"
     "mac-mouse-fix"
+    "obsidian"
     "swish"
+    "tailscale"
     "visual-studio-code"
 )
 
 declare -a BREW_PKGS=(
-    "tailscale" 
-    "neovim" 
-    "docker"
     "colima"
+    "docker"
+    "neovim"
     "powerlevel10k"
 )
 
