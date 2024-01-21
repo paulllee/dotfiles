@@ -36,14 +36,13 @@ git clone --depth=1 git@github.com:paulllee/dotfiles.git ~/.temp/dotfiles
 
 yes "y" | ssh-keygen -t ed25519 -N "" -f ~/.temp/dotfiles/dotfiles/.ssh/id_rsa
 
-cp ~/.temp/dotfiles/dotfiles/* ~
-cp ~/.temp/dotfiles/fonts/* ~/Library/Fonts/
+rsync -aP ~/.temp/dotfiles/dotfiles/ ~
+rsync -aP ~/.temp/dotfiles/fonts/ ~/Library/Fonts/
 
 bash ~/.temp/dotfiles/bin/update-gitconfig.sh
 
 open ~/.temp/dotfiles/configs/Main.terminal
 defaults write com.apple.terminal "Default Window Settings" -string "Main"
-defaults write com.apple.Terminal "Startup Window Settings" -string "Main"
 
 defaults write com.apple.desktopservices DSDontWriteNetworkStores true
 
