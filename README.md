@@ -7,5 +7,5 @@ Mac only, *for now*
 # Installation
 
 ```bash
-/bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/paulllee/dotfiles/main/mac-setup.sh)"
+/bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/paulllee/dotfiles/main/setup.sh)"
 ```
