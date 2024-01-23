@@ -18,46 +18,45 @@ fi
 
 eval "$(/opt/homebrew/bin/brew shellenv)"
 
-printf_h "Cloning Dotfiles from GitHub"
+printf_h "Dotfiles Installation"
+
+if [ -d ~/.dotfiles ]
+then
+    mv ~/.dotfiles ~/.dotfiles-old
+    printf "Renamed old '.dotfiles' to '.dotfiles-old' to prevent conflicts when cloning.\n"
+fi
 
 git clone --depth=1 https://github.com/paulllee/dotfiles.git ~/.dotfiles
-
-printf_h "Running Dot Scripts"
 
 bash ~/.dotfiles/dotfiles/.local/bin/dot-filesync
 bash ~/.dotfiles/dotfiles/.local/bin/dot-gitsync
 bash ~/.dotfiles/dotfiles/.local/bin/dot-setdefaults
 
-printf_h "Running Potential Overrides"
+printf_h "Font Installation"
 
-printf "CAUTION: Syncing the fonts can override the MesloLDS Nerd Font if previously installed and used.\n"
-read -p "Do you want to continue? [y/n]: " -r
+read -p "This will install 'MesloLDS Nerd Font' in your Font Book. Continue? [y/n]: " -r
 if [[ $REPLY =~ ^[Yy]$ ]]
 then
     rsync -aP ~/.dotfiles/fonts/ ~/Library/Fonts/
 fi
 
-printf "CAUTION: Generating a new SSH key can override your SSH key if previously named id_rsa.\n"
-read -p "Do you want to continue? [y/n]: " -r
+printf_h "SSH Key Generation"
+
+read -p "This will generate a new key to '~/.ssh/id_rsa'. Continue? [y/n]: " -r
 if [[ $REPLY =~ ^[Yy]$ ]]
 then
     yes "y" | ssh-keygen -t ed25519 -N "" -f ~/.ssh/id_rsa
 fi
 
-printf_h "Installing All Homebrew Packages"
+printf_h "Package Installation"
 
-printf "CAUTION: Any previously installed applications could be overriden by Homebrew cask install.\n"
-read -p "Do you want to continue? [y/n]: " -r
+read -p "This will install all applications in the Brewfile. Continue? [y/n]: " -r
 if [[ $REPLY =~ ^[Yy]$ ]]
 then
     brew bundle --file ~/.dotfiles/Brewfile --no-lock
 fi
 
-printf_h "Setup Completed!"
-
-printf "https://github.com/paulllee/dotfiles for quick access to the GitHub.\n"
-
-printf_h "NEXT STEPS"
+printf_h "Setup Complete! Next Steps"
 
 printf "    - Change the font of Apple Terminal to 'MesloLGS NF'.\n"
 printf "    - Add SSH key from '~/.ssh/id_rsa.pub' to required services (GitHub).\n\n"
