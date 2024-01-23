@@ -86,8 +86,11 @@ then
 
     git -C $DOTFILES_PATH checkout main 1> /dev/null 2> /dev/null
     git -C $DOTFILES_PATH pull
+
     rsync --exclude ".DS_Store" -avhP $DOTFILES_PATH/dotfiles/ ~/
     chmod +x ~/.local/bin/dotsync
+
+    exec zsh
 fi
 
 if (( g_flag ))
@@ -96,8 +99,6 @@ then
 
     read -p "Enter Git Name: " GIT_NAME
     read -p "Enter Git Email: " GIT_EMAIL
-
-    echo > ~/.gitconfig
 
     git config --global user.name "$GIT_NAME"
     git config --global user.email "$GIT_EMAIL"
