@@ -1,8 +1,6 @@
 # dotfiles
 
-This is a simple setup script to bring up a new OS installation with all of my essentials and dotfile configurations.
-
-Mac only, *for now*
+This is a simple setup script to bring up a new macOS installation with all of my essentials and dotfile configurations.
 
 # Installation
 
