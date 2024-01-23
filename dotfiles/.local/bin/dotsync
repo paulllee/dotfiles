@@ -1,0 +1,94 @@
+#!/bin/bash
+
+function printf_h () {
+    printf "\n> $1\n\n"
+}
+
+DOTFILES_PATH=${DOTFILES_PATH:-~/.dotfiles}
+readonly DOTFILES_PATH
+
+USAGE_MESSAGE=$(
+cat <<- END
+A series of helpers for your dotfiles
+
+Usage: 
+    $(basename "$0") [options]                         Uses default dotfiles path (~/.dotfiles)
+    [DOTFILES_PATH=<path>] $(basename "$0") [options]  Use custom dotfiles path
+
+Options:
+    -b  Install packages from Brewfile in dotfiles directory
+    -d  Set Mac defaults
+    -f  Sync dotfiles
+    -g  Configuration for gitconfig
+    -h  Print this help message
+
+Examples:
+    $(basename "$0") -df  Set Mac defaults and sync dotfiles
+END
+)
+readonly USAGE_MESSAGE
+
+b_flag=0
+d_flag=0
+f_flag=0
+g_flag=0
+
+while getopts "bdfgh" FLAG
+do
+    case "${FLAG}" in
+        b) b_flag=1 ;;
+        d) d_flag=1 ;;
+        f) f_flag=1 ;;
+        g) g_flag=1 ;;
+        h) printf "$USAGE_MESSAGE\n" && exit 0 ;;
+    esac
+done
+
+if [ ! -d $DOTFILES_PATH ]
+then 
+    printf "$DOTFILES_PATH is not a valid directory.\n"
+    exit 1
+fi
+
+if (( b_flag ))
+then
+    printf_h "Brewfile Installation"
+
+    brew bundle --file $DOTFILES_PATH/Brewfile --no-lock
+fi
+
+if (( d_flag ))
+then
+    printf_h "Set Mac Defaults"
+
+    # disables DS_Store files in NFS
+    defaults write com.apple.desktopservices DSDontWriteNetworkStores true
+
+    # disables press and hold so that we can key repeat on hold
+    defaults write -g ApplePressAndHoldEnabled -bool false
+
+    # enables list view permenantly in Finder
+    defaults write com.apple.Finder FXPreferredViewStyle Nlsv
+fi
+
+if (( f_flag ))
+then
+    printf_h "Dotfiles Sync"
+
+    git -C $DOTFILES_PATH checkout main
+    git -C $DOTFILES_PATH pull
+    rsync -aP $DOTFILES_PATH ~
+fi
+
+if (( g_flag ))
+then
+    printf_h "Gitconfig Configuration"
+
+    read -p "Enter Git Name: " GIT_NAME
+    read -p "Enter Git Email: " GIT_EMAIL
+
+    git config --global user.name $GIT_NAME
+    git config --global user.email $GIT_EMAIL
+    git config --global user.signingkey ~/.ssh/id_rsa.pub
+    git config --global gpg.format ssh
+fi
