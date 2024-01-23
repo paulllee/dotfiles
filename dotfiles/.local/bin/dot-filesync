@@ -1,5 +1,5 @@
 #!/bin/bash
 
-git checkout main -C ~/.dotfiles
-git pull -C ~/.dotfiles
+git -C ~/.dotfiles checkout main
+git -C ~/.dotfiles pull
 rsync -aP ~/.dotfiles ~
