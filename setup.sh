@@ -1,44 +1,22 @@
 #!/bin/bash
 
-function printf_h () {
-    printf "\n> $1\n\n"
-}
+printf "Homebrew is a requirement for paulllee/dotfiles and will be installed.
+Your password is required for sudo access during the installation.
+\n"
 
-printf "Hello! This is the first time setup for paulllee/dotfiles.\n"
+/bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)" && \
+    eval "$(/opt/homebrew/bin/brew shellenv)" || \
+    exit 1  # exit IF Homebrew installation returns a non zero code
 
-printf_h "Homebrew Installation (Requires Sudo Access)"
+printf "Cloning dotfiles and executing dotsync.
+This will rename ~/.dotfiles to ~/.dotfiles-old to prevent conflicts if it already exists.
+\n"
 
-/bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
+[[ -d ~/.dotfiles ]] && mv ~/.dotfiles ~/.dotfiles-old
+git clone --depth=1 https://github.com/paulllee/dotfiles.git ~/.dotfiles && \
+    /bin/bash ~/.dotfiles/dotfiles/.local/bin/dotsync -bdfg
 
-if [[ $? > 0 ]]
-then
-    printf "Homebrew installation failed, exiting...\n"
-    exit 1
-fi
-
-eval "$(/opt/homebrew/bin/brew shellenv)"
-
-printf_h "Dotfiles Installation"
-
-if [ -d ~/.dotfiles ]
-then
-    mv ~/.dotfiles ~/.dotfiles-old
-    printf "Renamed old '.dotfiles' to '.dotfiles-old' to prevent conflicts when cloning.\n"
-fi
-
-git clone --depth=1 https://github.com/paulllee/dotfiles.git ~/.dotfiles
-
-/bin/bash ~/.dotfiles/dotfiles/.local/bin/dotsync -bdfg
-
-printf_h "SSH Key Generation"
-
-read -p "This will generate a new key to '~/.ssh/id_rsa'. Continue? [y/n]: " -r
-if [[ $REPLY =~ ^[Yy]$ ]]
-then
-    yes "y" | ssh-keygen -t ed25519 -N "" -f ~/.ssh/id_rsa
-fi
-
-printf_h "Setup Complete! Next Steps"
-
-printf "    - Change the font of Apple Terminal to 'MesloLGS NF'.\n"
-printf "    - Add SSH key from '~/.ssh/id_rsa.pub' to required services (GitHub).\n\n"
+printf "Setup completed! Next steps:
+    - Change the font of Apple Terminal to 'MesloLGS NF'.
+    - Create a new SSH key via 'auto-keygen' and add it to services (e.g. GitHub).
+\n"
