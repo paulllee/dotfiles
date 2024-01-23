@@ -4,6 +4,11 @@ function printf_h () {
     printf "\n> $1\n\n"
 }
 
+function abort() {
+    printf "ERROR: $1\n"
+    exit 1
+}
+
 DOTFILES_PATH=${DOTFILES_PATH:-~/.dotfiles}
 readonly DOTFILES_PATH
 
@@ -46,8 +51,12 @@ done
 
 if [ ! -d $DOTFILES_PATH ]
 then 
-    printf "$DOTFILES_PATH is not a valid directory.\n"
-    exit 1
+    abort "$DOTFILES_PATH is not a valid directory."
+fi
+
+if (( ! b_flag && ! d_flag && ! f_flag && ! g_flag ))
+then
+    abort "No flags provided. Please review usage via '$(basename "$0") -h'."
 fi
 
 if (( b_flag ))
@@ -61,13 +70,13 @@ if (( d_flag ))
 then
     printf_h "Set Mac Defaults"
 
-    # disables DS_Store files in NFS
+    printf "Disabling DS_Store files in NFS\n"
     defaults write com.apple.desktopservices DSDontWriteNetworkStores true
 
-    # disables press and hold so that we can key repeat on hold
+    printf "Disabling press and hold so that we can key repeat on hold\n"
     defaults write -g ApplePressAndHoldEnabled -bool false
 
-    # enables list view permenantly in Finder
+    printf "Enabling list view permenantly in Finder\n"
     defaults write com.apple.Finder FXPreferredViewStyle Nlsv
 fi
 
@@ -78,6 +87,7 @@ then
     git -C $DOTFILES_PATH checkout main 1> /dev/null 2> /dev/null
     git -C $DOTFILES_PATH pull
     rsync --exclude ".DS_Store" -avhP $DOTFILES_PATH/dotfiles/ ~/
+    chmod +x ~/.local/bin/dotsync
 fi
 
 if (( g_flag ))
@@ -87,8 +97,12 @@ then
     read -p "Enter Git Name: " GIT_NAME
     read -p "Enter Git Email: " GIT_EMAIL
 
-    git config --global user.name $GIT_NAME
-    git config --global user.email $GIT_EMAIL
+    echo > ~/.gitconfig
+
+    git config --global user.name "$GIT_NAME"
+    git config --global user.email "$GIT_EMAIL"
     git config --global user.signingkey ~/.ssh/id_rsa.pub
     git config --global gpg.format ssh
+
+    cat ~/.gitconfig
 fi
