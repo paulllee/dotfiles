@@ -9,5 +9,6 @@ cask "visual-studio-code"
 
 brew "colima"
 brew "docker"
+brew "eza"
 brew "neovim"
 brew "powerlevel10k"
