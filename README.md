@@ -15,3 +15,12 @@ For quick setup, use the bootstrap script below.
 
 I provided an app to one-way sync from remote to your local dotfiles via `dotsync -s`. 
 View `dotsync -h` for more information.
+
+## .zshrc tips
+
+Here are a few aliases that I feel are the most helpful to note.
+
+| Alias | Command | Description |
+| --- | --- | --- |
+| `upgrade-all` | `brew upgrade && brew upgrade --cask && mas upgrade` | Upgrades all packages installed through Brewfile |
+| `lsg` | `eza -la --icons --git --git-repos` | Uses `eza` to produce list view with `git` information |
