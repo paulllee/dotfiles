@@ -1,7 +1,7 @@
 #!/bin/bash
 
 printf "Homebrew is a requirement for paulllee/dotfiles and will be installed.
-Your password is required for sudo access during the installation.
+Your password is required for sudo access during the Homebrew installation.
 \n"
 
 /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)" && \
