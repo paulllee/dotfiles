@@ -20,7 +20,7 @@ printf "Setup completed! Next steps:
     - Change the font of Apple Terminal to 'MesloLGS NF'.
     - Create a new SSH key via 'auto-keygen' and add it to services (e.g. GitHub).
     - TIP: You can sync your dotfiles with new remote changes in the future with 'dotsync -s'.
-      - View 'dotsync -h' for help.
+      - View 'dotsync -h' for more information.
 \n"
 
 exec zsh

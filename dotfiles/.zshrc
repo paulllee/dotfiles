@@ -3,8 +3,6 @@ source /opt/homebrew/share/powerlevel10k/powerlevel10k.zsh-theme
 [[ ! -f ~/.local/plugins/p10k.zsh ]] || source ~/.local/plugins/p10k.zsh
 
 # common aliases
-alias dsf="dotsync -f"
-
 alias auto-keygen="yes 'y' | ssh-keygen -t ed25519 -N '' -f ~/.ssh/id_rsa"
 
 alias ls="eza -la --icons"
