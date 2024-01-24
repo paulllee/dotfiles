@@ -10,7 +10,10 @@ function abort() {
 }
 
 DOTFILES_PATH=${DOTFILES_PATH:-~/.dotfiles}
-readonly DOTFILES_PATH
+[[ ! -d $DOTFILES_PATH ]] && \
+    abort "$DOTFILES_PATH is not a valid directory."
+
+BOOTSTRAP_MODE=${BOOTSTRAP_MODE:-0}  # skips `exec zsh` if enabled
 
 USAGE_MESSAGE=$(
 cat <<- END
@@ -21,75 +24,41 @@ Usage:
     [DOTFILES_PATH=<path>] $(basename "$0") [options]  Use custom dotfiles path
 
 Options:
-    -b  Install packages from Brewfile in dotfiles directory
-    -d  Set Mac defaults
-    -f  Sync dotfiles
-    -g  Configuration for gitconfig
     -h  Print this help message
+    -b  Install packages from Brewfile in dotfiles directory
+    -g  Git Configuration
+    -m  Mac defaults Configuration
+    -s  Sync dotfiles
 
 Examples:
-    $(basename "$0") -df  Set Mac defaults and sync dotfiles
+    $(basename "$0") -ms  Mac default Configuration and dotfiles sync
 END
 )
-readonly USAGE_MESSAGE
 
 b_flag=0
-d_flag=0
-f_flag=0
 g_flag=0
+m_flag=0
+s_flag=0
 
-while getopts "bdfgh" FLAG
+while getopts "hbgms" FLAG
 do
     case "${FLAG}" in
-        b) b_flag=1 ;;
-        d) d_flag=1 ;;
-        f) f_flag=1 ;;
-        g) g_flag=1 ;;
         h) printf "$USAGE_MESSAGE\n" && exit 0 ;;
+        b) b_flag=1 ;;
+        g) g_flag=1 ;;
+        m) m_flag=1 ;;
+        s) s_flag=1 ;;
     esac
 done
 
-if [ ! -d $DOTFILES_PATH ]
-then 
-    abort "$DOTFILES_PATH is not a valid directory."
-fi
-
-if (( ! b_flag && ! d_flag && ! f_flag && ! g_flag ))
-then
+(( ! b_flag && ! g_flag && ! m_flag && ! s_flag )) && \
     abort "No flags provided. Please review usage via '$(basename "$0") -h'."
-fi
 
 if (( b_flag ))
 then
     printf_h "Brewfile Installation"
 
     brew bundle --file $DOTFILES_PATH/Brewfile --no-lock
-fi
-
-if (( d_flag ))
-then
-    printf_h "Set Mac Defaults"
-
-    printf "Disabling DS_Store files in NFS\n"
-    defaults write com.apple.desktopservices DSDontWriteNetworkStores true
-
-    printf "Disabling press and hold so that we can key repeat on hold\n"
-    defaults write -g ApplePressAndHoldEnabled -bool false
-
-    printf "Enabling list view permenantly in Finder\n"
-    defaults write com.apple.Finder FXPreferredViewStyle Nlsv
-fi
-
-if (( f_flag ))
-then
-    printf_h "Dotfiles Sync"
-
-    git -C $DOTFILES_PATH checkout main 1> /dev/null 2> /dev/null
-    git -C $DOTFILES_PATH pull
-    git -C $DOTFILES_PATH checkout -
-
-    rsync --exclude ".DS_Store" -avhP $DOTFILES_PATH/dotfiles/ ~/
-    chmod +x ~/.local/bin/dotsync
 fi
 
 if (( g_flag ))
@@ -107,6 +76,32 @@ then
     cat ~/.gitconfig
 fi
 
-echo  # for formatting
+if (( m_flag ))
+then
+    printf_h "Mac Defaults Configuration"
 
-exec zsh
+    printf "Disabling DS_Store files in NFS\n"
+    defaults write com.apple.desktopservices DSDontWriteNetworkStores true
+
+    printf "Disabling press and hold so that we can key repeat on hold\n"
+    defaults write -g ApplePressAndHoldEnabled -bool false
+
+    printf "Enabling list view permenantly in Finder\n"
+    defaults write com.apple.Finder FXPreferredViewStyle Nlsv
+fi
+
+if (( s_flag ))
+then
+    printf_h "Sync Dotfiles"
+
+    git -C $DOTFILES_PATH checkout main 1> /dev/null 2> /dev/null
+    git -C $DOTFILES_PATH pull
+    git -C $DOTFILES_PATH checkout -
+
+    rsync --exclude ".DS_Store" -avhP $DOTFILES_PATH/dotfiles/ ~/
+    chmod +x ~/.local/bin/dotsync
+fi
+
+printf "\n"  # for formatting reasons
+
+(( ! BOOTSTRAP_MODE )) && exec zsh
