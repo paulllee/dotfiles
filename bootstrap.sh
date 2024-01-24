@@ -22,6 +22,7 @@ printf "Setup completed! Next steps:
     - I like to use ~/Developer for my dev workspace. 'mkdir ~/Developer'.
     - TIP: In the future, sync your dotfiles with remote via 'dotsync -s'.
       - View 'dotsync -h' for more information.
+    - TIP: You can upgrade all packages with 'upgrade-all'.
 \n"
 
 exec zsh
