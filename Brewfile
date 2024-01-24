@@ -4,7 +4,6 @@ brew "colima"
 brew "docker"
 brew "eza"
 brew "fzf"
-brew "mas"
 brew "navi"
 brew "neovim"
 brew "powerlevel10k"
@@ -18,4 +17,7 @@ cask "obsidian"
 cask "swish"
 cask "visual-studio-code"
 
+# Tailscale is only installed through the Apple Store due to Network Extension limitations
+# Read more here: https://tailscale.com/kb/1065/macos-variants#why-are-there-three-ways
+brew "mas"
 mas "Tailscale", id: 1475387142
