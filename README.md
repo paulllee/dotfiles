@@ -13,5 +13,5 @@ For quick setup, use the bootstrap script below.
 
 ## dotsync
 
-After installing, you will have access to a nifty app to sync your dotfiles with new remote changes. 
-View `dotsync -h` for more help.
+I provided an app to one-way sync from remote to your local dotfiles via `dotsync -s`. 
+View `dotsync -h` for more information.
