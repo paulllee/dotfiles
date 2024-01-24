@@ -1,9 +1,17 @@
 # dotfiles
 
-This is a simple setup script to bring up a new macOS installation with all of my essentials and dotfile configurations.
+I like to reset my machines more frequently than most.
 
-# Installation
+These bootstrap script pretty much installs and configures everything I need.
+The goal was the make this a simple process with little overhead.
+
+For quick setup, use the bootstrap script below.
 
 ```bash
-/bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/paulllee/dotfiles/main/setup.sh)"
+/bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/paulllee/dotfiles/main/bootstrap.sh)"
 ```
+
+## dotsync
+
+After installing, you will have access to a nifty app to sync your dotfiles with new remote changes. 
+View `dotsync -h` for more help.
