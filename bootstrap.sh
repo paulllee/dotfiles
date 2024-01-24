@@ -19,7 +19,8 @@ git clone --depth=1 https://github.com/paulllee/dotfiles.git ~/.dotfiles && \
 printf "Setup completed! Next steps:
     - Change the font of Apple Terminal to 'MesloLGS NF'.
     - Create a new SSH key via 'auto-keygen' and add it to services (e.g. GitHub).
-    - TIP: You can sync your dotfiles with new remote changes in the future with 'dotsync -s'.
+    - I like to use ~/Developer for my dev workspace. 'mkdir ~/Developer'.
+    - TIP: In the future, sync your dotfiles with remote via 'dotsync -s'.
       - View 'dotsync -h' for more information.
 \n"
 
