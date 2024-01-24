@@ -26,8 +26,8 @@ Usage:
 Options:
     -h  Print this help message
     -b  Install packages from Brewfile in dotfiles directory
-    -g  Git Configuration
-    -m  Mac defaults Configuration
+    -g  Git configuration
+    -m  Mac defaults configuration
     -s  Sync dotfiles
 
 Examples:
