@@ -90,8 +90,6 @@ then
 
     rsync --exclude ".DS_Store" -avhP $DOTFILES_PATH/dotfiles/ ~/
     chmod +x ~/.local/bin/dotsync
-
-    exec zsh
 fi
 
 if (( g_flag ))
@@ -109,5 +107,6 @@ then
     cat ~/.gitconfig
 fi
 
-# adding an extra new line for padding
-echo
+echo  # for formatting
+
+exec zsh
