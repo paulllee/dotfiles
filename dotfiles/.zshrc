@@ -6,7 +6,7 @@ alias auto-keygen='yes "y" | ssh-keygen -t ed25519 -N "" -f ~/.ssh/id_rsa'
 alias ls='eza -la --icons'
 alias lsg='eza -la --icons --git --git-repos'
 
-# q(uick) cd - uses fuzzy search to change directories
+# q(uick) cd - uses fuzzy search from home to change directories
 alias qcd='cd $(fd . ~ --type d -E ".git" | fzf)'
 
 # upgrade-all (packages) - upgrades everything that was installed through brew, cask, and mas
