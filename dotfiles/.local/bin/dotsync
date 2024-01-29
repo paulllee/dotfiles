@@ -59,6 +59,7 @@ then
     printf_h "Brewfile Installation"
 
     brew bundle --file $DOTFILES_PATH/Brewfile --no-lock
+    brew bundle --force cleanup
 fi
 
 if (( g_flag ))
