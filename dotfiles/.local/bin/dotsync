@@ -26,6 +26,7 @@ Usage:
 Options:
     -h  Print this help message
     -b  Install packages from Brewfile in dotfiles directory
+    -c  Clean Homebrew and match Brewfile packages with local
     -g  Git configuration
     -m  Mac defaults configuration
     -s  Sync dotfiles
@@ -36,22 +37,24 @@ END
 )
 
 b_flag=0
+c_flag=0
 g_flag=0
 m_flag=0
 s_flag=0
 
-while getopts "hbgms" FLAG
+while getopts "hbcgms" FLAG
 do
     case "${FLAG}" in
         h) printf "$USAGE_MESSAGE\n" && exit 0 ;;
         b) b_flag=1 ;;
+        c) c_flag=1 ;;
         g) g_flag=1 ;;
         m) m_flag=1 ;;
         s) s_flag=1 ;;
     esac
 done
 
-(( ! b_flag && ! g_flag && ! m_flag && ! s_flag )) && \
+(( ! b_flag && ! c_flag && ! g_flag && ! m_flag && ! s_flag )) && \
     abort "No flags provided. Please review usage via '$(basename "$0") -h'."
 
 if (( b_flag ))
@@ -59,7 +62,15 @@ then
     printf_h "Brewfile Installation"
 
     brew bundle --file $DOTFILES_PATH/Brewfile --no-lock
-    brew bundle --force cleanup
+fi
+
+if (( c_flag ))
+then
+    printf_h "Homebrew Spring Cleaning"
+
+    brew cleanup
+    brew bundle --file $DOTFILES_PATH/Brewfile --force cleanup
+    brew autoremove
 fi
 
 if (( g_flag ))
