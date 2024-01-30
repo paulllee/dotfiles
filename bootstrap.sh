@@ -14,7 +14,7 @@ This will rename ~/.dotfiles to ~/.dotfiles-old to prevent conflicts if it alrea
 
 [[ -d ~/.dotfiles ]] && rm -rf ~/.dotfiles-old && mv ~/.dotfiles ~/.dotfiles-old
 git clone --depth=1 https://github.com/paulllee/dotfiles.git ~/.dotfiles && \
-    BOOTSTRAP_MODE=1 /bin/bash ~/.dotfiles/dotfiles/.local/bin/dotsync -bgms
+    BOOTSTRAP_MODE=1 /bin/bash ~/.dotfiles/dotfiles/.local/bin/dotsync -bcgms
 
 printf "Setup completed! Next steps:
     - Change the font of Apple Terminal to 'MesloLGS NF'.
