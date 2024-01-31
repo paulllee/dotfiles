@@ -98,14 +98,18 @@ if (( m_flag ))
 then
     printf_h "Mac Defaults Configuration"
 
-    printf "Disabling DS_Store files in NFS\n"
+    printf "Disabling DS_Store files in NFS.\n"
     defaults write com.apple.desktopservices DSDontWriteNetworkStores true
 
-    printf "Disabling press and hold so that we can key repeat on hold\n"
+    printf "Disabling press and hold so that we can key repeat on hold.\n"
     defaults write -g ApplePressAndHoldEnabled -bool false
 
-    printf "Enabling list view permenantly in Finder\n"
+    printf "Enabling list view permenantly in Finder.\n"
     defaults write com.apple.Finder FXPreferredViewStyle Nlsv
+
+    printf "Enabling iTerm2 to use custom configuration from dotfiles.\n"
+    defaults write com.googlecode.iterm2 PrefsCustomFolder -string "~/.config/iterm2"
+    defaults write com.googlecode.iterm2 LoadPrefsFromCustomFolder -bool true    
 fi
 
 if (( s_flag ))
