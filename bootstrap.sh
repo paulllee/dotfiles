@@ -19,6 +19,7 @@ rm -rf ~/.dotfiles && \
 printf "Setup completed! Next steps:
     - Create a new SSH key via 'auto-keygen' for GitHub.
     - View 'dotsync -h' for more information.
+    - I personally like to use 'mkdir ~/dev'.
 \n"
 
 exec zsh
