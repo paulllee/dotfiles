@@ -109,7 +109,7 @@ then
 
     printf "Enabling iTerm2 to use custom configuration from dotfiles.\n"
     defaults write com.googlecode.iterm2 PrefsCustomFolder -string "~/.config/iterm2"
-    defaults write com.googlecode.iterm2 LoadPrefsFromCustomFolder -bool true    
+    defaults write com.googlecode.iterm2 LoadPrefsFromCustomFolder -bool true
 fi
 
 if (( s_flag ))
