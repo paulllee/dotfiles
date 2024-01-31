@@ -1,3 +1,2 @@
-# must load in the priority commands BEFORE the rest
-for config in ~/.local/command/priority/**/*(.); source $config
-for config in ~/.local/command/**/*(.); source $config
+for config in ~/.local/commands/pre/**/*(.); source $config
+for config in ~/.local/commands/**/*(.); source $config
