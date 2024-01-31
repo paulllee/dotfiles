@@ -17,9 +17,8 @@ rm -rf ~/.dotfiles && \
     BOOTSTRAP_MODE=1 /bin/bash ~/.dotfiles/dotfiles/.local/bin/dotsync -bcgms
 
 printf "Setup completed! Next steps:
+    - Open up iTerm2 and set it as default shell.
     - Create a new SSH key via 'auto-keygen' for GitHub.
-    - View 'dotsync -h' for more information.
-    - I personally like to use 'mkdir ~/dev'.
 \n"
 
 exec zsh
