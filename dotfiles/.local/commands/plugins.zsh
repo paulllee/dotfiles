@@ -11,5 +11,8 @@ source "$(brew --prefix)/share/zsh-syntax-highlighting/zsh-syntax-highlighting.z
 autoload -U promptinit; promptinit
 prompt pure
 
-# change the path color in the prompt for clarity
-zstyle :prompt:pure:path color white
+# single line pure prompt
+# https://github.com/sindresorhus/pure/issues/228#issuecomment-299425799
+prompt_newline='%666v'
+PROMPT=" $PROMPT"
+
