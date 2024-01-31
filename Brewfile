@@ -10,6 +10,7 @@ brew "zsh-autosuggestions"
 brew "zsh-syntax-highlighting"
 
 cask "arc"
+cask "iterm2"
 cask "obsidian"
 cask "mac-mouse-fix"
 cask "swish"
