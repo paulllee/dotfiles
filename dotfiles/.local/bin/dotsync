@@ -26,7 +26,7 @@ Usage:
 Options:
     -h  Print this help message
     -b  Install packages from Brewfile in dotfiles directory
-    -c  Clean Homebrew and match Brewfile packages with local
+    -c  Clean Homebrew with package upgrades and match Brewfile packages with local
     -g  Git configuration
     -m  Mac defaults configuration
     -s  Sync dotfiles
