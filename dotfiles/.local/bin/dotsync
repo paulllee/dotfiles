@@ -108,7 +108,7 @@ then
     defaults write com.apple.Finder FXPreferredViewStyle Nlsv
 
     printf "Enabling iTerm2 to use custom configuration from dotfiles.\n"
-    defaults write com.googlecode.iterm2 PrefsCustomFolder -string "~/.config/iterm2"
+    defaults write com.googlecode.iterm2 PrefsCustomFolder -string "~/.config/iterm2_user"
     defaults write com.googlecode.iterm2 LoadPrefsFromCustomFolder -bool true
 fi
 
