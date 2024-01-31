@@ -1,2 +1,2 @@
-for config in ~/.local/commands/pre/**/*(.); source $config
-for config in ~/.local/commands/**/*(.); source $config
+for zsh in ~/.zsh/pre/**/*(.); source $zsh
+for zsh in ~/.zsh/**/*(.); source $zsh
