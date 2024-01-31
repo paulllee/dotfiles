@@ -22,6 +22,5 @@ Here are a few aliases that I feel are the most helpful to note.
 
 | Alias | Command | Description |
 | --- | --- | --- |
-| `upgrade-all` | `brew upgrade && brew upgrade --cask && mas upgrade` | Upgrades all packages installed through Brewfile |
 | `lsg` | `eza -la --icons --git --git-repos` | Uses `eza` to produce list view with `git` information |
 | `qcd` | `cd $(fd . ~ --type d -E ".git" \| fzf)` | Uses `fd` and `fzf` quickly browse through file system from home directory |
