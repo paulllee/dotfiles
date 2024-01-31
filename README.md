@@ -15,12 +15,3 @@ For quick setup, use the bootstrap script below.
 
 I provided an app to one-way sync from remote to your local dotfiles via `dotsync -s`. 
 View `dotsync -h` for more information.
-
-## .zshrc tips
-
-Here are a few aliases that I feel are the most helpful to note.
-
-| Alias | Command | Description |
-| --- | --- | --- |
-| `lsg` | `eza -la --icons --git --git-repos` | Uses `eza` to produce list view with `git` information |
-| `qcd` | `cd $(fd . ~ --type d -E ".git" \| fzf)` | Uses `fd` and `fzf` quickly browse through file system from home directory |
