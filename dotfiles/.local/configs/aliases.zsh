@@ -8,6 +8,3 @@ alias lsg='eza -la --git --git-repos'
 
 # q(uick) cd - uses fuzzy search from home to change directories
 alias qcd='cd $(fd . ~ --type d -E ".git" | fzf)'
-
-# upgrade-all (packages) - upgrades everything that was installed through brew, cask, and mas
-alias upgrade-all='brew upgrade && brew upgrade --cask && mas upgrade'
