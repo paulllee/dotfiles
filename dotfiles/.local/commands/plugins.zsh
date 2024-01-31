@@ -10,3 +10,6 @@ source "$(brew --prefix)/share/zsh-syntax-highlighting/zsh-syntax-highlighting.z
 # https://github.com/sindresorhus/pure
 autoload -U promptinit; promptinit
 prompt pure
+
+# change the path color in the prompt for clarity
+zstyle :prompt:pure:path color white
