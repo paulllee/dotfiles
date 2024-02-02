@@ -1,0 +1,21 @@
+# common ignores
+.DS_Store
+.git
+
+# mac specific dirs
+Applications
+Library
+Movies
+Music
+Pictures
+
+# dot directories that i don't need
+.cache
+.colima
+.cups
+.docker
+.terminfo
+.Trash
+.vim
+.zsh_sessions
+
