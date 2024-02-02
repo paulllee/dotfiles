@@ -8,3 +8,7 @@ alias lsg='ls --git --git-repos'
 
 # q(uick) cd - uses fuzzy search from home to change directories
 alias qcd='cd $(fd . ~ --type d -E ".git" | fzf)'
+
+# q(uick) nvim - uses fuzzy search from cwd to go to file
+alias qnvim='nvim $(fd . --hidden | fzf)
+
