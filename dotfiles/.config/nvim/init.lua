@@ -190,16 +190,12 @@ require('lazy').setup({
   },
 
   {
-    -- Theme inspired by Atom
-    'navarasu/onedark.nvim',
-    priority = 1000,
+    -- my favorite theme: github dark default
+    'projekt0n/github-nvim-theme',
     lazy = false,
+    priority = 1000,
     config = function()
-      require('onedark').setup {
-        -- Set a style preset. 'dark' is default.
-        style = 'dark', -- dark, darker, cool, deep, warm, warmer, light
-      }
-      require('onedark').load()
+      vim.cmd('colorscheme github_dark_default')
     end,
   },
 
