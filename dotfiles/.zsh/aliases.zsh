@@ -10,5 +10,5 @@ alias lsg='ls --git --git-repos'
 alias qcd='cd $(fd . ~ --type d -E ".git" | fzf)'
 
 # q(uick) nvim - uses fuzzy search from cwd to go to file
-alias qnvim='nvim $(fd . --hidden | fzf)
+alias qnvim='nvim $(fd . --hidden --exclude ".DS_Store" | fzf)
 
