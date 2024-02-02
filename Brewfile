@@ -1,21 +1,32 @@
+# container setup
 brew "colima"
 brew "docker"
+
+# editor of choice (until helix gains plugin support...)
+brew "neovim"
+
+# prompt theme
+brew "pure"
+
+# must haves
 brew "eza"
 brew "fd"
 brew "fzf"
-brew "neovim"
-brew "pure"
 brew "ripgrep"
+
+# zsh specific plugins
 brew "zsh-autosuggestions"
 brew "zsh-syntax-highlighting"
 
+# ui applications
 cask "arc"
 cask "iterm2"
 cask "obsidian"
 cask "mac-mouse-fix"
 cask "swish"
 
-# Tailscale is installed through the Apple Store due to Network Extension limitations
-# Read more here: https://tailscale.com/kb/1065/macos-variants#why-are-there-three-ways
+# tailscale must be installed through the app store due to network limitations
+# read more here: https://tailscale.com/kb/1065/macos-variants#why-are-there-three-ways
 brew "mas"
 mas "Tailscale", id: 1475387142
+
