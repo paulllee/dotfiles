@@ -7,5 +7,5 @@ alias ls='eza -la --ignore-glob ".DS_Store"'
 alias lsg='ls --git --git-repos'
 
 # q(uick) cd - uses fuzzy search from home to change directories
-alias qcd='cd $(fd . ~ --type d | fzf)'
+alias qcd='cd $(fd --hidden --type d . ~ | fzf)'
 
