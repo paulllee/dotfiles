@@ -1,3 +1,5 @@
+-- warning: this is currently NOT a fully working config with LSP integration
+
 -- [[ vim settings ]]
 
 -- sets leader key to <space>
@@ -44,8 +46,6 @@ vim.wo.signcolumn = "yes"
 
 -- [[ lazy plugin manager ]]
 
--- recommended by documentation
--- https://github.com/folke/lazy.nvim
 local lazypath = vim.fn.stdpath "data" .. "/lazy/lazy.nvim"
 if not vim.loop.fs_stat(lazypath) then
     vim.fn.system {
@@ -59,7 +59,6 @@ if not vim.loop.fs_stat(lazypath) then
 end
 vim.opt.rtp:prepend(lazypath)
 
--- all of my necessities
 local plugins = {
     -- theme of choice... my favorite ever
     {
@@ -197,27 +196,7 @@ local plugins = {
         opts = {},
     },
 }
-
--- removing nerd font dependency for lazy
-local opts = {
-    ui = {
-        icons = {
-            cmd = "⌘",
-            config = "🛠",
-            event = "📅",
-            ft = "📂",
-            init = "⚙",
-            keys = "🗝",
-            plugin = "🔌",
-            runtime = "💻",
-            require = "🌙",
-            source = "📄",
-            start = "🚀",
-            task = "📌",
-            lazy = "💤 ",
-        },
-    },
-}
+local opts = {}
 
 require("lazy").setup(plugins, opts)
 
