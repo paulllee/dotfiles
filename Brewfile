@@ -14,7 +14,7 @@ brew "fd"
 brew "fzf"
 brew "lazygit"
 brew "ripgrep"
-brew "yazi"
+brew "zellij"
 
 # zsh specific plugins
 brew "zsh-autosuggestions"
