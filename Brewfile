@@ -2,11 +2,8 @@
 brew "colima"
 brew "docker"
 
-# editor of choice (until helix gains plugin support...)
-brew "neovim"
-
-# neovim dependencies
-brew "tree-sitter"
+# editor of choice
+brew "helix"
 
 # prompt theme
 brew "pure"
@@ -15,7 +12,9 @@ brew "pure"
 brew "eza"
 brew "fd"
 brew "fzf"
+brew "lazygit"
 brew "ripgrep"
+brew "yazi"
 
 # zsh specific plugins
 brew "zsh-autosuggestions"
