@@ -20,6 +20,10 @@ brew "yazi"
 brew "zsh-autosuggestions"
 brew "zsh-syntax-highlighting"
 
+# font of choice
+tap "homebrew/cask-fonts"
+cask "font-roboto-mono-nerd-font"
+
 # ui applications
 cask "arc"
 cask "iterm2"
