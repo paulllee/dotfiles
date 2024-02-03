@@ -5,6 +5,9 @@ brew "docker"
 # editor of choice (until helix gains plugin support...)
 brew "neovim"
 
+# neovim dependencies
+brew "tree-sitter"
+
 # prompt theme
 brew "pure"
 
