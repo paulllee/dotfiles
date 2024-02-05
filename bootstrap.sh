@@ -21,4 +21,5 @@ printf "Setup completed! Next steps:
     - Create a new SSH key via 'auto-keygen' for GitHub.
 \n"
 
-exec zsh
+exec zsh -l
+

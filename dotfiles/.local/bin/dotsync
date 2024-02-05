@@ -13,7 +13,7 @@ DOTFILES_PATH=${DOTFILES_PATH:-~/.dotfiles}
 [[ ! -d $DOTFILES_PATH ]] && \
     abort "$DOTFILES_PATH is not a valid directory."
 
-BOOTSTRAP_MODE=${BOOTSTRAP_MODE:-0}  # skips `exec zsh` if enabled
+BOOTSTRAP_MODE=${BOOTSTRAP_MODE:-0}  # skips `exec zsh -l` if enabled
 
 USAGE_MESSAGE=$(
 cat <<- END
@@ -126,4 +126,4 @@ fi
 
 printf "\n"  # for formatting reasons
 
-(( ! BOOTSTRAP_MODE )) && exec zsh
+(( ! BOOTSTRAP_MODE )) && exec zsh -l
