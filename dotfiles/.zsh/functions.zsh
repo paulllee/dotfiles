@@ -1,4 +1,4 @@
-IGNORE=".DS_Store|.git"
+IGNORE=".DS_Store|.git|__pycache__"
 
 function auto-keygen() {  # auto-(ssh-)keygen
     KEYGEN_PATH="${1:-$HOME/.ssh/id_rsa}"
