@@ -14,6 +14,7 @@ brew "fd"
 brew "fzf"
 brew "lazygit"
 brew "ripgrep"
+brew "tree"
 brew "zellij"
 
 # zsh specific plugins
