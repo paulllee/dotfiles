@@ -62,12 +62,9 @@ vim.opt.rtp:prepend(lazypath)
 local plugins = {
     -- theme of choice... my favorite ever
     {
-        "projekt0n/github-nvim-theme",
-        lazy = false,
+        "catppuccin/nvim",
+        name = "catppuccin",
         priority = 1000,
-        config = function()
-            vim.cmd("colorscheme github_dark_default")
-        end,
     },
 
     -- comment visual region using "gc"
@@ -276,3 +273,5 @@ vim.api.nvim_create_autocmd({ "LspAttach" }, {
         })
     end,
 })
+
+vim.cmd.colorscheme "catppuccin-mocha"
