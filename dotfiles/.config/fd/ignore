@@ -1,8 +1,5 @@
-# common ignores
 .DS_Store
-.git
 
-# mac specific dirs
 Applications
 Library
 Movies
@@ -10,11 +7,11 @@ Music
 Pictures
 Public
 
-# dot directories that i don't need
 .cache
 .colima
 .cups
 .docker
+.git
 .terminfo
 .Trash
 .vim

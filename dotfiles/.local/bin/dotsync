@@ -68,12 +68,10 @@ if (( c_flag ))
 then
     printf_h "Homebrew Spring Cleaning"
 
-    # upgrading everything possible
     brew upgrade
     brew upgrade --cask
     mas upgrade
 
-    # then cleaning up unused dependencies and files
     brew cleanup
     brew bundle --file $DOTFILES_PATH/Brewfile --force cleanup
     brew autoremove
