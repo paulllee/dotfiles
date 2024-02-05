@@ -2,8 +2,9 @@
 brew "colima"
 brew "docker"
 
-# editor of choice
+# editors of choice - it's good to have options
 brew "helix"
+brew "neovim"
 
 # prompt theme
 brew "pure"
@@ -15,6 +16,7 @@ brew "fzf"
 brew "lazygit"
 brew "ripgrep"
 brew "tree"
+brew "tree-sitter"
 brew "zellij"
 
 # zsh specific plugins
