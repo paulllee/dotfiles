@@ -88,8 +88,8 @@ local plugins = { -- sorted alphabetically by plugin NAME
         },
         config = function()
             require("neo-tree").setup({
-                default_component_configs = {
-                    filesystem = {
+                filesystem = {
+                    filtered_items = {
                         visible = true,
                         never_show = { ".DS_Store", ".git" },
                     },
