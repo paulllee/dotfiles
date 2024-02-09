@@ -22,6 +22,7 @@ cask "iterm2"
 cask "obsidian"
 cask "mac-mouse-fix"
 cask "swish"
+cask "visual-studio-code"
 
 brew "mas"
 mas "Tailscale", id: 1475387142
