@@ -11,6 +11,8 @@ if not vim.loop.fs_stat(lazypath) then
 end
 vim.opt.rtp:prepend(lazypath)
 
+local ignore = { ".DS_Store", ".git" }
+
 local plugins = { -- sorted alphabetically by plugin NAME
     {
         "catppuccin/nvim",
@@ -91,7 +93,7 @@ local plugins = { -- sorted alphabetically by plugin NAME
                 filesystem = {
                     filtered_items = {
                         visible = true,
-                        never_show = { ".DS_Store", ".git" },
+                        never_show = ignore,
                     },
                 },
             })
@@ -116,7 +118,29 @@ local plugins = { -- sorted alphabetically by plugin NAME
         branch = "0.1.x",
         dependencies = {
             { "nvim-lua/plenary.nvim" },
+            { "nvim-telescope/telescope-fzf-native.nvim", build = "make" },
         },
+        config = function()
+            local telescope = require("telescope")
+            telescope.setup({
+                pickers = {
+                    live_grep = {
+                        file_ignore_patterns = ignore,
+                        additional_args = function(_)
+                            return { "--hidden" }
+                        end
+                    },
+                    find_files = {
+                        file_ignore_patterns = ignore,
+                        hidden = true
+                    }
+                },
+                extensions = {
+                    "fzf"
+                },
+            })
+            telescope.load_extension("fzf")
+        end,
     },
 
     {
