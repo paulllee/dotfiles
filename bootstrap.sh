@@ -12,7 +12,7 @@ read -e -p "Setup requires overwriting $HOME/.dotfiles directory. Continue? [Y/n
 
 rm -rf $HOME/.dotfiles && \
     git clone --depth=1 https://github.com/paulllee/dotfiles.git $HOME/.dotfiles && \
-    BOOTSTRAP_MODE=1 /usr/bin/env bash $HOME/.dotfiles/dotfiles/.local/bin/dotsync -bcgms
+    BOOTSTRAP_MODE=1 /usr/bin/env bash $HOME/.dotfiles/dotfiles/.local/bin/dotsync -bcgmsv
 
 printf "Setup completed!\n"
 
