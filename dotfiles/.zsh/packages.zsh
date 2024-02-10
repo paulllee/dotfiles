@@ -4,3 +4,4 @@ source "$(brew --prefix)/share/zsh-syntax-highlighting/zsh-syntax-highlighting.z
 autoload -U promptinit; promptinit
 prompt pure
 
+eval "$(micromamba shell hook --shell zsh)"
