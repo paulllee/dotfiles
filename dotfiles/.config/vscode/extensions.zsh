@@ -1,7 +1,10 @@
 EXTENSIONS=(
     "catppuccin.catppuccin-vsc"
     "catppuccin.catppuccin-vsc-icons"
-    "ms-python.python"
     "charliermarsh.ruff"
+    "ms-python.debugpy"
+    "ms-python.python"
+    "ms-python.vscode-pylance"
+    "ms-vscode-remote.remote-containers"
     "tamasfe.even-better-toml"
 )
