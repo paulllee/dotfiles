@@ -129,7 +129,7 @@ if (( v_flag ))
 then
     printf_h "VSCode Extension Sync"
 
-    source $HOME/.config/vscode/extensions.zsh
+    source $HOME/.config/vscode/extensions
 
     for EXTENSION in "${EXTENSIONS[@]}"; do
         code --install-extension $EXTENSION --force
