@@ -2,7 +2,7 @@ export XDG_CONFIG_HOME="$HOME/.config"
 
 export HOMEBREW_NO_ANALYTICS=1
 
-export EDITOR=nvim
+export EDITOR=hx
 export VISUAL="$EDITOR"
 
 export FZF_DEFAULT_OPTS=" \
