@@ -15,5 +15,6 @@ Public
 .terminfo
 .Trash
 .vim
+.vscode
 .zsh_sessions
 
