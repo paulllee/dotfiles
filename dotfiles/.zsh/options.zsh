@@ -1,3 +1,2 @@
 setopt HIST_IGNORE_ALL_DUPS
 setopt INC_APPEND_HISTORY
-
