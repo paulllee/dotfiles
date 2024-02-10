@@ -20,6 +20,7 @@ function si2() {  # s(ync)-i(term)2
 }
 
 function c() {  # (vs)c(ode)-(user)
-    code --user-data-dir $HOME/.config/vscode/
+    PROJECT="${1:-.}"
+    code $PROJECT --user-data-dir $HOME/.config/vscode/
 }
 
