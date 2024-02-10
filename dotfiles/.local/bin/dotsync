@@ -9,7 +9,7 @@ function abort() {
     exit 1
 }
 
-DOTFILES_PATH=${DOTFILES_PATH:-~/.dotfiles}
+DOTFILES_PATH=${DOTFILES_PATH:-$HOME/.dotfiles}
 [[ ! -d $DOTFILES_PATH ]] && \
     abort "$DOTFILES_PATH is not a valid directory."
 
@@ -20,7 +20,7 @@ cat <<- END
 A series of helpers for your dotfiles
 
 Usage: 
-    $(basename "$0") [options]                         Uses default dotfiles path (~/.dotfiles)
+    $(basename "$0") [options]                         Uses default dotfiles path ($HOME/.dotfiles)
     [DOTFILES_PATH=<path>] $(basename "$0") [options]  Use custom dotfiles path
 
 Options:
@@ -86,10 +86,10 @@ then
 
     git config --global user.name "$GIT_NAME"
     git config --global user.email "$GIT_EMAIL"
-    git config --global user.signingkey ~/.ssh/id_rsa.pub
+    git config --global user.signingkey $HOME/.ssh/id_rsa.pub
     git config --global gpg.format ssh
 
-    cat ~/.gitconfig
+    cat $HOME/.gitconfig
 fi
 
 if (( m_flag ))
@@ -106,7 +106,7 @@ then
     defaults write com.apple.Finder FXPreferredViewStyle Nlsv
 
     printf "Enabling iTerm2 to use custom configuration from dotfiles.\n"
-    defaults write com.googlecode.iterm2 PrefsCustomFolder -string "~/.config/iterm2_user"
+    defaults write com.googlecode.iterm2 PrefsCustomFolder -string "$HOME/.config/iterm2_user"
     defaults write com.googlecode.iterm2 LoadPrefsFromCustomFolder -bool true
 fi
 
@@ -118,8 +118,8 @@ then
     git -C $DOTFILES_PATH pull
     git -C $DOTFILES_PATH checkout -
 
-    rsync --exclude ".DS_Store" -avhP $DOTFILES_PATH/dotfiles/ ~/
-    chmod +x ~/.local/bin/dotsync
+    rsync --exclude ".DS_Store" -avhP $DOTFILES_PATH/dotfiles/ $HOME/
+    chmod +x $HOME/.local/bin/dotsync
 fi
 
 printf "\n"  # for formatting reasons

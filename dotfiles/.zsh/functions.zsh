@@ -15,3 +15,6 @@ function qcd() {  # q(uick)-cd
     clear
 }
 
+function si2() {  # s(ync)-i(term)2
+    cp $HOME/.config/iterm2_user/* $HOME/.dotfiles/dotfiles/.config/iterm2_user
+}
