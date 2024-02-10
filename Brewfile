@@ -25,4 +25,3 @@ cask "visual-studio-code"
 
 brew "mas"
 mas "Tailscale", id: 1475387142
-

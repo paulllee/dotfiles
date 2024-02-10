@@ -11,4 +11,3 @@ export FZF_DEFAULT_OPTS=" \
 --color=marker:#f5e0dc,fg+:#cdd6f4,prompt:#cba6f7,hl+:#f38ba8"
 
 export MAMBA_ROOT_PREFIX="$HOME/.micromamba"
-
