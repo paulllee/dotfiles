@@ -30,6 +30,7 @@ Options:
     -g  Git configuration
     -m  Mac defaults configuration
     -s  Sync dotfiles
+    -v  VSCode extension sync; installs any missing extensions and uninstalls unexpected extensions
 
 Examples:
     $(basename "$0") -ms  Mac default Configuration and dotfiles sync
@@ -41,8 +42,9 @@ c_flag=0
 g_flag=0
 m_flag=0
 s_flag=0
+v_flag=0
 
-while getopts "hbcgms" FLAG
+while getopts "hbcgmsv" FLAG
 do
     case "${FLAG}" in
         h) printf "$USAGE_MESSAGE\n" && exit 0 ;;
@@ -51,10 +53,11 @@ do
         g) g_flag=1 ;;
         m) m_flag=1 ;;
         s) s_flag=1 ;;
+        v) v_flag=1 ;;
     esac
 done
 
-(( ! b_flag && ! c_flag && ! g_flag && ! m_flag && ! s_flag )) && \
+(( ! b_flag && ! c_flag && ! g_flag && ! m_flag && ! s_flag  && ! v_flag )) && \
     abort "No flags provided. Please review usage via '$(basename "$0") -h'."
 
 if (( b_flag ))
@@ -120,6 +123,32 @@ then
 
     rsync --exclude ".DS_Store" -avhP $DOTFILES_PATH/dotfiles/ $HOME/
     chmod +x $HOME/.local/bin/dotsync
+fi
+
+if (( v_flag ))
+then
+    printf_h "VSCode Extension Sync"
+
+    source $HOME/.config/vscode/extensions.zsh
+
+    for EXTENSION in "${EXTENSIONS[@]}"; do
+        code --install-extension $EXTENSION --force
+    done
+
+    # this checks for INSTALLED - EXPECTED difference
+    INSTALLED=( $(code --list-extensions) )
+    TO_UNINSTALL=()
+    for i in "${INSTALLED[@]}"; do
+        skip=
+        for j in "${EXTENSIONS[@]}"; do
+            [[ $i == $j ]] && { skip=1; break; }
+        done
+        [[ -n $skip ]] || TO_UNINSTALL+=("$i")
+    done
+
+    for EXTENSION in "${TO_UNINSTALL[@]}"; do
+        code --uninstall-extension $EXTENSION --force
+    done
 fi
 
 printf "\n"  # for formatting reasons
