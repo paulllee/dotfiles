@@ -1,8 +1,9 @@
 {
+  "editor.lineNumbers": "relative",
   "editor.minimap.enabled": false,
   "extensions.ignoreRecommendations": true,
   "terminal.integrated.fontFamily": "RobotoMono Nerd Font",
   "workbench.colorTheme": "Catppuccin Mocha",
   "workbench.editor.showTabs": "none",
-  "workbench.iconTheme": "catppuccin-mocha",
+  "workbench.iconTheme": "catppuccin-mocha"
 }
