@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/usr/bin/env bash
 
 function printf_h () {
     printf "\n> $1\n\n"
