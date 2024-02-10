@@ -6,11 +6,9 @@ brew "fzf"
 brew "helix"
 brew "lazygit"
 brew "micromamba"
-# brew "neovim" [disabled]
 brew "pure"
 brew "ripgrep"
 brew "tree"
-# brew "tree-sitter" [disabled]
 brew "zellij"
 brew "zsh-autosuggestions"
 brew "zsh-syntax-highlighting"
@@ -23,7 +21,7 @@ cask "iterm2"
 cask "obsidian"
 cask "mac-mouse-fix"
 cask "swish"
-# cask "visual-studio-code" [disabled]
+cask "visual-studio-code"
 
 brew "mas"
 mas "Tailscale", id: 1475387142
