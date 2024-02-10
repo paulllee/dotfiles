@@ -19,8 +19,14 @@ function si2() {  # s(ync)-i(term)2
     cp $HOME/.config/iterm2_user/* $HOME/.dotfiles/dotfiles/.config/iterm2_user
 }
 
-function c() {  # (vs)c(ode)-(user)
+function c() {  # c(ode)
     PROJECT="${1:-.}"
     code $PROJECT --user-data-dir $HOME/.config/vscode/
 }
 
+function cei() {  # c(ode)-e(xtension)-i(nstall)
+    source $HOME/.config/vscode/extensions.zsh
+    for EXTENSION in "${EXTENSIONS[@]}"; do
+        code --install-extension $EXTENSION --force
+    done
+}
