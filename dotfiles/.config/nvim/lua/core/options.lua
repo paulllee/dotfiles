@@ -11,9 +11,6 @@ vim.o.shiftwidth = 4
 -- sync clipboard between OS and nvim
 vim.o.clipboard = "unnamedplus"
 
--- enable mouse
-vim.o.mouse = "a"
-
 -- break indent
 vim.o.breakindent = true
 
@@ -24,17 +21,10 @@ vim.o.undofile = true
 vim.o.ignorecase = true
 vim.o.smartcase = true
 
--- better completion experience
-vim.o.completeopt = "menuone,noselect"
-
 -- enable true color
 vim.o.termguicolors = true
 
--- decrease update time for backup swaps
-vim.o.updatetime = 250
-vim.o.timeoutlen = 300
-
--- relative line numbers are game changer
+-- enable relative line numbers
 vim.wo.number = true
 vim.wo.relativenumber = true
 

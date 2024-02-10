@@ -11,7 +11,7 @@ if not vim.loop.fs_stat(lazypath) then
 end
 vim.opt.rtp:prepend(lazypath)
 
-local ignore = { ".DS_Store", ".git" }
+local ignore = { ".DS_Store", ".git", "__pycache__" }
 
 local plugins = { -- sorted alphabetically by plugin NAME
     {
