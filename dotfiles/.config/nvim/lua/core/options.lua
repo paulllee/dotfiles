@@ -30,6 +30,3 @@ vim.wo.relativenumber = true
 
 -- keep signcolumn on by default
 vim.wo.signcolumn = "yes"
-
--- theme
-vim.cmd.colorscheme "catppuccin-mocha"
