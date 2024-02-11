@@ -24,3 +24,8 @@ function c() {  # c(ode)
     PROJECT=${1:-.}
     code $PROJECT --user-data-dir $HOME/.config/vscode/
 }
+
+function mma() {  # m(icro)m(amba)-a(ctivate)
+    ENV=${1:-base}
+    micromamba activate $ENV
+}
