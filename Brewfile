@@ -18,9 +18,9 @@ cask "font-roboto-mono-nerd-font"
 
 cask "arc"
 cask "iterm2"
-cask "obsidian"
 cask "mac-mouse-fix"
-cask "swish"
+cask "obsidian"
+cask "rectangle"
 cask "visual-studio-code"
 
 brew "mas"
