@@ -5,5 +5,5 @@ dependencies:
   - pip:
       - black
       - ruff-lsp
-  - npm:
-      - pyright
+
+# npm install -g pyright
