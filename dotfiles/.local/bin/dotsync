@@ -107,7 +107,7 @@ then
     defaults write com.apple.Finder FXPreferredViewStyle Nlsv
 
     printf "Enabling iTerm2 to use custom configuration from dotfiles.\n"
-    defaults write com.googlecode.iterm2 PrefsCustomFolder -string "$HOME/.config/iterm2_user/"
+    defaults write com.googlecode.iterm2 PrefsCustomFolder -string "$HOME/.config/iterm2/"
     defaults write com.googlecode.iterm2 LoadPrefsFromCustomFolder -bool true
 fi
 
@@ -121,6 +121,12 @@ then
 
     rsync --exclude ".DS_Store" -avhP "$DOTFILES_PATH/dotfiles/" "$HOME/"
     chmod +x "$HOME/.local/bin/dotsync"
+
+    SWISH="$(osascript -e 'id of app "Swish"')"
+    defaults import "$SWISH" "$HOME/.config/swish/$SWISH.plist"
+
+    MACMOUSEFIX="$(osascript -e 'id of app "Mac Mouse Fix"')"
+    defaults import "$MACMOUSEFIX" "$HOME/.config/macmousefix/$MACMOUSEFIX.plist"
 fi
 
 if (( v_flag ))

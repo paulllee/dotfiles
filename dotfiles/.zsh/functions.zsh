@@ -16,8 +16,17 @@ function qcd() {  # q(uick)-cd
     clear
 }
 
-function si2() {  # s(ync)-i(term)2
-    cp "$HOME/.config/iterm2_user/com.googlecode.iterm2.plist" "$HOME/.dotfiles/dotfiles/.config/iterm2_user/"
+function saa() {  # s(ync)-a(ll)-a(pplications)
+    DEST="$HOME/.dotfiles/dotfiles/.config/"
+
+    # iterm2
+    cp "$HOME/.config/iterm2/com.googlecode.iterm2.plist" "$DEST/iterm2/"
+
+    SWISH="$(osascript -e 'id of app "Swish"')"
+    defaults export "$SWISH" "$DEST/swish/$SWISH.plist"
+
+    MACMOUSEFIX="$(osascript -e 'id of app "Mac Mouse Fix"')"
+    defaults export "$MACMOUSEFIX" "$DEST/macmousefix/$MACMOUSEFIX.plist"
 }
 
 function c() {  # c(ode)
