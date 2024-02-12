@@ -1,2 +1,12 @@
-for zsh in $HOME/.zsh/pre/**/*(.); source $zsh
-for zsh in $HOME/.zsh/**/*(.); source $zsh
+ZSH_ORDER=(  # order of execution
+    "paths"
+    "variables"
+    "packages"
+    "options"
+    "aliases"
+    "functions"
+)
+
+for ZSH in "${ZSH_ORDER[@]}"; do
+    source "$HOME/.zsh/$ZSH.zsh"
+done

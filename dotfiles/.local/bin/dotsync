@@ -9,11 +9,9 @@ function abort() {
     exit 1
 }
 
-DOTFILES_PATH=${DOTFILES_PATH:-$HOME/.dotfiles}
-[[ ! -d $DOTFILES_PATH ]] && \
+DOTFILES_PATH="${DOTFILES_PATH:-$HOME/.dotfiles}"
+[[ ! -d "$DOTFILES_PATH" ]] && \
     abort "$DOTFILES_PATH is not a valid directory."
-
-BOOTSTRAP_MODE=${BOOTSTRAP_MODE:-0}  # skips `exec zsh -l` if enabled
 
 USAGE_MESSAGE=$(
 cat <<- END
@@ -64,7 +62,7 @@ if (( b_flag ))
 then
     printf_h "Brewfile Installation"
 
-    brew bundle --file $DOTFILES_PATH/Brewfile --no-lock
+    brew bundle --file "$DOTFILES_PATH/Brewfile" --no-lock
 fi
 
 if (( c_flag ))
@@ -76,7 +74,7 @@ then
     mas upgrade
 
     brew cleanup
-    brew bundle --file $DOTFILES_PATH/Brewfile --force cleanup
+    brew bundle --file "$DOTFILES_PATH/Brewfile" --force cleanup
     brew autoremove
 fi
 
@@ -89,10 +87,10 @@ then
 
     git config --global user.name "$GIT_NAME"
     git config --global user.email "$GIT_EMAIL"
-    git config --global user.signingkey $HOME/.ssh/id_rsa.pub
+    git config --global user.signingkey "$HOME/.ssh/id_rsa.pub"
     git config --global gpg.format ssh
 
-    cat $HOME/.gitconfig
+    cat "$HOME/.gitconfig"
 fi
 
 if (( m_flag ))
@@ -109,7 +107,7 @@ then
     defaults write com.apple.Finder FXPreferredViewStyle Nlsv
 
     printf "Enabling iTerm2 to use custom configuration from dotfiles.\n"
-    defaults write com.googlecode.iterm2 PrefsCustomFolder -string "$HOME/.config/iterm2_user"
+    defaults write com.googlecode.iterm2 PrefsCustomFolder -string "$HOME/.config/iterm2_user/"
     defaults write com.googlecode.iterm2 LoadPrefsFromCustomFolder -bool true
 fi
 
@@ -117,40 +115,36 @@ if (( s_flag ))
 then
     printf_h "Sync Dotfiles"
 
-    git -C $DOTFILES_PATH checkout main 1> /dev/null 2> /dev/null
-    git -C $DOTFILES_PATH pull
-    git -C $DOTFILES_PATH checkout -
+    git -C "$DOTFILES_PATH" checkout main 1> /dev/null 2> /dev/null
+    git -C "$DOTFILES_PATH" pull
+    git -C "$DOTFILES_PATH" checkout -
 
-    rsync --exclude ".DS_Store" -avhP $DOTFILES_PATH/dotfiles/ $HOME/
-    chmod +x $HOME/.local/bin/dotsync
+    rsync --exclude ".DS_Store" -avhP "$DOTFILES_PATH/dotfiles/" "$HOME/"
+    chmod +x "$HOME/.local/bin/dotsync"
 fi
 
 if (( v_flag ))
 then
     printf_h "VSCode Extension Sync"
 
-    source $HOME/.config/vscode/extensions
+    source "$HOME/.config/vscode/extensions"
 
     for EXTENSION in "${EXTENSIONS[@]}"; do
-        code --install-extension $EXTENSION --force
+        code --install-extension "$EXTENSION" --force
     done
 
-    # this checks for INSTALLED - EXPECTED difference
+    # if there are extensions that are installed that aren't
+    # in the extension list, uninstall them
     INSTALLED=( $(code --list-extensions) )
-    TO_UNINSTALL=()
     for i in "${INSTALLED[@]}"; do
-        skip=
+        SKIP=0
         for j in "${EXTENSIONS[@]}"; do
-            [[ $i == $j ]] && { skip=1; break; }
+            [[ "$i" == "$j" ]] && \
+                SKIP=1 && \
+                break
         done
-        [[ -n $skip ]] || TO_UNINSTALL+=("$i")
-    done
-
-    for EXTENSION in "${TO_UNINSTALL[@]}"; do
-        code --uninstall-extension $EXTENSION --force
+        (( SKIP )) || code --uninstall-extension "$i" --force
     done
 fi
 
-printf "\n"  # for formatting reasons
-
-(( ! BOOTSTRAP_MODE )) && exec zsh -l
+exec zsh -l
