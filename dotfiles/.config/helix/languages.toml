@@ -1,2 +1,13 @@
-# i only explored helix motions
-# i'll come back to setting up LSP when i switch full time :)
+[language-server.ruff-lsp]
+command = "micromamba"
+args = ["run", "-n", "lsp", "ruff-lsp"]
+
+[language-server.pyright]
+command = "micromamba"
+args = ["run", "-n", "lsp", "pyright-langserver", "--stdio"]
+
+[[language]]
+name = "python"
+language-servers = [ "ruff-lsp", "pyright" ]
+formatter = { command = "black", args = ["--quiet", "-"] }
+auto-format = true

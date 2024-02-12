@@ -1,5 +1,9 @@
 name: lsp
 dependencies:
   - python>=3.12
+  - nodejs
   - pip:
+      - black
       - ruff-lsp
+  - npm:
+      - pyright
