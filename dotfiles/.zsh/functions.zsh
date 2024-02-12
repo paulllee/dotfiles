@@ -17,7 +17,7 @@ function qcd() {  # q(uick)-cd
 }
 
 function si2() {  # s(ync)-i(term)2
-    cp "$HOME/.config/iterm2_user/*" "$HOME/.dotfiles/dotfiles/.config/iterm2_user/"
+    cp "$HOME/.config/iterm2_user/com.googlecode.iterm2.plist" "$HOME/.dotfiles/dotfiles/.config/iterm2_user/"
 }
 
 function c() {  # c(ode)
@@ -32,8 +32,5 @@ function mma() {  # m(icro)m(amba)-a(ctivate)
 
 function mmc() {  # m(icro)m(amba)-c(reate)
     SPEC="${1:-}"
-    [[ -n "$SPEC" ]] && \
-        printf "ERROR: Please provide a SPEC name.\n" && \
-        exit 1
     micromamba create -f "$HOME/.config/micromamba/specs/$SPEC.yml"
 }
