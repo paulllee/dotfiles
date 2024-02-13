@@ -13,6 +13,10 @@ vim.opt.rtp:prepend(lazypath)
 
 local ignore = { ".DS_Store", ".git", "__pycache__" }
 
+-- TODO: next time I try nvim, utilize
+--       https://github.com/echasnovski/mini.nvim
+--       also, add LSPs manually...
+
 local plugins = { -- sorted alphabetically by plugin NAME
     {
         "catppuccin/nvim",
