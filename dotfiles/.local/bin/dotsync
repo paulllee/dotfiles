@@ -122,11 +122,13 @@ then
     rsync --exclude ".DS_Store" -avhP "$DOTFILES_PATH/dotfiles/" "$HOME/"
     chmod +x "$HOME/.local/bin/dotsync"
 
+    printf "Importing Swish and Mac Mouse Fix configs manually.\n"
+
     SWISH="$(osascript -e 'id of app "Swish"')"
     defaults import "$SWISH" "$HOME/.config/swish/$SWISH.plist"
 
     MACMOUSEFIX="$(osascript -e 'id of app "Mac Mouse Fix"')"
-    defaults import "$MACMOUSEFIX" "$HOME/.config/macmousefix/$MACMOUSEFIX.plist"
+    cp "$HOME/.config/macmousefix/config.plist" "$HOME/Library/Application Support/$MACMOUSEFIX/"
 fi
 
 if (( v_flag ))
