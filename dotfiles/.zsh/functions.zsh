@@ -5,7 +5,7 @@ function auto-keygen() {  # auto-(ssh-)keygen
     ssh-keygen -t ed25519 -N "" -f "$KEYGEN_PATH"
 }
 
-function ls() {  # (modern-)ls
+function ll() {  # l(s)-l(ong)
     TARGET="${1:-.}"
     eza "$TARGET" -la --ignore-glob="$IGNORE" --icons=auto --git --git-repos
 }
