@@ -1,0 +1,18 @@
+#!/usr/bin/env bash
+
+# f(zf)-b(at)-p(review)
+
+set -e
+
+FILE=$1
+LINE=$2
+
+CENTER=$(( $LINES / 2 ))
+
+[[ $LINE -lt $CENTER ]] && \
+  CENTER=$LINE
+
+START=$(( LINE - CENTER ))
+END=$(( LINES + START ))
+
+exec bat --style=numbers --color=always --highlight-line $LINE --line-range $START:$END --paging never "$FILE"

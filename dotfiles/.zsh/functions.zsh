@@ -43,3 +43,8 @@ function mmc() {  # m(icro)m(amba)-c(reate)
     SPEC="${1:-}"
     micromamba create -f "$HOME/.config/micromamba/specs/$SPEC.yml"
 }
+
+function frg() {  # f(zf)-r(ip)g(rep)
+    TARGET="${1:-.}"
+    rg --line-number --smart-case --hidden --glob='!.git' . $TARGET | fzf --delimiter=: --preview "fbp {1} {2}"
+}
