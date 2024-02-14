@@ -1,5 +1,7 @@
 #!/usr/bin/env bash
 
+set -e
+
 function printf_h () {
     printf "\n> $1\n\n"
 }
@@ -120,7 +122,10 @@ then
     git -C "$DOTFILES_PATH" checkout -
 
     rsync --exclude ".DS_Store" -avhP "$DOTFILES_PATH/dotfiles/" "$HOME/"
-    chmod +x "$HOME/.local/bin/dotsync"
+
+    printf "Giving executable permissions for our local binary files.\n"
+
+    fd . "$HOME/.local/bin" --type f --exec-batch chmod +x {}
 
     printf "Importing Swish and Mac Mouse Fix configs manually.\n"
 
