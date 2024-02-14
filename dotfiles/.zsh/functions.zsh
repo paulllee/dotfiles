@@ -46,5 +46,8 @@ function mmc() {  # m(icro)m(amba)-c(reate)
 
 function frg() {  # f(zf)-r(ip)g(rep)
     TARGET="${1:-.}"
-    rg --line-number --smart-case --hidden --glob='!.git' . $TARGET | fzf --delimiter=: --preview "fbp {1} {2}"
+    MATCH="$(rg --line-number --smart-case --hidden --glob="!.git" . $TARGET | fzf --delimiter=: --ansi --border --preview "fbp {1} {2}")"
+    FILE="$(printf "$MATCH" | cut -d : -f 1)"
+    LINENUM="$(printf "$MATCH" | cut -d : -f 2)"
+    printf "$FILE:$LINENUM\n"
 }
