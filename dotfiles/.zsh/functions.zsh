@@ -44,7 +44,7 @@ function mmc() {  # m(icro)m(amba)-c(reate)
     micromamba create -f "$HOME/.config/micromamba/specs/$SPEC.yml"
 }
 
-function frg() {  # f(zf)-r(ip)g(rep)
+function rf() {  # r(ipgrep)-f(zf)
     TARGET="${1:-.}"
     MATCH="$(rg --line-number --smart-case --hidden --glob="!.git" . $TARGET | fzf --delimiter=: --ansi --border --preview "fbp {1} {2}")"
     FILE="$(printf "$MATCH" | cut -d : -f 1)"
