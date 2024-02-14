@@ -10,3 +10,5 @@ export FZF_DEFAULT_OPTS=" \
 
 export MAMBA_ROOT_PREFIX="$HOME/.micromamba"
 export MAMBARC="$HOME/.config/micromamba/.mambarc"
+
+export BAT_THEME="Catppuccin-mocha"

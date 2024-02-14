@@ -127,6 +127,10 @@ then
 
     fd . "$HOME/.local/bin" --type f --exec-batch chmod +x {}
 
+    printf "Rebuilding bat cache with custom configs.\n"
+
+    bat cache --build
+
     printf "Importing Swish and Mac Mouse Fix configs manually.\n"
 
     SWISH="$(osascript -e 'id of app "Swish"')"
