@@ -23,6 +23,10 @@ function cdu() {  # cd-u(ndo)
   cd -
 }
 
+function ds() {  # d(otsync)-s(ync)
+  dotsync -s
+}
+
 function sfa() {  # s(ync)-f(rom)-app(lications)
   DEST="$HOME/.dotfiles/dotfiles/.config/"
 
