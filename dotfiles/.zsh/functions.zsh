@@ -10,7 +10,8 @@ function ll() {  # l(s)-l(ong)
 
 function qcd() {  # q(uick)-cd
     BASE="${1:-$HOME}"
-    cd "$(fd --hidden --type d . "$BASE" | fzf --preview "tree --gitignore -a -C {}")"
+    IGNORE="$HOME/.config/fd/ignore"
+    cd "$(fd --hidden --type d . "$BASE" | fzf --preview "tree --gitfile="$IGNORE" -a -C {}")"
     clear
 }
 

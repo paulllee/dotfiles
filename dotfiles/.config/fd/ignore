@@ -12,6 +12,8 @@ Public
 .cups
 .docker
 .git
+.micromamba
+.npm
 .terminfo
 .Trash
 .vim
