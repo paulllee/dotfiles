@@ -1,0 +1,30 @@
+#!/usr/bin/env bash
+
+# r(ipgrep)-f(zf)-b(at)
+# utilizing fzf and bat for a better ripgrep experience
+
+set -e
+
+function batc() {  # bat-c(entered)
+  FILE=$1
+  LINE=$2
+
+  CENTER=$(( $LINES / 2 ))
+  [[ $LINE -lt $CENTER ]] && CENTER=$LINE
+
+  START=$(( LINE - CENTER ))
+  END=$(( LINES + START ))
+
+  bat --style=numbers --color=always --highlight-line $LINE --line-range $START:$END --paging never "$FILE"
+}
+
+MATCH="$(rg --line-number \
+  --smart-case \
+  --hidden \
+  --glob="!.git" \
+  . "${1:-.}" | fzf --delimiter=: --preview "batc {1} {2}")"
+
+FILEPATH="$(printf "$MATCH" | cut -d : -f 1)"
+LINENUM="$(printf "$MATCH" | cut -d : -f 2)"
+
+printf "$FILEPATH:$LINENUM\n"

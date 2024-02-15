@@ -3,37 +3,37 @@
 set -e
 
 function printf_h () {
-    printf "\n> $1\n\n"
+  printf "\n> $1\n\n"
 }
 
 function abort() {
-    printf "ERROR: $1\n"
-    exit 1
+  printf "ERROR: $1\n"
+  exit 1
 }
 
 DOTFILES_PATH="${DOTFILES_PATH:-$HOME/.dotfiles}"
 [[ ! -d "$DOTFILES_PATH" ]] && \
-    abort "$DOTFILES_PATH is not a valid directory."
+  abort "$DOTFILES_PATH is not a valid directory."
 
 USAGE_MESSAGE=$(
 cat <<- END
 A series of helpers for your dotfiles
 
 Usage: 
-    $(basename "$0") [options]                         Uses default dotfiles path ($HOME/.dotfiles)
-    [DOTFILES_PATH=<path>] $(basename "$0") [options]  Use custom dotfiles path
+  $(basename "$0") [options]                         Uses default dotfiles path ($HOME/.dotfiles)
+  [DOTFILES_PATH=<path>] $(basename "$0") [options]  Use custom dotfiles path
 
 Options:
-    -h  Print this help message
-    -b  Install packages from Brewfile in dotfiles directory
-    -c  Clean Homebrew with package upgrades and match Brewfile packages with local
-    -g  Git configuration
-    -m  Mac defaults configuration
-    -s  Sync dotfiles
-    -v  VSCode extension sync; installs any missing extensions and uninstalls unexpected extensions
+  -h  Print this help message
+  -b  Install packages from Brewfile in dotfiles directory
+  -c  Clean Homebrew with package upgrades and match Brewfile packages with local
+  -g  Git configuration
+  -m  Mac defaults configuration
+  -s  Sync dotfiles
+  -v  VSCode extension sync; installs any missing extensions and uninstalls unexpected extensions
 
 Examples:
-    $(basename "$0") -ms  Mac default Configuration and dotfiles sync
+  $(basename "$0") -ms  Mac default Configuration and dotfiles sync
 END
 )
 
@@ -46,122 +46,122 @@ v_flag=0
 
 while getopts "hbcgmsv" FLAG
 do
-    case "${FLAG}" in
-        h) printf "$USAGE_MESSAGE\n" && exit 0 ;;
-        b) b_flag=1 ;;
-        c) c_flag=1 ;;
-        g) g_flag=1 ;;
-        m) m_flag=1 ;;
-        s) s_flag=1 ;;
-        v) v_flag=1 ;;
-    esac
+  case "${FLAG}" in
+    h) printf "$USAGE_MESSAGE\n" && exit 0 ;;
+    b) b_flag=1 ;;
+    c) c_flag=1 ;;
+    g) g_flag=1 ;;
+    m) m_flag=1 ;;
+    s) s_flag=1 ;;
+    v) v_flag=1 ;;
+  esac
 done
 
 (( ! b_flag && ! c_flag && ! g_flag && ! m_flag && ! s_flag  && ! v_flag )) && \
-    abort "No flags provided. Please review usage via '$(basename "$0") -h'."
+  abort "No flags provided. Please review usage via '$(basename "$0") -h'."
 
 if (( b_flag ))
 then
-    printf_h "Brewfile Installation"
+  printf_h "Brewfile Installation"
 
-    brew bundle --file "$DOTFILES_PATH/Brewfile" --no-lock
+  brew bundle --file "$DOTFILES_PATH/Brewfile" --no-lock
 fi
 
 if (( c_flag ))
 then
-    printf_h "Homebrew Spring Cleaning"
+  printf_h "Homebrew Spring Cleaning"
 
-    brew upgrade
-    brew upgrade --cask
-    mas upgrade
+  brew upgrade
+  brew upgrade --cask
+  mas upgrade
 
-    brew cleanup
-    brew bundle --file "$DOTFILES_PATH/Brewfile" --force cleanup
-    brew autoremove
+  brew cleanup
+  brew bundle --file "$DOTFILES_PATH/Brewfile" --force cleanup
+  brew autoremove
 fi
 
 if (( g_flag ))
 then
-    printf_h "Gitconfig Configuration"
+  printf_h "Gitconfig Configuration"
 
-    read -p "Enter Git Name: " GIT_NAME
-    read -p "Enter Git Email: " GIT_EMAIL
+  read -p "Enter Git Name: " GIT_NAME
+  read -p "Enter Git Email: " GIT_EMAIL
 
-    git config --global user.name "$GIT_NAME"
-    git config --global user.email "$GIT_EMAIL"
-    git config --global user.signingkey "$HOME/.ssh/id_rsa.pub"
-    git config --global gpg.format ssh
+  git config --global user.name "$GIT_NAME"
+  git config --global user.email "$GIT_EMAIL"
+  git config --global user.signingkey "$HOME/.ssh/id_rsa.pub"
+  git config --global gpg.format ssh
 
-    cat "$HOME/.gitconfig"
+  cat "$HOME/.gitconfig"
 fi
 
 if (( m_flag ))
 then
-    printf_h "Mac Defaults Configuration"
+  printf_h "Mac Defaults Configuration"
 
-    printf "Disabling DS_Store files in NFS.\n"
-    defaults write com.apple.desktopservices DSDontWriteNetworkStores true
+  printf "Disabling DS_Store files in NFS.\n"
+  defaults write com.apple.desktopservices DSDontWriteNetworkStores true
 
-    printf "Disabling press and hold so that we can key repeat on hold.\n"
-    defaults write -g ApplePressAndHoldEnabled -bool false
+  printf "Disabling press and hold so that we can key repeat on hold.\n"
+  defaults write -g ApplePressAndHoldEnabled -bool false
 
-    printf "Enabling list view permenantly in Finder.\n"
-    defaults write com.apple.Finder FXPreferredViewStyle Nlsv
+  printf "Enabling list view permenantly in Finder.\n"
+  defaults write com.apple.Finder FXPreferredViewStyle Nlsv
 
-    printf "Enabling iTerm2 to use custom configuration from dotfiles.\n"
-    defaults write com.googlecode.iterm2 PrefsCustomFolder -string "$HOME/.config/iterm2/"
-    defaults write com.googlecode.iterm2 LoadPrefsFromCustomFolder -bool true
+  printf "Enabling iTerm2 to use custom configuration from dotfiles.\n"
+  defaults write com.googlecode.iterm2 PrefsCustomFolder -string "$HOME/.config/iterm2/"
+  defaults write com.googlecode.iterm2 LoadPrefsFromCustomFolder -bool true
 fi
 
 if (( s_flag ))
 then
-    printf_h "Sync Dotfiles"
+  printf_h "Sync Dotfiles"
 
-    git -C "$DOTFILES_PATH" checkout main 1> /dev/null 2> /dev/null
-    git -C "$DOTFILES_PATH" pull
-    git -C "$DOTFILES_PATH" checkout -
+  git -C "$DOTFILES_PATH" checkout main 1> /dev/null 2> /dev/null
+  git -C "$DOTFILES_PATH" pull
+  git -C "$DOTFILES_PATH" checkout -
 
-    rsync --exclude ".DS_Store" -avhP "$DOTFILES_PATH/dotfiles/" "$HOME/"
+  rsync --exclude ".DS_Store" -avhP "$DOTFILES_PATH/dotfiles/" "$HOME/"
 
-    printf "Giving executable permissions for our local binary files.\n"
+  printf "Giving executable permissions for our local binary files.\n"
 
-    fd . "$HOME/.local/bin" --type f --exec-batch chmod +x {}
+  fd . "$HOME/.local/bin" --type f --exec-batch chmod +x {}
 
-    printf "Rebuilding bat cache with custom configs.\n"
+  printf "Rebuilding bat cache with custom configs.\n"
 
-    bat cache --build
+  bat cache --build
 
-    printf "Importing Swish and Mac Mouse Fix configs manually.\n"
+  printf "Importing Swish and Mac Mouse Fix configs manually.\n"
 
-    SWISH="$(osascript -e 'id of app "Swish"')"
-    defaults import "$SWISH" "$HOME/.config/swish/$SWISH.plist"
+  SWISH="$(osascript -e 'id of app "Swish"')"
+  defaults import "$SWISH" "$HOME/.config/swish/$SWISH.plist"
 
-    MACMOUSEFIX="$(osascript -e 'id of app "Mac Mouse Fix"')"
-    cp "$HOME/.config/macmousefix/config.plist" "$HOME/Library/Application Support/$MACMOUSEFIX/"
+  MACMOUSEFIX="$(osascript -e 'id of app "Mac Mouse Fix"')"
+  cp "$HOME/.config/macmousefix/config.plist" "$HOME/Library/Application Support/$MACMOUSEFIX/"
 fi
 
 if (( v_flag ))
 then
-    printf_h "VSCode Extension Sync"
+  printf_h "VSCode Extension Sync"
 
-    source "$HOME/.config/vscode/extensions"
+  source "$HOME/.config/vscode/extensions"
 
-    for EXTENSION in "${EXTENSIONS[@]}"; do
-        code --install-extension "$EXTENSION" --force
+  for EXTENSION in "${EXTENSIONS[@]}"; do
+      code --install-extension "$EXTENSION" --force
+  done
+
+  # if there are extensions that are installed that aren't
+  # in the extension list, uninstall them
+  INSTALLED=( $(code --list-extensions) )
+  for i in "${INSTALLED[@]}"; do
+    SKIP=0
+    for j in "${EXTENSIONS[@]}"; do
+      [[ "$i" == "$j" ]] && \
+        SKIP=1 && \
+        break
     done
-
-    # if there are extensions that are installed that aren't
-    # in the extension list, uninstall them
-    INSTALLED=( $(code --list-extensions) )
-    for i in "${INSTALLED[@]}"; do
-        SKIP=0
-        for j in "${EXTENSIONS[@]}"; do
-            [[ "$i" == "$j" ]] && \
-                SKIP=1 && \
-                break
-        done
-        (( SKIP )) || code --uninstall-extension "$i" --force
-    done
+    (( SKIP )) || code --uninstall-extension "$i" --force
+  done
 fi
 
 exec zsh -l
