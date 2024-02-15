@@ -1,5 +1,3 @@
-IGNORE=".DS_Store|.git|__pycache__"
-
 function auto-keygen() {  # auto-(ssh-)keygen
     KEYGEN_PATH="${1:-$HOME/.ssh/id_rsa}"
     ssh-keygen -t ed25519 -N "" -f "$KEYGEN_PATH"
@@ -7,12 +5,12 @@ function auto-keygen() {  # auto-(ssh-)keygen
 
 function ll() {  # l(s)-l(ong)
     TARGET="${1:-.}"
-    eza "$TARGET" -la --ignore-glob="$IGNORE" --icons=auto --git --git-repos
+    eza "$TARGET" -la --icons=auto --git --git-repos --git-ignore
 }
 
 function qcd() {  # q(uick)-cd
     BASE="${1:-$HOME}"
-    cd "$(fd --hidden --type d . "$BASE" | fzf --ansi --border --preview "tree -a -I '$IGNORE' -C {}")"
+    cd "$(fd --hidden --type d . "$BASE" | fzf --preview "tree --gitignore -a -C {}")"
     clear
 }
 
@@ -54,7 +52,7 @@ function mmc() {  # m(icro)m(amba)-c(reate)
 
 function rf() {  # r(ipgrep)-f(zf)
     TARGET="${1:-.}"
-    MATCH="$(rg --line-number --smart-case --hidden --glob="!.git" . $TARGET | fzf --delimiter=: --ansi --border --preview "fbp {1} {2}")"
+    MATCH="$(rg --line-number --smart-case --hidden --glob="!.git" . "$TARGET" | fzf --delimiter=: --preview "fb {1} {2}")"
     FILE="$(printf "$MATCH" | cut -d : -f 1)"
     LINENUM="$(printf "$MATCH" | cut -d : -f 2)"
     printf "$FILE:$LINENUM\n"
