@@ -1,0 +1,16 @@
+#!/usr/bin/env bash
+
+# bat-c(entered)
+
+set -e
+
+FILE=$1
+LINE=$2
+
+CENTER=$(( $LINES / 2 ))
+[[ $LINE -lt $CENTER ]] && CENTER=$LINE
+
+START=$(( LINE - CENTER ))
+END=$(( LINES + START ))
+
+bat --style=numbers --color=always --highlight-line $LINE --line-range $START:$END --paging never "$FILE"

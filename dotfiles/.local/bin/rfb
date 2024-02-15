@@ -1,22 +1,9 @@
 #!/usr/bin/env bash
 
-# r(ipgrep)-f(zf)-b(at)
-# utilizing fzf and bat for a better ripgrep experience
+# r(ipgrep)-f(zf)-b(at centered)
+# utilizing fzf and batc for a better ripgrep experience
 
 set -e
-
-function batc() {  # bat-c(entered)
-  FILE=$1
-  LINE=$2
-
-  CENTER=$(( $LINES / 2 ))
-  [[ $LINE -lt $CENTER ]] && CENTER=$LINE
-
-  START=$(( LINE - CENTER ))
-  END=$(( LINES + START ))
-
-  bat --style=numbers --color=always --highlight-line $LINE --line-range $START:$END --paging never "$FILE"
-}
 
 MATCH="$(rg --line-number \
   --smart-case \
