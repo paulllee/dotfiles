@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 
-# h(elix)-r(ipgrep)-f(zf)
+# [h]elix [r]ipgrep [f]zf
 
 set -e
 

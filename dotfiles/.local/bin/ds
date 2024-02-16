@@ -1,5 +1,7 @@
 #!/usr/bin/env bash
 
+# [d]ot[s]ync
+
 set -e
 
 function printf_h () {
