@@ -20,14 +20,6 @@ function qcd() {  # q(uick)-cd
   clear
 }
 
-function cdp() {  # cd-p(arent)
-  cd ..
-}
-
-function cdu() {  # cd-u(ndo)
-  cd -
-}
-
 function sfa() {  # s(ync)-f(rom)-app(lications)
   DEST="$HOME/.dotfiles/dotfiles/.config/"
 
