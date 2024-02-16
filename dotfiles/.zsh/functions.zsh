@@ -3,7 +3,12 @@ function auto-keygen() {  # auto-(ssh-)keygen
   ssh-keygen -t ed25519 -N "" -f "$KEYGEN_PATH"
 }
 
-function ll() {  # l(s)-l(ong)
+function ll() {  # (ls -)l
+  TARGET="${1:-.}"
+  eza "$TARGET" -l --icons=auto --git --git-repos --git-ignore
+}
+
+function la() {  # (ls -)la
   TARGET="${1:-.}"
   eza "$TARGET" -la --icons=auto --git --git-repos --git-ignore
 }
@@ -21,10 +26,6 @@ function cdp() {  # cd-p(arent)
 
 function cdu() {  # cd-u(ndo)
   cd -
-}
-
-function ds() {  # d(otsync)-s(ync)
-  dotsync -s
 }
 
 function sfa() {  # s(ync)-f(rom)-app(lications)
