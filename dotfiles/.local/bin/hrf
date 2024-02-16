@@ -1,0 +1,15 @@
+#!/usr/bin/env bash
+
+# h(elix)-r(ipgrep)-f(zf)
+
+set -e
+
+MATCH="$(rg --line-number --smart-case --hidden --glob="!.git" . |
+  fzf --delimiter=: --preview "bp {1} {2}")"
+
+FILE="$(printf "$MATCH" | cut -d : -f 1)"
+LINE="$(printf "$MATCH" | cut -d : -f 2)"
+
+zellij action move-focus up
+zellij action write-chars ":open $FILE:$LINE"  
+zellij action write 13
