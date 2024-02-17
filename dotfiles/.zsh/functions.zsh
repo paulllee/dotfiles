@@ -1,17 +1,14 @@
 function ll() {  # ls -[l]
-  TARGET="${1:-.}"
-  eza "$TARGET" -l --icons=auto --git --git-repos --git-ignore
+  eza "${1:-.}" -l --icons=auto --git --git-repos --git-ignore
 }
 
 function la() {  # ls -[la]
-  TARGET="${1:-.}"
-  eza "$TARGET" -la --icons=auto --git --git-repos --git-ignore
+  eza "${1:-.}" -la --icons=auto --git --git-repos --git-ignore
 }
 
 function qcd() {  # [q]uick [cd]
-  BASE="${1:-$HOME}"
-  IGNORE="$HOME/.config/fd/ignore"
-  cd "$(fd --hidden --type d . "$BASE" | fzf --preview "tree --gitfile="$IGNORE" -a -C {}")"
+  cd "$(fd --hidden --type d . "${1:-$HOME}" | 
+    fzf --preview "tree --gitfile="$HOME/.config/fd/ignore" -a -C {}")"
   clear
 }
 
@@ -29,16 +26,27 @@ function sfa() {  # [s]ync [f]rom [a]pplications
 }
 
 function cc() {  # [c]ozy [c]ode
-  PROJECT="${1:-.}"
-  code "$PROJECT" --user-data-dir "$HOME/.config/vscode/"
+  code "${1:-.}" --user-data-dir "$HOME/.config/vscode/"
 }
 
 function mma() {  # [m]irco[m]amba [a]ctivate
-  ENV="${1:-base}"
-  micromamba activate "$ENV"
+  micromamba activate "${1:-base}"
 }
 
 function mmc() {  # [m]icro[m]amba [c]reate
-  SPEC="${1:-}"
-  micromamba create -f "$HOME/.config/micromamba/specs/$SPEC.yml"
+  micromamba create -f "$HOME/.config/micromamba/specs/$1.yml"
+}
+
+function bcp() {  # [b]at [c]entered [p]review
+  LINE=$2
+
+  CENTER=$(( LINE / 2 ))
+  if (( LINE < CENTER )); then
+    CENTER=$LINE
+  fi
+
+  START=$(( LINE - CENTER ))
+  END=$(( LINES + START ))
+
+  bat --highlight-line "$LINE" --line-range "$START:$END" "$1"
 }
