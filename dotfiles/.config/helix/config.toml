@@ -27,13 +27,8 @@ enable = true
 esc = ["collapse_selection", "keep_primary_selection"]
 
 [keys.normal.f]
-f = "file_picker"
-F = "file_picker_in_current_directory"
-g = ":pipe-to zellij run -c -d down -- hrf"  # live grep
-
-[keys.normal.space]
-f = "no_op"
-F = "no_op"
+f = ":pipe-to zellij run -c -d down -- eff -f"  # filenames + fzf
+r = ":pipe-to zellij run -c -d down -- eff -r"  # ripgrep + fzf
 
 [keys.insert]
 esc = ["collapse_selection", "normal_mode"]

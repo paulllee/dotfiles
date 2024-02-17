@@ -5,30 +5,40 @@
 
 set -e
 
+if [ "$#" -eq 0 ]; then 
+  printf "$(basename "$0"): No flags provided. Please review usage via '$(basename "$0") -h'.\n"
+  exit 1
+fi
+
+FUNCTIONS="$HOME/.zsh/functions.zsh"
+
 function zja() {  # [z]elli[j] [a]ctions
   zellij action move-focus up
-  zellij action write-chars ":open ${1:-.}"  
+  zellij action write-chars ":open ${1:-}"
   zellij action write 13
 }
 
 function ff() {  #[f]ilenames [f]zf
-  zja "$(fd --hidden --type f | fzf --preview "bp {1}")"
+  zja "$(fd --hidden --type f | 
+    fzf --preview "source $FUNCTIONS; bat {1}" )"
 }
 
 function rf() {  # [r]ipgrep [f]zf
-  MATCH="$(rg --line-number --smart-case --hidden --glob="!.git" . |
-    fzf --delimiter=: --preview "bp {1} {2}")"
-  FILE="$(printf "$MATCH" | cut -d : -f 1)"
-  LINE="$(printf "$MATCH" | cut -d : -f 2)"
-  zja "$FILE:$LINE"
+  zja "$(rg --line-number --smart-case --hidden --glob="!.git" . | 
+    fzf --delimiter=: --preview "source $FUNCTIONS; bcp {1} {2}" |
+    cut -d ":" -f 1,2)"
 }
 
 USAGE_MESSAGE=$(
 cat <<- END
 An editor file finder using fzf to search through filenames or ripgrep
 
+Supports ONE option at a time. It will choose the first option if multiple are provided
+  $(basename "$0") -fr  Only run on filnames
+  $(basename "$0") -rf  Only run on ripgrep
+
 Usage:
-  $(basename "$0") [options]
+  $(basename "$0") [option]
 
 Options:
   -h  Print this help message
@@ -41,7 +51,7 @@ while getopts "hfr" FLAG
 do
   case "${FLAG}" in
     h) printf "$USAGE_MESSAGE\n" && exit 0 ;;
-    f) rf && exit 0 ;;
-    r) ff && exit 0 ;;
+    f) ff && exit 0 ;;
+    r) rf && exit 0 ;;
   esac
 done
