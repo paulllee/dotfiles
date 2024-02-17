@@ -1,0 +1,47 @@
+#!/usr/bin/env bash
+
+# [e]ditor [f]ile [f]inder
+# works in both neovim and helix
+
+set -e
+
+function zja() {  # [z]elli[j] [a]ctions
+  zellij action move-focus up
+  zellij action write-chars ":open ${1:-.}"  
+  zellij action write 13
+}
+
+function ff() {  #[f]ilenames [f]zf
+  zja "$(fd --hidden --type f | fzf --preview "bp {1}")"
+}
+
+function rf() {  # [r]ipgrep [f]zf
+  MATCH="$(rg --line-number --smart-case --hidden --glob="!.git" . |
+    fzf --delimiter=: --preview "bp {1} {2}")"
+  FILE="$(printf "$MATCH" | cut -d : -f 1)"
+  LINE="$(printf "$MATCH" | cut -d : -f 2)"
+  zja "$FILE:$LINE"
+}
+
+USAGE_MESSAGE=$(
+cat <<- END
+An editor file finder using fzf to search through filenames or ripgrep
+
+Usage:
+  $(basename "$0") [options]
+
+Options:
+  -h  Print this help message
+  -f  Filenames
+  -r  Ripgrep
+END
+)
+
+while getopts "hfr" FLAG
+do
+  case "${FLAG}" in
+    h) printf "$USAGE_MESSAGE\n" && exit 0 ;;
+    f) rf && exit 0 ;;
+    r) ff && exit 0 ;;
+  esac
+done
