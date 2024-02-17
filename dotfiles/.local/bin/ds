@@ -4,18 +4,20 @@
 
 set -e
 
-function printf_h () {
-  printf "\n> $1\n\n"
-}
-
-function abort() {
-  printf "ERROR: $1\n"
+if [[ "$#" == 0 ]]; then
+  printf "$(basename "$0"): No flags provided. Please review usage via '$(basename "$0") -h'.\n"
   exit 1
-}
+fi
 
 DOTFILES_PATH="${DOTFILES_PATH:-$HOME/.dotfiles}"
-[[ ! -d "$DOTFILES_PATH" ]] && \
-  abort "$DOTFILES_PATH is not a valid directory."
+if [[ ! -d "$DOTFILES_PATH" ]]; then
+  printf "$DOTFILES_PATH is not a valid directory.\n"
+  exit 1
+fi
+
+function printf_h () {  # [printf] [h]eader
+  printf "\n> $1\n\n"
+}
 
 USAGE_MESSAGE=$(
 cat <<- END
@@ -59,18 +61,13 @@ do
   esac
 done
 
-(( ! b_flag && ! c_flag && ! g_flag && ! m_flag && ! s_flag  && ! v_flag )) && \
-  abort "No flags provided. Please review usage via '$(basename "$0") -h'."
-
-if (( b_flag ))
-then
+if (( b_flag )); then
   printf_h "Brewfile Installation"
 
   brew bundle --file "$DOTFILES_PATH/Brewfile" --no-lock
 fi
 
-if (( c_flag ))
-then
+if (( c_flag )); then
   printf_h "Homebrew Spring Cleaning"
 
   brew upgrade
@@ -82,8 +79,7 @@ then
   brew autoremove
 fi
 
-if (( g_flag ))
-then
+if (( g_flag )); then
   printf_h "Gitconfig Configuration"
 
   read -p "Enter Git Name: " GIT_NAME
@@ -97,8 +93,7 @@ then
   cat "$HOME/.gitconfig"
 fi
 
-if (( m_flag ))
-then
+if (( m_flag )); then
   printf_h "Mac Defaults Configuration"
 
   printf "Disabling DS_Store files in NFS.\n"
@@ -115,8 +110,7 @@ then
   defaults write com.googlecode.iterm2 LoadPrefsFromCustomFolder -bool true
 fi
 
-if (( s_flag ))
-then
+if (( s_flag )); then
   printf_h "Sync Dotfiles"
 
   git -C "$DOTFILES_PATH" checkout main 1> /dev/null 2> /dev/null
@@ -142,8 +136,7 @@ then
   cp "$HOME/.config/macmousefix/config.plist" "$HOME/Library/Application Support/$MACMOUSEFIX/"
 fi
 
-if (( v_flag ))
-then
+if (( v_flag )); then
   printf_h "VSCode Extension Sync"
 
   source "$HOME/.config/vscode/extensions"
@@ -158,9 +151,10 @@ then
   for i in "${INSTALLED[@]}"; do
     SKIP=0
     for j in "${EXTENSIONS[@]}"; do
-      [[ "$i" == "$j" ]] && \
-        SKIP=1 && \
+      if [[ "$i" == "$j" ]]; then
+        SKIP=1
         break
+      fi
     done
     (( SKIP )) || code --uninstall-extension "$i" --force
   done
