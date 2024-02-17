@@ -15,7 +15,7 @@ brew "zsh-autosuggestions"
 brew "zsh-syntax-highlighting"
 
 tap "homebrew/cask-fonts"
-cask "font-roboto-mono-nerd-font"
+cask "font-jetbrains-mono-nerd-font"
 
 cask "arc"
 cask "iterm2"
