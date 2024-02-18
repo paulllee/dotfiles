@@ -2,7 +2,6 @@ theme = "catppuccin_mocha"
 
 [editor]
 line-number = "relative"
-auto-pairs  = false  # annoying feature that isn't smart enough yet
 
 [editor.cursor-shape]
 insert = "bar"

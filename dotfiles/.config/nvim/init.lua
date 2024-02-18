@@ -13,7 +13,6 @@ vim.o.shiftwidth = 2
 vim.o.smartcase = true
 vim.o.softtabstop = 2
 vim.o.tabstop = 2
-vim.o.termguicolors = true
 vim.o.timeout = true
 vim.o.timeoutlen = 300
 
