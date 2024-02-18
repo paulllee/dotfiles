@@ -4,4 +4,5 @@ dependencies:
   - nodejs=20.9.0
   - pip:
       - pyright
+      - ruff
       - ruff-lsp
