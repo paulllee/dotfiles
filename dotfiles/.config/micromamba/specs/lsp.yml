@@ -3,7 +3,5 @@ dependencies:
   - python=3.12
   - nodejs=20.9.0
   - pip:
-      - black
+      - pyright
       - ruff-lsp
-
-# npm install -g pyright
