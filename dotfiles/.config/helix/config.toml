@@ -20,18 +20,3 @@ display-messages = true
 
 [editor.soft-wrap]
 enable = true
-
-# TODO: https://github.com/LGUG2Z/helix-vim/blob/master/config.toml
-
-[keys.normal]
-esc = ["collapse_selection", "keep_primary_selection"]
-
-[keys.normal.f]
-f = ":pipe-to zellij run -c -d down -- eff -f"  # filenames + fzf
-r = ":pipe-to zellij run -c -d down -- eff -r"  # ripgrep + fzf
-
-[keys.insert]
-esc = ["collapse_selection", "normal_mode"]
-
-[keys.select]
-esc = ["collapse_selection", "keep_primary_selection", "normal_mode"]

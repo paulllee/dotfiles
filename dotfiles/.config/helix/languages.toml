@@ -1,13 +1,16 @@
+# NOTE (02-17-2024): Helix cannot be used as my main due to not supporting
+#                    using different environments in pyright dynamically
+
 [language-server.ruff-lsp]
 command = "micromamba"
-args    = ["run", "-n", "lsp", "ruff-lsp"]
+args    = [ "run", "-n", "lsp", "ruff-lsp" ]
 
 [language-server.pyright]
 command = "micromamba"
-args    = ["run", "-n", "lsp", "pyright-langserver", "--stdio"]
+args    = [ "run", "-n", "lsp", "pyright-langserver", "--stdio" ]
 
 [[language]]
 name             = "python"
 language-servers = [ "ruff-lsp", "pyright" ]
-formatter        = { command = "black", args = ["--quiet", "-"] }
 auto-format      = true
+formatter        = { command = "micromamba", args = [ "run", "-n", "lsp", "ruff", "format", "-" ] }
