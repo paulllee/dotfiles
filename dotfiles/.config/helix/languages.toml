@@ -8,6 +8,7 @@ args    = [ "run", "-n", "lsp", "ruff-lsp" ]
 [language-server.pyright]
 command = "micromamba"
 args    = [ "run", "-n", "lsp", "pyright-langserver", "--stdio" ]
+config  = { python = { pythonPath = "python" } }
 
 [[language]]
 name             = "python"
