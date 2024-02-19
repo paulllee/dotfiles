@@ -25,23 +25,6 @@ function sfa() {  # [s]ync [f]rom [a]pplications
   defaults export "$SWISH" "$DEST/swish/$SWISH.plist"
 }
 
-function cc() {  # [c]ozy [c]ode
-  code "${1:-.}" --user-data-dir "$HOME/.config/vscode/"
-}
-
-function uhx() {  # [u]pdate [h]eli[x] configs before runtime
-  DEST="$HOME/.config/helix/languages.toml"
-
-  PYTHON_PATH="python"
-  if [[ -n "$CONDA_PREFIX" ]]; then
-    PYTHON_PATH="$CONDA_PREFIX/bin/python"
-  fi
-
-  sed -i.bak "s|pythonPath = \".*\"|pythonPath = \"$PYTHON_PATH\"|" "$DEST"
-
-  hx "${1:-.}"
-}
-
 function mma() {  # [m]icro[m]amba [a]ctivate
   micromamba activate "${1:-base}"
 }
@@ -49,3 +32,20 @@ function mma() {  # [m]icro[m]amba [a]ctivate
 function mmc() {  # [m]icro[m]amba [c]reate
   micromamba create -f "$HOME/.config/micromamba/specs/$1.yml"
 }
+
+# function cc() {  # [c]ozy [c]ode
+#   code "${1:-.}" --user-data-dir "$HOME/.config/vscode/"
+# }
+
+# function uhx() {  # [u]pdate [h]eli[x] configs before runtime
+#   DEST="$HOME/.config/helix/languages.toml"
+#
+#   PYTHON_PATH="python"
+#   if [[ -n "$CONDA_PREFIX" ]]; then
+#     PYTHON_PATH="$CONDA_PREFIX/bin/python"
+#   fi
+#
+#   sed -i.bak "s|pythonPath = \".*\"|pythonPath = \"$PYTHON_PATH\"|" "$DEST"
+#
+#   hx "${1:-.}"
+# }
