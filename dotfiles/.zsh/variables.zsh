@@ -2,7 +2,7 @@ export XDG_CONFIG_HOME="$HOME/.config"
 
 export COLORTERM="truecolor"
 
-export EDITOR=hx
+export EDITOR=nvim
 export VISUAL="$EDITOR"
 
 export FZF_DEFAULT_OPTS="--ansi --border=rounded \
