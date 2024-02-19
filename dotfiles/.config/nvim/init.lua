@@ -94,8 +94,7 @@ local mappings = {}
 local opts = { prefix = "<space>" }
 mappings.t = {
   name = "[T]elescope",
-  f = { "<cmd>Telescope find_files follow=true no_ignore=true hidden=true<cr>", "Find [F]iles" },
-  g = { "<cmd>Telescope live_grep follow=true no_ignore=true hidden=true<cr>", "Live [G]rep" }
+  f = { "<cmd>Telescope find_files find_command=fd,--hidden,--type,f<cr>", "Find [F]iles" },
 }
 wk.register(mappings, opts)
 
