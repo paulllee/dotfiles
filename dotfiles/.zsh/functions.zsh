@@ -33,7 +33,7 @@ function mmc() {  # [m]icro[m]amba [c]reate
   micromamba create -f "$HOME/.config/micromamba/specs/$1.yml"
 }
 
-# function cc() {  # [c]ozy [c]ode
+# function vc() {  # [v]s [c]ode
 #   code "${1:-.}" --user-data-dir "$HOME/.config/vscode/"
 # }
 
