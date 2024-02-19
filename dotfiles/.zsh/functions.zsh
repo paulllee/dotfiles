@@ -1,18 +1,18 @@
-function ll() {  # l[s] l
+function ll() {  # [l]s -[l]
   eza "${1:-.}" -l --icons=auto --git --git-repos --git-ignore
 }
 
-function la() {  # [ls] la
+function la() {  # ls -[la]
   eza "${1:-.}" -la --icons=auto --git --git-repos --git-ignore
 }
 
-function qcd() {  # q[uick] cd
+function qcd() {  # [q]uick cd
   cd "$(fd --hidden --type d . "${1:-$HOME}" | 
     fzf --preview "tree --gitfile="$HOME/.config/fd/ignore" -a -C {}")"
   clear
 }
 
-function sfa() {  # s[ync] f[rom] a[pplications]
+function sfa() {  # [s]ync [f]rom [a]pplications
   DEST="$HOME/.dotfiles/dotfiles/.config/"
 
   ITERM2="$(osascript -e 'id of app "iTerm2"')"
@@ -25,14 +25,18 @@ function sfa() {  # s[ync] f[rom] a[pplications]
   defaults export "$SWISH" "$DEST/swish/$SWISH.plist"
 }
 
-function cc() {  # c[ozy] c[ode]
+function cc() {  # [c]ozy [c]ode
   code "${1:-.}" --user-data-dir "$HOME/.config/vscode/"
 }
 
-function mma() {  # m[icro]m[amba] a[ctivate]
+# function hx() {  # overriding [h]eli[x]
+#   echo
+# }
+
+function mma() {  # [m]icro[m]amba [a]ctivate
   micromamba activate "${1:-base}"
 }
 
-function mmc() {  # m[icro]m[amba] c[reate]
+function mmc() {  # [m]icro[m]amba [c]reate
   micromamba create -f "$HOME/.config/micromamba/specs/$1.yml"
 }

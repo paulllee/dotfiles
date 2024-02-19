@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 
-# d[ot]s[ync]
+# [d]ot[s]ync
 
 set -e
 
@@ -15,7 +15,7 @@ if [[ ! -d "$DOTFILES_PATH" ]]; then
   exit 1
 fi
 
-function printf_h () {  # printf h[eader]
+function printf_h () {  # [printf] [h]eader
   printf "\n> $1\n\n"
 }
 
