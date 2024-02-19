@@ -33,106 +33,89 @@ if not vim.loop.fs_stat(mini_path) then
 end
 
 require("mini.deps").setup()
-local add, now = MiniDeps.add, MiniDeps.now
+local add = MiniDeps.add
 
-now(function()
-  add("catppuccin/nvim")
-  vim.cmd.colorscheme "catppuccin-mocha"
-end)
+add("catppuccin/nvim")
+vim.cmd.colorscheme "catppuccin-mocha"
 
-now(function()
-  require("mini.comment").setup()
-  require("mini.completion").setup()
+require("mini.comment").setup()
+require("mini.completion").setup()
 
-  add("lewis6991/gitsigns.nvim")
-  add("nvim-tree/nvim-web-devicons")
-  require("gitsigns").setup()
-  require("nvim-web-devicons").setup()
-  require("mini.statusline").setup()
-end)
+add({
+  source = "nvim-lualine/lualine.nvim",
+  depends = { "nvim-tree/nvim-web-devicons" }
+})
+require("lualine").setup()
 
-now(function()
-  add({
-    source = "nvim-telescope/telescope.nvim",
-    checkout = "0.1.x",
-    depends = { "nvim-lua/plenary.nvim" }
-  })
-  local ignore = { ".DS_Store", ".git", "__pycache__" }
-  require("telescope").setup({
-    pickers = {
-      live_grep = {
-        file_ignore_patterns = ignore,
-        additional_args = { "--hidden" }
-      },
-      find_files = {
-        file_ignore_patterns = ignore,
-        hidden = true
-      }
-    },
-  })
-end)
+add("lewis6991/gitsigns.nvim")
+require("gitsigns").setup()
 
-now(function()
-  add({
-    source = "nvim-treesitter/nvim-treesitter",
-    hooks = { post_checkout = function() vim.cmd("TSUpdate") end }
-  })
-   require("nvim-treesitter.configs").setup({
-    ensure_installed = "all",
-    highlight = { enable = true }
-  })
-end)
+add({
+  source = "nvim-telescope/telescope.nvim",
+  checkout = "0.1.x",
+  depends = { "nvim-lua/plenary.nvim" }
+})
+require("telescope").setup()
 
-now(function()
-  add("neovim/nvim-lspconfig")
-  require("lspconfig").pyright.setup({
-    cmd = { "micromamba", "run", "-n", "lsp", "pyright-langserver", "--stdio" },
-    settings = { python = { pythonPath = python_path } }
-  })
-  require("lspconfig").ruff_lsp.setup({
-    cmd = { "micromamba", "run", "-n", "lsp", "ruff-lsp" }
-  })
-  vim.api.nvim_create_autocmd("BufWritePre", {
-    buffer = vim.fn.bufnr(),
-    callback = function()
-      vim.lsp.buf.format({ timeout_ms = 3000 })
-    end,
-  })
-end)
-
-now(function()
-    add("folke/which-key.nvim")
-
-  local wk = require("which-key")
-  wk.setup()
-
-  local mappings = {}
-  local opts = { prefix = "<space>" }
-  mappings.t = {
-    name = "[T]elescope",
-    f = { "<cmd>Telescope find_files<cr>", "Find [F]iles" },
-    g = { "<cmd>Telescope live_grep<cr>", "Live [G]rep" },
+add({
+  source = "nvim-treesitter/nvim-treesitter",
+  hooks = { 
+    post_checkout = function()
+      vim.cmd("TSUpdate")
+    end
   }
-  wk.register(mappings, opts)
+})
+ require("nvim-treesitter.configs").setup({
+  ensure_installed = "all",
+  highlight = { enable = true }
+})
 
-  vim.api.nvim_create_autocmd({ "LspAttach" }, {
-    callback = function()
-      mappings.d = {
-        name = "[D]iagnostic",
-        o = { "<cmd>lua vim.diagnostic.open_float()<cr>", "[O]pen Diagnostic" },
-        n = { "<cmd>lua vim.diagnostic.goto_next()<cr>", "[N]ext Diagnostic" },
-        p = { "<cmd>lua vim.diagnostic.goto_prev()<cr>", "[P]revious Diagnostic" },
-      }
-      mappings.g = {
-        name = "[G]o To",
-        d = { vim.lsp.buf.definition, "Go to [D]efinition" },
-        t = { vim.lsp.buf.type_definition, "Go to [T]ype Definition" },
-      }
-      mappings.t = {
-        d = { "<cmd>Telescope diagnostics<cr>", "Telescope [D]iagnostics" },
-        r = { require("telescope.builtin").lsp_references, "Telescope [R]eferences" },
-      }
-      wk.register(mappings, opts)
-    end,
-  })
-end)
+add("neovim/nvim-lspconfig")
+require("lspconfig").pyright.setup({
+  cmd = { "micromamba", "run", "-n", "lsp", "pyright-langserver", "--stdio" },
+  settings = { python = { pythonPath = python_path } }
+})
+require("lspconfig").ruff_lsp.setup({
+  cmd = { "micromamba", "run", "-n", "lsp", "ruff-lsp" }
+})
+vim.api.nvim_create_autocmd("BufWritePre", {
+  buffer = vim.fn.bufnr(),
+  callback = function()
+    vim.lsp.buf.format({ timeout_ms = 3000 })
+  end
+})
+
+add("folke/which-key.nvim")
+
+local wk = require("which-key")
+wk.setup()
+
+local mappings = {}
+local opts = { prefix = "<space>" }
+mappings.t = {
+  name = "[T]elescope",
+  f = { "<cmd>Telescope find_files follow=true no_ignore=true hidden=true<cr>", "Find [F]iles" },
+  g = { "<cmd>Telescope live_grep follow=true no_ignore=true hidden=true<cr>", "Live [G]rep" }
+}
+wk.register(mappings, opts)
+
+vim.api.nvim_create_autocmd({ "LspAttach" }, {
+  callback = function()
+    mappings.d = {
+      name = "[D]iagnostic",
+      o = { "<cmd>lua vim.diagnostic.open_float()<cr>", "[O]pen Diagnostic" },
+      n = { "<cmd>lua vim.diagnostic.goto_next()<cr>", "[N]ext Diagnostic" },
+      p = { "<cmd>lua vim.diagnostic.goto_prev()<cr>", "[P]revious Diagnostic" }
+    }
+    mappings.g = {
+      name = "[G]o To",
+      d = { vim.lsp.buf.definition, "Go to [D]efinition" },
+      t = { vim.lsp.buf.type_definition, "Go to [T]ype Definition" }
+    }
+    mappings.t = {
+      d = { "<cmd>Telescope diagnostics<cr>", "Telescope [D]iagnostics" },
+      r = { require("telescope.builtin").lsp_references, "Telescope [R]eferences" }
+    }
+    wk.register(mappings, opts)
+  end
+})
