@@ -1,6 +1,3 @@
-# NOTE (02-17-2024): Helix cannot be used as my main due to not supporting
-#                    using different environments in pyright dynamically
-
 [language-server.ruff-lsp]
 command = "micromamba"
 args    = [ "run", "-n", "lsp", "ruff-lsp" ]
