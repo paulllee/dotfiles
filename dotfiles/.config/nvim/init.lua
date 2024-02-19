@@ -36,22 +36,55 @@ require("mini.deps").setup()
 local add, now = MiniDeps.add, MiniDeps.now
 
 now(function()
+  add("catppuccin/nvim")
+  vim.cmd.colorscheme "catppuccin-mocha"
+end)
+
+now(function()
   require("mini.comment").setup()
   require("mini.completion").setup()
-  require("mini.statusline").setup()
-
-  add("catppuccin/nvim")
-  vim.cmd("colorscheme catppuccin-mocha")
 
   add("lewis6991/gitsigns.nvim")
-  require("gitsigns").setup()
-
   add("nvim-tree/nvim-web-devicons")
+  require("gitsigns").setup()
+  require("nvim-web-devicons").setup()
+  require("mini.statusline").setup()
+end)
 
-  add("neovim/nvim-lspconfig")
-  require("lspconfig").lua_ls.setup({
-    settings = { Lua = { diagnostics = { globals = { "MiniDeps", "vim" } } } }
+now(function()
+  add({
+    source = "nvim-telescope/telescope.nvim",
+    checkout = "0.1.x",
+    depends = { "nvim-lua/plenary.nvim" }
   })
+  local ignore = { ".DS_Store", ".git", "__pycache__" }
+  require("telescope").setup({
+    pickers = {
+      live_grep = {
+        file_ignore_patterns = ignore,
+        additional_args = { "--hidden" }
+      },
+      find_files = {
+        file_ignore_patterns = ignore,
+        hidden = true
+      }
+    },
+  })
+end)
+
+now(function()
+  add({
+    source = "nvim-treesitter/nvim-treesitter",
+    hooks = { post_checkout = function() vim.cmd("TSUpdate") end }
+  })
+   require("nvim-treesitter.configs").setup({
+    ensure_installed = "all",
+    highlight = { enable = true }
+  })
+end)
+
+now(function()
+  add("neovim/nvim-lspconfig")
   require("lspconfig").pyright.setup({
     cmd = { "micromamba", "run", "-n", "lsp", "pyright-langserver", "--stdio" },
     settings = { python = { pythonPath = python_path } }
@@ -65,42 +98,14 @@ now(function()
       vim.lsp.buf.format({ timeout_ms = 3000 })
     end,
   })
+end)
 
-  add({
-    source = "nvim-treesitter/nvim-treesitter",
-    hooks = { post_checkout = function() vim.cmd("TSUpdate") end }
-  })
-  require("nvim-treesitter.configs").setup({
-    ensure_installed = "all",
-    highlight = { enable = true },
-    indent = { enable = true }
-  })
-
-  add({
-    source = "nvim-telescope/telescope.nvim",
-    checkout = "0.1.x",
-    depends = { "nvim-lua/plenary.nvim" }
-  })
-  local ignore = { ".DS_Store", ".git", "__pycache__" }
-  require("telescope").setup({
-    pickers = {
-      live_grep = {
-        file_ignore_patterns = ignore,
-        additional_args = function(_)
-          return { "--hidden" }
-        end
-      },
-      find_files = {
-        file_ignore_patterns = ignore,
-        hidden = true
-      }
-    },
-  })
-
-  add("folke/which-key.nvim")
-  require("which-key").setup()
+now(function()
+    add("folke/which-key.nvim")
 
   local wk = require("which-key")
+  wk.setup()
+
   local mappings = {}
   local opts = { prefix = "<space>" }
   mappings.t = {
