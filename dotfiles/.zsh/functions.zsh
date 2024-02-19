@@ -29,12 +29,16 @@ function cc() {  # [c]ozy [c]ode
   code "${1:-.}" --user-data-dir "$HOME/.config/vscode/"
 }
 
-function hx() {  # overriding [h]eli[x] with conda conditional
+function hxp() {  # [h]eli[x] for [p]ython environments
+  DEST="$HOME/.config/helix/languages.toml"
+
+  PYTHON_PATH="python"
   if [[ -n "$CONDA_PREFIX" ]]; then
     PYTHON_PATH="$CONDA_PREFIX/bin/python"
-    CONFIG_PATH="$HOME/.config/helix/languages.toml"
-    sed -i "s/pythonPath = \".*\"/pythonPath = \"$PYTHON_PATH\"/" "$CONFIG_PATH"
   fi
+
+  sed -i.bak "s|pythonPath = \".*\"|pythonPath = \"$PYTHON_PATH\"|" "$DEST"
+
   hx "${1:-.}"
 }
 
