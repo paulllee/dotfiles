@@ -29,7 +29,7 @@ function cc() {  # [c]ozy [c]ode
   code "${1:-.}" --user-data-dir "$HOME/.config/vscode/"
 }
 
-function hxp() {  # [h]eli[x] for [p]ython environments
+function uhx() {  # [u]pdate [h]eli[x] configs before runtime
   DEST="$HOME/.config/helix/languages.toml"
 
   PYTHON_PATH="python"
