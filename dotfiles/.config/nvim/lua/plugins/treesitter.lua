@@ -30,13 +30,9 @@ return {
           -- other
           "csv",
           "gitignore",
-          "luadoc",
           "markdown",
           "markdown_inline",
-          "query",
-          "regex",
-          "vim",
-          "vimdoc"
+          "regex"
         },
         highlight = { enable = true },
         indent = { enable = true }
