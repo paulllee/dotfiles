@@ -1,3 +1,7 @@
+local bashls_conf = {
+  cmd = { "micromamba", "run", "-n", "lsp", "bash-language-server", "start" }
+}
+
 local pyright_conf = {
   cmd = { "micromamba", "run", "-n", "lsp", "pyright-langserver", "--stdio" }
 }
@@ -20,6 +24,7 @@ return {
     config = function()
       local lspconfig = require("lspconfig")
 
+      lspconfig.bashls.setup(bashls_conf)
       lspconfig.clangd.setup({})
       lspconfig.lua_ls.setup({})
       lspconfig.pyright.setup(pyright_conf)
