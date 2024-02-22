@@ -1,8 +1,0 @@
-name: lsp
-dependencies:
-  - python=3.12
-  - nodejs=20.9.0
-  - pip:
-      - pyright
-      - ruff
-      - ruff-lsp
