@@ -33,6 +33,24 @@ function mmc() {  # [m]icro[m]amba [c]reate
   micromamba create -f "$HOME/.config/micromamba/specs/$1.yml"
 }
 
+function mmlsp() {  # [m]icro[m]amba [lsp]
+  micromamba create -n lsp python=3.12 nodejs=20.9.0
+  
+  function mmpip() { micromamba run -n lsp pip install "$@" }
+  function mmnpm() { micromamba run -n lsp npm install i -g "$@" }
+  
+  # python
+  mmpip ruff
+  mmpip ruff-lsp
+  mmnpm pyright
+
+  # bash
+  mmnpm bash-language-server
+
+  # html/css/js
+  mmnpm vscode-langservers-extracted
+}
+
 # function vc() {  # [v]s [c]ode
 #   code "${1:-.}" --user-data-dir "$HOME/.config/vscode/"
 # }
