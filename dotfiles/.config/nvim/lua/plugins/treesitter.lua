@@ -22,6 +22,7 @@ return {
           "javascript",
           "lua",
           "python",
+          "rust",
           "sql",
           "typescript",
           "tsx",

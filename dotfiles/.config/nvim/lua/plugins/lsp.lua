@@ -53,6 +53,7 @@ return {
       lspconfig.lua_ls.setup({})
       lspconfig.pyright.setup(pyright_conf)
       lspconfig.ruff_lsp.setup(ruff_lsp_conf)
+      lspconfig.rust_analyzer.setup({})
       lspconfig.tsserver.setup(tsserver_conf)
     end
   },
