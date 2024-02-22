@@ -1,5 +1,20 @@
 return {
-  { "echasnovski/mini.comment", opts = {} },
-  { "echasnovski/mini.pairs", opts = {} },
-  { "folke/which-key.nvim", opts = {} }
+  {
+    "echasnovski/mini.comment",
+    config = function()
+      require("mini.comment").setup()
+    end
+  },
+  {
+    "echasnovski/mini.pairs",
+    config = function()
+      require("mini.pairs").setup()
+    end
+  },
+  {
+    "folke/which-key.nvim",
+    config = function()
+      require("which-key").setup()
+    end
+  }
 }

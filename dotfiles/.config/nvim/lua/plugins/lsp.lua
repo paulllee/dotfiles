@@ -28,5 +28,10 @@ return {
     end
   },
 
-  { "echasnovski/mini.completion", opts = {} }
+  {
+    "echasnovski/mini.completion",
+    config = function()
+      require("mini.completion").setup()
+    end
+  }
 }
