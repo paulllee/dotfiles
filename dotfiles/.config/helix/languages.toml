@@ -1,3 +1,6 @@
+# NOTE: hx cannot be used as my editor because i can't dynamically
+#       set the pythonPath for pyright with a conda env that is activated
+
 [language-server.ruff-lsp]
 command = "micromamba"
 args    = [ "run", "-n", "lsp", "ruff-lsp" ]
@@ -5,7 +8,6 @@ args    = [ "run", "-n", "lsp", "ruff-lsp" ]
 [language-server.pyright]
 command = "micromamba"
 args    = [ "run", "-n", "lsp", "pyright-langserver", "--stdio" ]
-config  = { python = { pythonPath = "python" } }
 
 [[language]]
 name             = "python"
