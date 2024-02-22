@@ -22,7 +22,6 @@ return {
           "javascript",
           "lua",
           "python",
-          "rust",
           "sql",
 
           -- other
