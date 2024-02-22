@@ -36,19 +36,22 @@ function mmc() {  # [m]icro[m]amba [c]reate
 function mmlsp() {  # [m]icro[m]amba [lsp]
   micromamba create -n lsp python=3.12 nodejs=20.9.0
   
-  function mmpip() { micromamba run -n lsp pip install "$@" }
-  function mmnpm() { micromamba run -n lsp npm install i -g "$@" }
+  function mmrpip() { micromamba run -n lsp pip install "$@" }
+  function mmrnpm() { micromamba run -n lsp npm install i -g "$@" }
   
   # python
-  mmpip ruff
-  mmpip ruff-lsp
-  mmnpm pyright
+  mmrpip ruff
+  mmrpip ruff-lsp
+  mmrnpm pyright
 
   # bash
-  mmnpm bash-language-server
+  mmrnpm bash-language-server
 
-  # html/css/js
-  mmnpm vscode-langservers-extracted
+  # html/css/json
+  mmrnpm vscode-langservers-extracted
+
+  # js/ts/tsx
+  mmrnpm typescript typescript-language-server
 }
 
 # function vc() {  # [v]s [c]ode
