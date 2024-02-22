@@ -6,7 +6,7 @@ function la() {  # ls -[la]
   eza "${1:-.}" -la --icons=auto --git --git-repos --git-ignore
 }
 
-function qcd() {  # [q]uick cd
+function qcd() {  # [q]uick [cd]
   cd "$(fd --hidden --type d . "${1:-$HOME}" | 
     fzf --preview "tree --gitfile="$HOME/.config/fd/ignore" -a -C {}")"
   clear
