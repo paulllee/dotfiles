@@ -23,6 +23,8 @@ return {
           "lua",
           "python",
           "sql",
+          "typescript",
+          "tsx",
 
           -- other
           "csv",
