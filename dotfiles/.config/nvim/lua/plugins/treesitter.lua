@@ -21,8 +21,6 @@ return {
           "html",
           "javascript",
           "lua",
-          "ocaml",
-          "ocaml_interface",
           "python",
           "rust",
           "sql",
