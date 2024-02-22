@@ -1,0 +1,4 @@
+name: rust176 
+dependencies:
+  - rust=1.76.0
+  - rust-src=1.76.0
