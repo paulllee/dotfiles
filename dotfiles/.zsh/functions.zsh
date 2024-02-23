@@ -25,7 +25,7 @@ function sfa() {  # [s]ync [f]rom [a]pplications
   defaults export "$SWISH" "$DEST/swish/$SWISH.plist"
 }
 
-function ial() {  # [i]nstall [a]ll [l]sps
+function icl() {  # [i]nstall [c]ontained [l]sps
   micromamba create -n lsp python=3.12 nodejs=20.9.0
   
   function mmpip() { micromamba run -n lsp pip install "$@" }
@@ -44,12 +44,6 @@ function ial() {  # [i]nstall [a]ll [l]sps
 
   # js/ts/tsx
   mmnpm typescript typescript-language-server
-
-  # lua
-  brew install lua-language-server
-
-  # rust
-  brew install rust-analyzer
 }
 
 # function vc() {  # [v]s [c]ode
