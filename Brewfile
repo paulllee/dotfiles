@@ -1,3 +1,7 @@
+# lsps that can't be installed in micromamba
+brew "lua-language-server"
+brew "rust-analyzer"
+
 brew "colima"
 brew "docker"
 brew "eza"
