@@ -25,33 +25,31 @@ function sfa() {  # [s]ync [f]rom [a]pplications
   defaults export "$SWISH" "$DEST/swish/$SWISH.plist"
 }
 
-function mma() {  # [m]icro[m]amba [a]ctivate
-  micromamba activate "${1:-base}"
-}
-
-function mmc() {  # [m]icro[m]amba [c]reate
-  micromamba create -f "$HOME/.config/micromamba/specs/$1.yml"
-}
-
-function mmlsp() {  # [m]icro[m]amba [lsp]
+function ial() {  # [i]nstall [a]ll [l]sps
   micromamba create -n lsp python=3.12 nodejs=20.9.0
   
-  function mmrpip() { micromamba run -n lsp pip install "$@" }
-  function mmrnpm() { micromamba run -n lsp npm install i -g "$@" }
+  function mmpip() { micromamba run -n lsp pip install "$@" }
+  function mmnpm() { micromamba run -n lsp npm install i -g "$@" }
   
   # python
-  mmrpip ruff
-  mmrpip ruff-lsp
-  mmrnpm pyright
+  mmpip ruff
+  mmpip ruff-lsp
+  mmnpm pyright
 
   # bash
-  mmrnpm bash-language-server
+  mmnpm bash-language-server
 
   # html/css/json
-  mmrnpm vscode-langservers-extracted
+  mmnpm vscode-langservers-extracted
 
   # js/ts/tsx
-  mmrnpm typescript typescript-language-server
+  mmnpm typescript typescript-language-server
+
+  # lua
+  brew install lua-language-server
+
+  # rust
+  brew install rust-analyzer
 }
 
 # function vc() {  # [v]s [c]ode
