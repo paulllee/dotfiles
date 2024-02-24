@@ -12,6 +12,10 @@ function qcd() {  # [q]uick [cd]
   clear
 }
 
+function vc() {  # [v]s [c]ode
+  code "${1:-.}" --user-data-dir "$HOME/.config/vscode/"
+}
+
 function sfa() {  # [s]ync [f]rom [a]pplications
   DEST="$HOME/.dotfiles/dotfiles/.config/"
 
@@ -52,7 +56,3 @@ function ial() {  # [i]nstall [a]ll [l]sps
   # rust
   binstall rust-analyzer
 }
-
-# function vc() {  # [v]s [c]ode
-#   code "${1:-.}" --user-data-dir "$HOME/.config/vscode/"
-# }
