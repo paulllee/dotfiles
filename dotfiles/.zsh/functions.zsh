@@ -12,7 +12,7 @@ function qcd() {  # [q]uick [cd]
   clear
 }
 
-function vc() {  # [v]s [c]ode
+function vsc() {  # [v]isual [s]tudio [c]ode
   code "${1:-.}" --user-data-dir "$HOME/.config/vscode/"
 }
 
