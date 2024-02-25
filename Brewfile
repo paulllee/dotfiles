@@ -19,6 +19,7 @@ cask "arc"
 cask "iterm2"
 cask "mac-mouse-fix"
 cask "swish"
+cask "visual-studio-code"
 
 brew "mas"
 mas "Tailscale", id: 1475387142
