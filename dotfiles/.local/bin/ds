@@ -125,10 +125,12 @@ if (( g_flag )); then
   git config --global user.name "$GIT_NAME"
   git config --global user.email "$GIT_EMAIL"
 
-  ssh-keygen -t ed25519 -N "" -f "$HOME/.ssh/id_rsa"
+  if [[ ! -f "$HOME/.ssh/id_rsa" ]]; then
+    ssh-keygen -t ed25519 -N "" -f "$HOME/.ssh/id_rsa"
+  fi
 
-  git config --global user.signingkey "$HOME/.ssh/id_rsa.pub"
   git config --global gpg.format ssh
+  git config --global user.signingkey "$HOME/.ssh/id_rsa.pub"
 
   cat "$HOME/.gitconfig"
 fi
