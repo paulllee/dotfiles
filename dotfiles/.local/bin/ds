@@ -15,11 +15,12 @@ if [[ ! -d "$DOTFILES_PATH" ]]; then
   exit 1
 fi
 
-CONFIG_PATH="$HOME/.dotfiles/dotfiles/.config/"
+DEV="$DOTFILES_PATH/dotfiles/.config/"
+PROD="$HOME/.config/"
 
-ITERM2_ID="$(osascript -e 'id of app "iTerm2"')"
-MACMOUSEFIX_ID="$(osascript -e 'id of app "Mac Mouse Fix"')"
-SWISH_ID="$(osascript -e 'id of app "Swish"')"
+ITERM2="$(osascript -e 'id of app "iTerm2"')"
+MACMOUSEFIX="$(osascript -e 'id of app "Mac Mouse Fix"')"
+SWISH="$(osascript -e 'id of app "Swish"')"
 
 USAGE_MESSAGE=$(
 cat <<- END
@@ -60,9 +61,8 @@ do
   esac
 done
 
-# this should be ran before anything to ensure all packages are installed
-if (( p_flag )); then
-  printf "\n\n>> Packages Installation Via Brewfile\n"
+if (( p_flag )); then  # MUST BE RAN FIRST!
+  printf "\n> Packages Installation Via Brewfile\n\n"
 
   brew bundle --file "$DOTFILES_PATH/Brewfile" --no-lock
   brew bundle --file "$DOTFILES_PATH/Brewfile" --force cleanup
@@ -71,15 +71,20 @@ if (( p_flag )); then
 fi
 
 if (( b_flag )); then
-  printf "\n\n>> Backup Mac Applications\n"
+  printf "\n> Backup Mac Applications\n\n"
 
-  cp "$CONFIG_PATH/iterm2/$ITERM2_ID.plist" "$CONFIG_PATH/iterm2/"
-  cp "$HOME/Library/Application Support/$MACMOUSEFIX_ID/config.plist" "$CONFIG_PATH/macmousefix/"
-  defaults export "$SWISH_ID" "$CONFIG_PATH/swish/$SWISH_ID.plist"
+  printf "Backing up iTerm2.\n"
+  cp "$PROD/iterm2/$ITERM2.plist" "$DEV/iterm2/"
+
+  printf "Backing up Mac Mouse Fix.\n"
+  cp "$HOME/Library/Application Support/$MACMOUSEFIX/config.plist" "$DEV/macmousefix/"
+
+  printf "Backing up Swish.\n"
+  defaults export "$SWISH" "$DEV/swish/$SWISH.plist"
 fi
 
 if (( d_flag )); then
-  printf "\n\n>> Dotfiles Sync\n"
+  printf "\n> Dotfiles Sync\n\n"
 
   git -C "$DOTFILES_PATH" checkout main 1> /dev/null 2> /dev/null
   git -C "$DOTFILES_PATH" pull
@@ -89,31 +94,31 @@ if (( d_flag )); then
 
   fd . "$HOME/.local/bin" --type f --exec-batch chmod +x {}
 
-  cp "$CONFIG_PATH/macmousefix/config.plist" "$HOME/Library/Application Support/$MACMOUSEFIX_ID/"
-  defaults import "$SWISH_ID" "$CONFIG_PATH/swish/$SWISH_ID.plist"
+  printf "Manually Syncing Mac Mouse Fix and Swish.\n"
+  cp "$PROD/macmousefix/config.plist" "$HOME/Library/Application Support/$MACMOUSEFIX/"
+  defaults import "$SWISH" "$PROD/swish/$SWISH.plist"
 fi
 
 if (( m_flag )); then
-  printf "\n\n>> Mac Defaults Sync\n"
+  printf "\n> Mac Defaults Sync\n\n"
 
-  # disabling DS_Store files in NFS
+  printf "Disabling DS_Store files in NFS.\n"
   defaults write com.apple.desktopservices DSDontWriteNetworkStores true
 
-  # disabling press and hold so that we can key repeat on hold
+  printf "Disabling press and hold so that we can key repeat on hold.\n"
   defaults write -g ApplePressAndHoldEnabled -bool false
 
-  # enabling list view permenantly in Finder
+  printf "Enabling list view permenantly in Finder.\n"
   defaults write com.apple.Finder FXPreferredViewStyle Nlsv
 
-  # enabling iTerm2 to use custom configuration from dotfiles
-  defaults write com.googlecode.iterm2 PrefsCustomFolder -string "$CONFIG_PATH/iterm2/"
+  printf "Enabling iTerm2 to use custom configuration from dotfiles.\n"
+  defaults write com.googlecode.iterm2 PrefsCustomFolder -string "$PROD/iterm2/"
   defaults write com.googlecode.iterm2 LoadPrefsFromCustomFolder -bool true
 fi
 
 if (( g_flag )); then
-  printf "\n\n>> Gitconfig Sync\n"
+  printf "\n> Gitconfig Sync\n\n"
 
-  # setting gitconfig with name and email + keygen
   read -p "Enter Git Name: " GIT_NAME
   read -p "Enter Git Email: " GIT_EMAIL
 
@@ -129,16 +134,14 @@ if (( g_flag )); then
 fi
 
 if (( v_flag )); then
-  printf "\n\n>> VSCode Extensions Sync\n"
+  printf "\n> VSCode Extensions Sync\n\n"
 
-  source "$CONFIG_PATH/vscode/extensions"
+  source "$PROD/vscode/extensions"
 
   for EXTENSION in "${EXTENSIONS[@]}"; do
       code --install-extension "$EXTENSION" --force
   done
 
-  # if there are extensions that are installed that aren't
-  # in the extension list, uninstall them
   INSTALLED=( $(code --list-extensions) )
   for i in "${INSTALLED[@]}"; do
     SKIP=0
