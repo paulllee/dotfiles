@@ -11,14 +11,15 @@ brew "ripgrep"
 brew "zsh-autosuggestions"
 brew "zsh-syntax-highlighting"
 
-tap "homebrew/cask-fonts"
-cask "font-jetbrains-mono-nerd-font"
-
+tap "homebrew/cask"
 cask "arc"
 cask "iterm2"
 cask "mac-mouse-fix"
 cask "swish"
 cask "visual-studio-code"
+
+tap "homebrew/cask-fonts"
+cask "font-jetbrains-mono-nerd-font"
 
 brew "mas"
 mas "Tailscale", id: 1475387142
