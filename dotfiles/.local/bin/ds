@@ -9,12 +9,13 @@ if [[ "$#" == 0 ]]; then
   exit 1
 fi
 
-CONFIG_PATH="$HOME/.dotfiles/dotfiles/.config/"
 DOTFILES_PATH="${DOTFILES_PATH:-$HOME/.dotfiles}"
 if [[ ! -d "$DOTFILES_PATH" ]]; then
   printf "$DOTFILES_PATH is not a valid directory.\n"
   exit 1
 fi
+
+CONFIG_PATH="$HOME/.dotfiles/dotfiles/.config/"
 
 ITERM2_ID="$(osascript -e 'id of app "iTerm2"')"
 MACMOUSEFIX_ID="$(osascript -e 'id of app "Mac Mouse Fix"')"
@@ -37,6 +38,7 @@ Options:
   -p  Packages sync using Brewfile
   -v  VSCode extensions sync
 END
+)
 
 b_flag=0
 d_flag=0
@@ -126,7 +128,7 @@ if (( g_flag )); then
   cat "$HOME/.gitconfig"
 fi
 
-if (( v_flag ));; then
+if (( v_flag )); then
   printf "\n\n>> VSCode Extensions Sync\n"
 
   source "$CONFIG_PATH/vscode/extensions"
