@@ -8,5 +8,5 @@ This bootstrap script pretty much installs and configures everything I need.
 
 ## dotsync
 
-I provided an app to one-way sync from remote to your local dotfiles via `ds -s`. 
+I provided an app to one-way sync from remote to your local dotfiles via `ds -d`. 
 View `ds -h` for more information.
