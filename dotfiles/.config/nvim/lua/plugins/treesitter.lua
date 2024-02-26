@@ -5,36 +5,37 @@ return {
     config = function()
       require("nvim-treesitter.configs").setup({
         ensure_installed = {
-          -- config formats
-          "json",
-          "jsonc",
-          "requirements",
-          "xml",
-          "toml",
-          "yaml",
-
-          -- languages
           "bash",
           "c",
           "cpp",
           "css",
-          "html",
-          "javascript",
-          "lua",
-          "python",
-          "rust",
-          "sql",
-          "typescript",
-          "tsx",
-
-          -- other
           "csv",
           "gitignore",
+          "html",
+          "javascript",
+          "json",
+          "jsonc",
+          "lua",
           "markdown",
           "markdown_inline",
-          "regex"
+          "python",
+          "query",
+          "regex",
+          "requirements",
+          "rust",
+          "sql",
+          "toml",
+          "typescript",
+          "tsx",
+          "vim",
+          "vimdoc",
+          "xml",
+          "yaml"
         },
-        highlight = { enable = true },
+        highlight = {
+          enable = true,
+          additional_vim_regex_highlighting = true
+        },
         indent = { enable = true }
       })
     end
