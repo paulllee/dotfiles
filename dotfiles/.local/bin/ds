@@ -9,15 +9,16 @@ if [[ "$#" == 0 ]]; then
   exit 1
 fi
 
+CONFIG_PATH="$HOME/.dotfiles/dotfiles/.config/"
 DOTFILES_PATH="${DOTFILES_PATH:-$HOME/.dotfiles}"
 if [[ ! -d "$DOTFILES_PATH" ]]; then
   printf "$DOTFILES_PATH is not a valid directory.\n"
   exit 1
 fi
 
-function printf_h () {  # [printf] [h]eader
-  printf "\n> $1\n\n"
-}
+ITERM2_ID="$(osascript -e 'id of app "iTerm2"')"
+MACMOUSEFIX_ID="$(osascript -e 'id of app "Mac Mouse Fix"')"
+SWISH_ID="$(osascript -e 'id of app "Swish"')"
 
 USAGE_MESSAGE=$(
 cat <<- END
@@ -29,89 +30,54 @@ Usage:
 
 Options:
   -h  Print this help message
-  -b  Install packages from Brewfile in dotfiles directory
-  -c  Clean Homebrew with package upgrades and match Brewfile packages with local
-  -g  Git configuration
-  -m  Mac defaults configuration
-  -s  Sync dotfiles
-  -v  VSCode extension sync; installs any missing extensions and uninstalls unexpected extensions
-
-Examples:
-  $(basename "$0") -ms  Mac default Configuration and dotfiles sync
+  -b  Backup mac applications
+  -d  Dotfiles sync
+  -g  Gitconfig sync
+  -m  Mac defaults sync
+  -p  Packages sync using Brewfile
+  -v  VSCode extensions sync
 END
-)
 
 b_flag=0
-c_flag=0
+d_flag=0
 g_flag=0
 m_flag=0
-s_flag=0
+p_flag=0
 v_flag=0
 
-while getopts "hbcgmsv" FLAG
+while getopts "hbdgmpv" FLAG
 do
   case "${FLAG}" in
     h) printf "$USAGE_MESSAGE\n" && exit 0 ;;
     b) b_flag=1 ;;
-    c) c_flag=1 ;;
+    d) d_flag=1 ;;
     g) g_flag=1 ;;
     m) m_flag=1 ;;
-    s) s_flag=1 ;;
+    p) p_flag=1 ;;
     v) v_flag=1 ;;
   esac
 done
 
-if (( b_flag )); then
-  printf_h "Brewfile Installation"
+# this should be ran before anything to ensure all packages are installed
+if (( p_flag )); then
+  printf "\n\n>> Packages Installation Via Brewfile\n"
 
   brew bundle --file "$DOTFILES_PATH/Brewfile" --no-lock
-fi
-
-if (( c_flag )); then
-  printf_h "Homebrew Spring Cleaning"
-
-  brew upgrade
-  brew upgrade --cask
-  mas upgrade
-
-  brew cleanup
   brew bundle --file "$DOTFILES_PATH/Brewfile" --force cleanup
+  brew cleanup
   brew autoremove
 fi
 
-if (( g_flag )); then
-  printf_h "Gitconfig Configuration"
+if (( b_flag )); then
+  printf "\n\n>> Backup Mac Applications\n"
 
-  read -p "Enter Git Name: " GIT_NAME
-  read -p "Enter Git Email: " GIT_EMAIL
-
-  git config --global user.name "$GIT_NAME"
-  git config --global user.email "$GIT_EMAIL"
-  git config --global user.signingkey "$HOME/.ssh/id_rsa.pub"
-  git config --global gpg.format ssh
-
-  cat "$HOME/.gitconfig"
+  cp "$CONFIG_PATH/iterm2/$ITERM2_ID.plist" "$CONFIG_PATH/iterm2/"
+  cp "$HOME/Library/Application Support/$MACMOUSEFIX_ID/config.plist" "$CONFIG_PATH/macmousefix/"
+  defaults export "$SWISH_ID" "$CONFIG_PATH/swish/$SWISH_ID.plist"
 fi
 
-if (( m_flag )); then
-  printf_h "Mac Defaults Configuration"
-
-  printf "Disabling DS_Store files in NFS.\n"
-  defaults write com.apple.desktopservices DSDontWriteNetworkStores true
-
-  printf "Disabling press and hold so that we can key repeat on hold.\n"
-  defaults write -g ApplePressAndHoldEnabled -bool false
-
-  printf "Enabling list view permenantly in Finder.\n"
-  defaults write com.apple.Finder FXPreferredViewStyle Nlsv
-
-  printf "Enabling iTerm2 to use custom configuration from dotfiles.\n"
-  defaults write com.googlecode.iterm2 PrefsCustomFolder -string "$HOME/.config/iterm2/"
-  defaults write com.googlecode.iterm2 LoadPrefsFromCustomFolder -bool true
-fi
-
-if (( s_flag )); then
-  printf_h "Sync Dotfiles"
+if (( d_flag )); then
+  printf "\n\n>> Dotfiles Sync\n"
 
   git -C "$DOTFILES_PATH" checkout main 1> /dev/null 2> /dev/null
   git -C "$DOTFILES_PATH" pull
@@ -119,23 +85,51 @@ if (( s_flag )); then
 
   rsync --exclude ".DS_Store" -avhP "$DOTFILES_PATH/dotfiles/" "$HOME/"
 
-  printf "Giving executable permissions for our local binary files.\n"
-
   fd . "$HOME/.local/bin" --type f --exec-batch chmod +x {}
 
-  printf "Importing Swish and Mac Mouse Fix configs manually.\n"
-
-  SWISH="$(osascript -e 'id of app "Swish"')"
-  defaults import "$SWISH" "$HOME/.config/swish/$SWISH.plist"
-
-  MACMOUSEFIX="$(osascript -e 'id of app "Mac Mouse Fix"')"
-  cp "$HOME/.config/macmousefix/config.plist" "$HOME/Library/Application Support/$MACMOUSEFIX/"
+  cp "$CONFIG_PATH/macmousefix/config.plist" "$HOME/Library/Application Support/$MACMOUSEFIX_ID/"
+  defaults import "$SWISH_ID" "$CONFIG_PATH/swish/$SWISH_ID.plist"
 fi
 
-if (( v_flag )); then
-  printf_h "VSCode Extension Sync"
+if (( m_flag )); then
+  printf "\n\n>> Mac Defaults Sync\n"
 
-  source "$HOME/.config/vscode/extensions"
+  # disabling DS_Store files in NFS
+  defaults write com.apple.desktopservices DSDontWriteNetworkStores true
+
+  # disabling press and hold so that we can key repeat on hold
+  defaults write -g ApplePressAndHoldEnabled -bool false
+
+  # enabling list view permenantly in Finder
+  defaults write com.apple.Finder FXPreferredViewStyle Nlsv
+
+  # enabling iTerm2 to use custom configuration from dotfiles
+  defaults write com.googlecode.iterm2 PrefsCustomFolder -string "$CONFIG_PATH/iterm2/"
+  defaults write com.googlecode.iterm2 LoadPrefsFromCustomFolder -bool true
+fi
+
+if (( g_flag )); then
+  printf "\n\n>> Gitconfig Sync\n"
+
+  # setting gitconfig with name and email + keygen
+  read -p "Enter Git Name: " GIT_NAME
+  read -p "Enter Git Email: " GIT_EMAIL
+
+  git config --global user.name "$GIT_NAME"
+  git config --global user.email "$GIT_EMAIL"
+
+  ssh-keygen -t ed25519 -N "" -f "$HOME/.ssh/id_rsa"
+
+  git config --global user.signingkey "$HOME/.ssh/id_rsa.pub"
+  git config --global gpg.format ssh
+
+  cat "$HOME/.gitconfig"
+fi
+
+if (( v_flag ));; then
+  printf "\n\n>> VSCode Extensions Sync\n"
+
+  source "$CONFIG_PATH/vscode/extensions"
 
   for EXTENSION in "${EXTENSIONS[@]}"; do
       code --install-extension "$EXTENSION" --force
