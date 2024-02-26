@@ -99,23 +99,6 @@ if (( d_flag )); then
   defaults import "$SWISH" "$PROD/swish/$SWISH.plist"
 fi
 
-if (( m_flag )); then
-  printf "\n> Mac Defaults Sync\n\n"
-
-  printf "Disabling DS_Store files in NFS.\n"
-  defaults write com.apple.desktopservices DSDontWriteNetworkStores true
-
-  printf "Disabling press and hold so that we can key repeat on hold.\n"
-  defaults write -g ApplePressAndHoldEnabled -bool false
-
-  printf "Enabling list view permenantly in Finder.\n"
-  defaults write com.apple.Finder FXPreferredViewStyle Nlsv
-
-  printf "Enabling iTerm2 to use custom configuration from dotfiles.\n"
-  defaults write com.googlecode.iterm2 PrefsCustomFolder -string "$PROD/iterm2/"
-  defaults write com.googlecode.iterm2 LoadPrefsFromCustomFolder -bool true
-fi
-
 if (( g_flag )); then
   printf "\n> Gitconfig Sync\n\n"
 
@@ -133,6 +116,23 @@ if (( g_flag )); then
   git config --global user.signingkey "$HOME/.ssh/id_rsa.pub"
 
   cat "$HOME/.gitconfig"
+fi
+
+if (( m_flag )); then
+  printf "\n> Mac Defaults Sync\n\n"
+
+  printf "Disabling DS_Store files in NFS.\n"
+  defaults write com.apple.desktopservices DSDontWriteNetworkStores true
+
+  printf "Disabling press and hold so that we can key repeat on hold.\n"
+  defaults write -g ApplePressAndHoldEnabled -bool false
+
+  printf "Enabling list view permenantly in Finder.\n"
+  defaults write com.apple.Finder FXPreferredViewStyle Nlsv
+
+  printf "Enabling iTerm2 to use custom configuration from dotfiles.\n"
+  defaults write com.googlecode.iterm2 PrefsCustomFolder -string "$PROD/iterm2/"
+  defaults write com.googlecode.iterm2 LoadPrefsFromCustomFolder -bool true
 fi
 
 if (( v_flag )); then
