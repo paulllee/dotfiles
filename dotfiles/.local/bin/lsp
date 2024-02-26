@@ -1,0 +1,36 @@
+#!/usr/bin/env bash
+
+function brew_me() {
+  brew install "$@"
+}
+
+function pip_me() {
+  micromamba run -n lsp pip install "$@"
+}
+
+function npm_me() {
+  micromamba run -n lsp npm install i -g "$@"
+}
+
+# lua
+brew_me lua-language-server
+
+# rust
+brew_me rust-analyzer
+
+# (re-)create contained lsp environment
+yes | micromamba create -n lsp python=3.12 nodejs=20.9.0
+
+# python
+pip_me ruff
+pip_me ruff-lsp
+npm_me pyright
+
+# bash
+npm_me bash-language-server
+
+# html/css/json
+npm_me vscode-langservers-extracted
+
+# js/ts/tsx
+npm_me typescript typescript-language-server
