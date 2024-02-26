@@ -22,7 +22,7 @@ vim.api.nvim_create_autocmd("LspAttach", {
       a = { vim.lsp.buf.code_action, "[A]ction" }
     }
     mappings.d = {
-     name = "[D]iagnostic",
+      name = "[D]iagnostic",
       o = { vim.diagnostic.open_float, "[O]pen" },
       p = { vim.diagnostic.goto_prev, "[P]revious" },
       n = { vim.diagnostic.goto_next, "[N]ext" }
@@ -39,18 +39,9 @@ vim.api.nvim_create_autocmd("LspAttach", {
     }
     mappings.r = { vim.lsp.buf.rename, "[R]ename All References" }
     mappings.t = {
+      name = "[T]elescope With LSP",
       d = { builtin.diagnostics, "[D]iagnostics" },
       r = { builtin.lsp_references, "[R]eferences" }
-    }
-    mappings.w = {
-      name = "[W]orkspace",
-      a = { vim.lsp.buf.add_workspace_folder, "[A]dd" },
-      r = { vim.lsp.buf.remove_workspace_folder, "[R]emove" },
-      l = {
-        function()
-          print(vim.inspect(vim.lsp.buf.list_workspace_folders()))
-        end, "[L]ist"
-      }
     }
     wk.register(mappings, opts)
   end
