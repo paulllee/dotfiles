@@ -8,7 +8,6 @@ brew "micromamba"
 brew "neovim"
 brew "pure"
 brew "ripgrep"
-brew "tree"
 brew "zsh-autosuggestions"
 brew "zsh-syntax-highlighting"
 
