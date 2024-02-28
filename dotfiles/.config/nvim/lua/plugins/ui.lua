@@ -9,13 +9,6 @@ return {
   },
 
   {
-    "rcarriga/nvim-notify",
-    config = function()
-      vim.notify = require("notify")
-    end
-  },
-
-  {
     "nvim-lualine/lualine.nvim",
     dependencies = { "nvim-tree/nvim-web-devicons" },
     config = function()

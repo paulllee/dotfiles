@@ -27,10 +27,14 @@ return {
       lspconfig.jsonls.setup(default_conf("vscode-json-language-server", "--stdio"))
       lspconfig.lua_ls.setup(default_conf())
 
-      -- telling pyright what the current python environment is
       local pyright_conf = default_conf("pyright-langserver", "--stdio")
       pyright_conf.settings = {
         python = {
+          analysis = {
+            -- strict type checking can be a bit of a pain
+            typeCheckingMode = "off"
+          },
+          -- telling pyright what the current python environment is
           pythonPath = vim.fn.exepath("python3")
         }
       }
