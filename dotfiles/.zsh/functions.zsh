@@ -1,9 +1,9 @@
 function ll() {  # [l]s -[l]
-  eza "${1:-.}" -l --icons=auto --git --git-repos --git-ignore
+  eza "${1:-.}" -l --icons=auto --git --git-repos
 }
 
 function la() {  # ls -[la]
-  eza "${1:-.}" -la --icons=auto --git --git-repos --git-ignore
+  eza "${1:-.}" -la --icons=auto --git --git-repos
 }
 
 function qcd() {  # [q]uick [cd]
