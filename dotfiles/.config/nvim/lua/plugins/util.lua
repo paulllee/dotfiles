@@ -15,7 +15,7 @@ return {
             hide_dotfiles = false,
             hide_gitignored = false,
             hide_hidden = false,
-            never_show = { ".git", ".DS_Store" }
+            never_show = { ".git" }
           }
         },
         event_handlers = {
