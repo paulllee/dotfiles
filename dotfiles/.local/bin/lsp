@@ -9,7 +9,7 @@ function pip_me() {
 }
 
 function npm_me() {
-  micromamba run -n lsp npm install i -g "$@"
+  micromamba run -n lsp npm install -g "$@"
 }
 
 # lua
