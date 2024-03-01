@@ -7,11 +7,19 @@ local builtin = require("telescope.builtin")
 local mappings = {}
 local opts = { prefix = "<space>" }
 
+mappings.n = {
+  name = "[N]eo-tree",
+  e = { "<cmd>:Neotree<cr>", "[E]xplorer" },
+  b = { "<cmd>:Neotree buffers<cr>", "[B]uffer" }
+}
+
 mappings.t = {
   name = "[T]elescope",
   f = { builtin.find_files, "[F]iles" },
-  g = { builtin.live_grep, "[G]rep" }
+  g = { builtin.live_grep, "[G]rep" },
+  b = { builtin.buffers, "[B]uffer" }
 }
+
 wk.register(mappings, opts)
 
 vim.api.nvim_create_autocmd("LspAttach", {
