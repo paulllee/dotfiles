@@ -68,7 +68,9 @@ return {
           ["<C-y>"] = cmp.mapping.confirm({ select = false }),
           ["<C-e>"] = cmp.mapping.abort(),
           ["<C-p>"] = cmp.mapping.select_prev_item({ behavior = "select" }),
-          ["<C-n>"] = cmp.mapping.select_next_item({ behavior = "select" })
+          ["<C-n>"] = cmp.mapping.select_next_item({ behavior = "select" }),
+          ["<C-d>"] = cmp.mapping.scroll_docs(5),
+          ["<C-u>"] = cmp.mapping.scroll_docs(-5)
         },
         snippet = {
           expand = function(args)
