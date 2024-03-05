@@ -3,46 +3,53 @@ return {
     "neovim/nvim-lspconfig",
     dependencies = { "hrsh7th/cmp-nvim-lsp" },
     config = function()
-      local function new_conf(cmd, settings)
-        local conf = {}
+      local function get_conf(cmd, settings)
+        local new_conf = {}
 
-        conf.capabilities = require("cmp_nvim_lsp").default_capabilities()
+        new_conf.capabilities = require("cmp_nvim_lsp").default_capabilities()
 
         if cmd then
-          conf.cmd = { "micromamba", "run", "-n", "lsp" }
-          for _, v in ipairs(cmd) do
-            table.insert(conf.cmd, v)
+          new_conf.cmd = { "micromamba", "run", "-n", "lsp" }
+          for _, arg in ipairs(cmd) do
+            table.insert(new_conf.cmd, arg)
           end
         end
 
         if settings then
-          conf.settings = settings
+          new_conf.settings = settings
         end
 
-        return conf
+        return new_conf
       end
 
-      local lspconfig = require("lspconfig")
+      local confs = {
+        bashls = get_conf({ "bash-language-server", "start" }),
+        clangd = get_conf(),
+        cssls = get_conf({ "vscode-css-language-server", "--stdio" }),
+        html = get_conf({ "vscode-html-language-server", "--stdio" }),
+        jsonls = get_conf({ "vscode-jsonls-language-server", "--stdio" }),
+        lua_ls  = get_conf(),
+        pyright = get_conf(
+          { "pyright-langserver", "--stdio" },
+          {
+            python = {
+              analysis = {
+                -- strict type checking can be a bit of a pain
+                typeCheckingMode = "off"
+              },
+              -- telling pyright what the current python environment is
+              pythonPath = vim.fn.exepath("python3")
+            }
+          }
+        ),
+        ruff_lsp = get_conf({ "ruff-lsp" }),
+        rust_analyzer = get_conf(get_conf()),
+        tsserver = get_conf({ "typescript-language-server", "--stdio" })
+      }
 
-      lspconfig.bashls.setup(new_conf({ "bash-language-server", "start" }))
-      lspconfig.clangd.setup(new_conf())
-      lspconfig.cssls.setup(new_conf({ "vscode-css-language-server", "--stdio" }))
-      lspconfig.html.setup(new_conf({ "vscode-html-language-server", "--stdio" }))
-      lspconfig.jsonls.setup(new_conf({ "vscode-json-language-server", "--stdio" }))
-      lspconfig.lua_ls.setup(new_conf())
-      lspconfig.pyright.setup(new_conf({ "pyright-langserver", "--stdio" }, {
-        python = {
-          analysis = {
-            -- strict type checking can be a bit of a pain
-            typeCheckingMode = "off"
-          },
-          -- telling pyright what the current python environment is
-          pythonPath = vim.fn.exepath("python3")
-        }
-      }))
-      lspconfig.ruff_lsp.setup(new_conf({ "ruff-lsp" }))
-      lspconfig.rust_analyzer.setup(new_conf())
-      lspconfig.tsserver.setup(new_conf({ "typescript-language-server", "--stdio" }))
+      for name, conf in pairs(confs) do
+        require("lspconfig")[name].setup(conf)
+      end
     end
   },
   {
