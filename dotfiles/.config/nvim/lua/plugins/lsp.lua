@@ -14,6 +14,7 @@ return {
       local cmp = require("cmp")
 
       cmp.setup({
+        completion = { completeopt = "menu,menuone,noinsert" },
         sources = {
           { name = "nvim_lsp_signature_help" },
           { name = "nvim_lsp" },
@@ -23,8 +24,8 @@ return {
         mapping = {
           ["<C-y>"] = cmp.mapping.confirm({ select = false }),
           ["<C-e>"] = cmp.mapping.abort(),
-          ["<Up>"] = cmp.mapping.select_prev_item({ behavior = "select" }),
-          ["<Down>"] = cmp.mapping.select_next_item({ behavior = "select" })
+          ["<C-p>"] = cmp.mapping.select_prev_item({ behavior = "select" }),
+          ["<C-n>"] = cmp.mapping.select_next_item({ behavior = "select" })
         },
         snippet = {
           expand = function(args)

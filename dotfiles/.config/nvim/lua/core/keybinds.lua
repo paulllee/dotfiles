@@ -33,7 +33,9 @@ vim.api.nvim_create_autocmd("LspAttach", {
       name = "[D]iagnostic",
       o = { vim.diagnostic.open_float, "[O]pen" },
       p = { vim.diagnostic.goto_prev, "[P]revious" },
-      n = { vim.diagnostic.goto_next, "[N]ext" }
+      n = { vim.diagnostic.goto_next, "[N]ext" },
+      e = { vim.diagnostic.open_float, "[F]loat Message" },
+      q = { vim.diagnostic.setloclist, "[Q]uick Fix List" }
     }
     mappings.f = { vim.lsp.buf.format, "[F]ormat" }
     mappings.g = {
