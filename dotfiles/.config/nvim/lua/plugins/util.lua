@@ -49,15 +49,15 @@ return {
     end
   },
   {
-    "echasnovski/mini.comment",
+    "numToStr/Comment.nvim",
     config = function()
-      require("mini.comment").setup()
+      require("Comment").setup()
     end
   },
   {
-    "echasnovski/mini.pairs",
+    "windwp/nvim-autopairs",
     config = function()
-      require("mini.pairs").setup()
+      require("nvim-autopairs").setup()
     end
   },
   {
