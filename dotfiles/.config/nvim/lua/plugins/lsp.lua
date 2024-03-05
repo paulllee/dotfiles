@@ -87,13 +87,13 @@ return {
         formatting = {
           format = require("lspkind").cmp_format({
             mode = "symbol_text",
+            maxwidth = 50,
+            ellipsis_char = "...",
             menu = {
               nvim_lsp = "[LSP]",
               buffer = "[BUF]",
               path = "[PATH]"
-            },
-            maxwidth = 50,
-            ellipsis_char = "..."
+            }
           })
         }
       })
