@@ -1,48 +1,8 @@
 return {
   {
     "neovim/nvim-lspconfig",
-    dependencies = {
-      "hrsh7th/nvim-cmp",
-      "hrsh7th/cmp-nvim-lsp-signature-help",
-      "hrsh7th/cmp-nvim-lsp",
-      "hrsh7th/cmp-buffer",
-      "hrsh7th/cmp-path",
-      "L3MON4D3/LuaSnip",
-      "onsails/lspkind.nvim"
-    },
+    dependencies = { "hrsh7th/cmp-nvim-lsp" },
     config = function()
-      local cmp = require("cmp")
-
-      cmp.setup({
-        completion = { completeopt = "menu,menuone,noinsert" },
-        sources = {
-          { name = "nvim_lsp_signature_help" },
-          { name = "nvim_lsp" },
-          { name = "buffer" },
-          { name = "path" }
-        },
-        mapping = {
-          ["<C-y>"] = cmp.mapping.confirm({ select = false }),
-          ["<C-e>"] = cmp.mapping.abort(),
-          ["<C-p>"] = cmp.mapping.select_prev_item({ behavior = "select" }),
-          ["<C-n>"] = cmp.mapping.select_next_item({ behavior = "select" })
-        },
-        snippet = {
-          expand = function(args)
-            require("luasnip").lsp_expand(args.body)
-          end
-        },
-        formatting = {
-          format = require("lspkind").cmp_format({
-            mode = "symbol",
-            maxwidth = 50,
-            ellipsis_char = "..."
-          })
-        }
-      })
-
-      -- most of my lsps are contained in a conda env named "lsp"
-      -- this removes the redundancy for all configs
       local function new_conf(cmd, settings)
         local conf = {}
 
@@ -83,6 +43,56 @@ return {
       lspconfig.ruff_lsp.setup(new_conf({ "ruff-lsp" }))
       lspconfig.rust_analyzer.setup(new_conf())
       lspconfig.tsserver.setup(new_conf({ "typescript-language-server", "--stdio" }))
+    end
+  },
+  {
+    "hrsh7th/nvim-cmp",
+    dependencies = {
+      "hrsh7th/cmp-nvim-lsp",
+      "hrsh7th/cmp-buffer",
+      "hrsh7th/cmp-path",
+      "L3MON4D3/LuaSnip",
+      "onsails/lspkind.nvim"
+    },
+    config = function()
+      local cmp = require("cmp")
+
+      cmp.setup({
+        completion = { completeopt = "menu,menuone,noinsert" },
+        sources = {
+          { name = "nvim_lsp" },
+          { name = "buffer" },
+          { name = "path" }
+        },
+        mapping = {
+          ["<C-y>"] = cmp.mapping.confirm({ select = false }),
+          ["<C-e>"] = cmp.mapping.abort(),
+          ["<C-p>"] = cmp.mapping.select_prev_item({ behavior = "select" }),
+          ["<C-n>"] = cmp.mapping.select_next_item({ behavior = "select" })
+        },
+        snippet = {
+          expand = function(args)
+            require("luasnip").lsp_expand(args.body)
+          end
+        },
+        formatting = {
+          format = require("lspkind").cmp_format({
+            mode = "symbol",
+            maxwidth = 50,
+            ellipsis_char = "..."
+          })
+        }
+      })
+    end
+  },
+  {
+    "ray-x/lsp_signature.nvim",
+    config = function()
+      require("lsp_signature").setup({
+        doc_lines = 0,
+        maxwidth = 50,
+        hint_enable = false
+      })
     end
   }
 }
