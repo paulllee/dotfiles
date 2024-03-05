@@ -42,7 +42,7 @@ return {
       })
 
       -- most of my lsps are contained in a conda env named "lsp"
-      -- this returns the redundancy for all configs
+      -- this removes the redundancy for all configs
       local function new_conf(cmd, settings)
         local conf = {}
 
