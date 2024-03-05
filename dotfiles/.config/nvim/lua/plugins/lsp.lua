@@ -28,7 +28,7 @@ return {
         cssls = get_conf({ "vscode-css-language-server", "--stdio" }),
         html = get_conf({ "vscode-html-language-server", "--stdio" }),
         jsonls = get_conf({ "vscode-jsonls-language-server", "--stdio" }),
-        lua_ls  = get_conf(),
+        lua_ls = get_conf(),
         pyright = get_conf(
           { "pyright-langserver", "--stdio" },
           {
