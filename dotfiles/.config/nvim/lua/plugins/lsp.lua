@@ -105,7 +105,8 @@ return {
       require("lsp_signature").setup({
         doc_lines = 0,
         maxwidth = 50,
-        hint_enable = false
+        hint_enable = false,
+        select_signature_key = "<C-;>"
       })
     end
   }
