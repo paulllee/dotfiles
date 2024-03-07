@@ -11,7 +11,6 @@ brew "ripgrep"
 brew "zsh-autosuggestions"
 brew "zsh-syntax-highlighting"
 
-tap "homebrew/cask"
 cask "arc"
 cask "iterm2"
 cask "mac-mouse-fix"
