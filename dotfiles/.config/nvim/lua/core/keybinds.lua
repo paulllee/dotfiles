@@ -23,7 +23,8 @@ mappings.g = {
   name = "[G]o To",
   b = { builtin.buffers, "[B]uffer" },
   f = { builtin.find_files, "[F]iles" },
-  g = { builtin.live_grep, "[G]rep" }
+  g = { builtin.live_grep, "[G]rep" },
+  o = { builtin.oldfiles, "[O]ld Files" }
 }
 
 wk.register(mappings, opts)
