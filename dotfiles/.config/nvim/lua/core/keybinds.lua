@@ -1,50 +1,42 @@
--- using which-key for my keybinds
-local wk = require("which-key")
+local function map(mode, lhs, rhs, desc, buffer)
+  vim.keymap.set(mode, lhs, rhs, {
+    desc = desc,
+    buffer = buffer
+  })
+end
 
--- using telescope for searching through lsp info
 local builtin = require("telescope.builtin")
 
-local mappings = {}
-local opts = { prefix = "<space>" }
+map("n", "<Space>n", "<cmd>:Neotree<cr>", "Neotree")
+map("n", "<Space>r", "<cmd>:LspRestart<cr>", "Restart server")
 
-mappings.l = {
-  name = "[L]sp",
-  i = { "<cmd>:LspInfo<cr>", "[I]nfo" },
-  r = { "<cmd>:LspRestart<cr>", "[_R]estart" }
-}
-
-mappings.n = {
-  name = "[N]eo-tree",
-  e = { "<cmd>:Neotree<cr>", "[E]xplorer" },
-  b = { "<cmd>:Neotree buffers<cr>", "[B]uffer" }
-}
-
-mappings.g = {
-  name = "[G]o To",
-  b = { builtin.buffers, "[B]uffer" },
-  f = { builtin.find_files, "[F]iles" },
-  g = { builtin.live_grep, "[G]rep" },
-  o = { builtin.oldfiles, "[O]ld Files" }
-}
-
-wk.register(mappings, opts)
+map("n", "<Space>b", builtin.buffers, "Telescope buffers")
+map("n", "<Space>f", builtin.find_files, "Telescope find files")
+map("n", "<Space>g", builtin.live_grep, "Telescope live grep")
+map("n", "<Space>o", builtin.oldfiles, "Telescope old files")
 
 vim.api.nvim_create_autocmd("LspAttach", {
   callback = function(args)
-    opts.buffer = args.buf
-    mappings.g = {
-      d = { builtin.lsp_definitions, "[_D]efinition" },
-      D = { builtin.diagnostics, "[^D]iagnostics" },
-      h = { vim.lsp.buf.hover, "[H]over" },
-      i = { builtin.lsp_implementations, "[I]mplementation" },
-      r = { builtin.lsp_references, "[R]eferences" },
-      s = { vim.lsp.buf.signature_help, "[S]ignature Help" },
-      t = { builtin.lsp_type_definitions, "[T]ype Definition" }
-    }
-    mappings.l = {
-      f = { vim.lsp.buf.format, "[F]ormat" },
-      R = { vim.lsp.buf.rename, "[^R]ename All References" }
-    }
-    wk.register(mappings, opts)
+    local function lsp_map(mode, lhs, rhs, desc)
+      map(mode, lhs, rhs, desc, args.buf)
+    end
+
+    local lsp_buf = vim.lsp.buf
+
+    lsp_map("n", "gd", builtin.lsp_definitions, "Definitions")
+    lsp_map("n", "gD", builtin.diagnostics, "Diagnostics")
+    lsp_map("n", "gi", builtin.lsp_implementations, "Implementations")
+    lsp_map("n", "gr", builtin.lsp_references, "References")
+
+    lsp_map("n", "gh", lsp_buf.hover, "Hover")
+    lsp_map("n", "gH", lsp_buf.signature_help, "Signature help")
+
+    lsp_map("n", "<Space>F", lsp_buf.format, "Format file")
+    lsp_map("n", "<Space>R", lsp_buf.rename, "Rename all references")
   end
 })
+
+local ls = require("luasnip")
+
+map({ "i", "s" }, "<C-j>", function() ls.jump(-1) end, "LS Jump left")
+map({ "i", "s" }, "<C-k>", function() ls.jump(1) end, "LS Jump right")
