@@ -19,7 +19,7 @@ vim.wo.number = true
 vim.wo.relativenumber = true
 
 -- misc
-vim.o.breakindent = true
+vim.o.wrap = false
 vim.o.smartcase = true
 vim.o.clipboard = "unnamedplus"
 vim.o.timeout = true
