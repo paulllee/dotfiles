@@ -1,22 +1,23 @@
--- aliases
-local ts = require("telescope.builtin")
-local ls = require("luasnip")
-local lb = vim.lsp.buf
-
+-- all keybinds in <cmd><cr> format
+-- no need to have plugins loaded beforehand
+-- `desc` and `buffer` are optional
 local function map(mode, lhs, rhs, desc, buffer)
-  vim.keymap.set(mode, lhs, rhs, {
+  vim.keymap.set(mode, lhs, "<cmd>" .. rhs .. "<cr>", {
     desc = desc,
     buffer = buffer
   })
 end
 
-map("n", "<Space>n", "<cmd>:Neotree<cr>", "Neotree")
-map("n", "<Space>r", "<cmd>:LspRestart<cr>", "Restart lsp")
+map("n", "<Leader>e", ":Neotree", "Open explorer")
+map("n", "<Leader>r", ":LspRestart", "Restart server")
 
-map("n", "<Space>b", ts.buffers, "Telescope buffers")
-map("n", "<Space>f", ts.find_files, "Telescope find files")
-map("n", "<Space>g", ts.live_grep, "Telescope live grep")
-map("n", "<Space>o", ts.oldfiles, "Telescope old files")
+map("n", "<Leader>b", ":Telescope buffers", "Search buffers")
+map("n", "<Leader>f", ":Telescope find_files", "Search files")
+map("n", "<Leader>g", ":Telescope live_grep", "Grep files")
+map("n", "<Leader>o", ":Telescope oldfiles", "Search old files")
+
+map({ "i", "s" }, "<C-j>", "lua require('luasnip').jump(-1)")
+map({ "i", "s" }, "<C-k>", "lua require('luasnip').jump(1)")
 
 vim.api.nvim_create_autocmd("LspAttach", {
   callback = function(args)
@@ -24,18 +25,15 @@ vim.api.nvim_create_autocmd("LspAttach", {
       map(mode, lhs, rhs, desc, args.buf)
     end
 
-    lmap("n", "gd", ts.lsp_definitions, "Definitions")
-    lmap("n", "gD", ts.diagnostics, "Diagnostics")
-    lmap("n", "gi", ts.lsp_implementations, "Implementations")
-    lmap("n", "gr", ts.lsp_references, "References")
+    lmap("n", "gd", ":Telescope lsp_definitions", "Definitions")
+    lmap("n", "gD", ":Telescope diagnostics", "Diagnostics")
+    lmap("n", "gi", ":Telescope lsp_implementations", "Implementations")
+    lmap("n", "gr", ":Telescope lsp_references", "References")
 
-    lmap("n", "gh", lb.hover, "Hover")
-    lmap("n", "gH", lb.signature_help, "Signature help")
+    lmap("n", "gh", "lua vim.lsp.buf.hover()", "Hover")
+    lmap("n", "gH", "lua vim.lsp.buf.signature_help()", "Signature")
 
-    lmap("n", "<Space>F", lb.format, "Format file")
-    lmap("n", "<Space>R", lb.rename, "Rename all references")
+    lmap("n", "<Leader>F", "lua vim.lsp.buf.format()", "Format")
+    lmap("n", "<Leader>R", "lua vim.lsp.buf.rename()", "Rename")
   end
 })
-
-map({ "i", "s" }, "<C-j>", function() ls.jump(-1) end, "LS jump left")
-map({ "i", "s" }, "<C-k>", function() ls.jump(1) end, "LS jump right")
