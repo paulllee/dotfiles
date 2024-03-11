@@ -65,6 +65,8 @@ if (( p_flag )); then  # MUST BE RAN FIRST!
   printf "\n> Packages Installation Via Brewfile\n\n"
 
   brew bundle --file "$DOTFILES_PATH/Brewfile" --no-lock
+  brew upgrade
+
   brew bundle --file "$DOTFILES_PATH/Brewfile" --force cleanup
   brew cleanup
   brew autoremove
