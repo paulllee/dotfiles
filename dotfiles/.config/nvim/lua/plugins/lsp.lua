@@ -63,6 +63,7 @@ return {
     },
     config = function()
       local cmp = require("cmp")
+      local ls = require("luasnip")
 
       cmp.setup({
         completion = { completeopt = "menu,menuone,noinsert" },
@@ -77,7 +78,9 @@ return {
           ["<C-p>"] = cmp.mapping.select_prev_item({ behavior = "select" }),
           ["<C-n>"] = cmp.mapping.select_next_item({ behavior = "select" }),
           ["<C-d>"] = cmp.mapping.scroll_docs(5),
-          ["<C-u>"] = cmp.mapping.scroll_docs(-5)
+          ["<C-u>"] = cmp.mapping.scroll_docs(-5),
+          ["<C-j>"] = cmp.mapping(function() ls.jump(-1) end, { "i", "s" }),
+          ["<C-k>"] = cmp.mapping(function() ls.jump(1) end, { "i", "s" })
         },
         snippet = {
           expand = function(args)

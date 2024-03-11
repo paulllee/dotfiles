@@ -16,9 +16,6 @@ map("n", "<Leader>f", ":Telescope find_files", "Search files")
 map("n", "<Leader>g", ":Telescope live_grep", "Grep files")
 map("n", "<Leader>o", ":Telescope oldfiles", "Search old files")
 
-map({ "i", "s" }, "<C-j>", "lua require('luasnip').jump(-1)")
-map({ "i", "s" }, "<C-k>", "lua require('luasnip').jump(1)")
-
 vim.api.nvim_create_autocmd("LspAttach", {
   callback = function(args)
     local function lmap(mode, lhs, rhs, desc)
