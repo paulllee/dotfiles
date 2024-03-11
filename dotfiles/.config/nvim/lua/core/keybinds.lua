@@ -28,7 +28,7 @@ vim.api.nvim_create_autocmd("LspAttach", {
     lmap("n", "gr", ":Telescope lsp_references", "References")
 
     lmap("n", "gh", "lua vim.lsp.buf.hover()", "Hover")
-    lmap("n", "gH", "lua vim.lsp.buf.signature_help()", "Signature")
+    lmap("n", "gs", "lua vim.lsp.buf.signature_help()", "Signature")
 
     lmap("n", "<Leader>F", "lua vim.lsp.buf.format()", "Format")
     lmap("n", "<Leader>R", "lua vim.lsp.buf.rename()", "Rename")
