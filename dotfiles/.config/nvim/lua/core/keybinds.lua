@@ -8,13 +8,13 @@ local function map(mode, lhs, rhs, desc, buffer)
   })
 end
 
-map("n", "<Leader>e", ":Neotree", "Open explorer")
-map("n", "<Leader>r", ":LspRestart", "Restart server")
+map("n", "<Leader>e", "Neotree", "Open explorer")
+map("n", "<Leader>r", "LspRestart", "Restart server")
 
-map("n", "<Leader>b", ":Telescope buffers", "Search buffers")
-map("n", "<Leader>f", ":Telescope find_files", "Search files")
-map("n", "<Leader>g", ":Telescope live_grep", "Grep files")
-map("n", "<Leader>o", ":Telescope oldfiles", "Search old files")
+map("n", "<Leader>b", "Telescope buffers", "Search buffers")
+map("n", "<Leader>f", "Telescope find_files", "Search files")
+map("n", "<Leader>g", "Telescope live_grep", "Grep files")
+map("n", "<Leader>o", "Telescope oldfiles", "Search old files")
 
 vim.api.nvim_create_autocmd("LspAttach", {
   callback = function(args)
@@ -22,10 +22,10 @@ vim.api.nvim_create_autocmd("LspAttach", {
       map(mode, lhs, rhs, desc, args.buf)
     end
 
-    lmap("n", "gd", ":Telescope lsp_definitions", "Definitions")
-    lmap("n", "gD", ":Telescope diagnostics", "Diagnostics")
-    lmap("n", "gi", ":Telescope lsp_implementations", "Implementations")
-    lmap("n", "gr", ":Telescope lsp_references", "References")
+    lmap("n", "gd", "Telescope lsp_definitions", "Definitions")
+    lmap("n", "gD", "Telescope diagnostics", "Diagnostics")
+    lmap("n", "gi", "Telescope lsp_implementations", "Implementations")
+    lmap("n", "gr", "Telescope lsp_references", "References")
 
     lmap("n", "gh", "lua vim.lsp.buf.hover()", "Hover")
     lmap("n", "gs", "lua vim.lsp.buf.signature_help()", "Signature")
