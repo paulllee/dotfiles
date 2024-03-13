@@ -18,16 +18,6 @@ return {
             never_show = { ".git" }
           }
         },
-        event_handlers = {
-          {
-            event = "file_opened",
-            handler = function(_)
-              require("neo-tree.command").execute({
-                action = "close"
-              })
-            end
-          },
-        }
       })
     end
   },
