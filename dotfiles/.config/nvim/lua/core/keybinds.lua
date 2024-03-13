@@ -8,13 +8,11 @@ local function map(mode, lhs, rhs, desc, buffer)
   })
 end
 
-map("n", "<Leader>e", "Neotree", "Open explorer")
+map("n", "<Leader>e", "Neotree toggle", "Toggle explorer")
 map("n", "<Leader>r", "LspRestart", "Restart server")
 
-map("n", "<Leader>b", "Telescope buffers", "Search buffers")
 map("n", "<Leader>f", "Telescope find_files", "Search files")
 map("n", "<Leader>g", "Telescope live_grep", "Grep files")
-map("n", "<Leader>o", "Telescope oldfiles", "Search old files")
 
 vim.api.nvim_create_autocmd("LspAttach", {
   callback = function(args)
