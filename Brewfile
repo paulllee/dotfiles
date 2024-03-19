@@ -9,16 +9,19 @@ brew "neovim"
 brew "pure"
 brew "ripgrep"
 brew "tmux"
+brew "zsh"
 brew "zsh-autosuggestions"
 brew "zsh-syntax-highlighting"
 
-cask "arc"
-cask "iterm2"
-cask "mac-mouse-fix"
-cask "swish"
+if OS.mac?
+  cask "arc"
+  cask "iterm2"
+  cask "mac-mouse-fix"
+  cask "swish"
 
-tap "homebrew/cask-fonts"
-cask "font-jetbrains-mono-nerd-font"
+  tap "homebrew/cask-fonts"
+  cask "font-jetbrains-mono-nerd-font"
 
-brew "mas"
-mas "Tailscale", id: 1475387142
+  brew "mas"
+  mas "Tailscale", id: 1475387142
+end
