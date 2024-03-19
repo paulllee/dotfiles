@@ -16,7 +16,6 @@ cask "arc"
 cask "iterm2"
 cask "mac-mouse-fix"
 cask "swish"
-cask "visual-studio-code"
 
 tap "homebrew/cask-fonts"
 cask "font-jetbrains-mono-nerd-font"
