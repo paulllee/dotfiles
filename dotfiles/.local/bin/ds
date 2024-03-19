@@ -22,6 +22,7 @@ A series of helpers for your dotfiles
 Usage: 
   $(basename "$0") [options]                         Uses default dotfiles path ($HOME/.dotfiles)
   [DOTFILES_PATH=<path>] $(basename "$0") [options]  Use custom dotfiles path
+  $(basename "$0") [options] && exec zsh -l          Useful to reload your zsh session
 
 Options:
   -h  Print this help message

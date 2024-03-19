@@ -6,6 +6,5 @@
 
 rm -rf "$HOME/.dotfiles" && \
   git clone --depth=1 https://github.com/paulllee/dotfiles.git "$HOME/.dotfiles" && \
-  /usr/bin/env bash "$HOME/.dotfiles/dotfiles/.local/bin/ds" -dgmp
-
-chsh -s "$(which zsh)"
+  /usr/bin/env bash "$HOME/.dotfiles/dotfiles/.local/bin/ds" -dgmp && \
+  chsh -s "$(which zsh)"
