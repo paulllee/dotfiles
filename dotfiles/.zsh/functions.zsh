@@ -10,7 +10,3 @@ function qcd() {  # [q]uick [cd]
   cd "$(fd --hidden --type d . "${1:-$HOME}" | fzf)"
   clear
 }
-
-function vsc() {  # [v]isual [s]tudio [c]ode
-  code "${1:-.}" --user-data-dir "$HOME/.config/vscode/"
-}
