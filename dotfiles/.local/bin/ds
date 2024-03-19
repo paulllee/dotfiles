@@ -115,5 +115,3 @@ if (( m_flag )); then
     printf "Skipping because detected OS is not Mac.\n"
   fi
 fi
-
-exec zsh -l
