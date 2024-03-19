@@ -12,5 +12,4 @@ rm -rf "$HOME/.dotfiles" && \
 printf "Adding latest zsh to /etc/shells.\n"
 sudo sh -c "echo $(which zsh) >> /etc/shells" && \
   chsh -s "$(which zsh)"
-
-printf "\nPlease restart your terminal to complete the bootstrap.\n"
+printf "Please restart your terminal to complete the bootstrap.\n"
