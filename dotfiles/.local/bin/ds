@@ -15,6 +15,10 @@ if [[ ! -d "$DOTFILES_PATH" ]]; then
   exit 1
 fi
 
+function printf_h() {
+  printf "\n\033[1;34m==>\033[1;39m ${1}\033[0m\n\n"
+}
+
 USAGE_MESSAGE=$(
 cat <<- END
 A series of helpers for your dotfiles
@@ -50,7 +54,7 @@ do
 done
 
 if (( p_flag )); then  # MUST BE RAN FIRST!
-  printf "\n> Packages Sync\n\n"
+  printf_h "Packages Sync"
 
   brew bundle --file "$DOTFILES_PATH/Brewfile" --no-lock
   brew upgrade
@@ -61,7 +65,7 @@ if (( p_flag )); then  # MUST BE RAN FIRST!
 fi
 
 if (( d_flag )); then
-  printf "\n> Dotfiles Sync\n\n"
+  printf_h "Dotfiles Sync"
 
   git -C "$DOTFILES_PATH" checkout main 1> /dev/null 2> /dev/null
   git -C "$DOTFILES_PATH" pull
@@ -73,7 +77,7 @@ if (( d_flag )); then
 fi
 
 if (( g_flag )); then
-  printf "\n> Gitconfig Sync\n\n"
+  printf_h "Gitconfig Sync"
 
   read -p "Enter Git Name: " GIT_NAME
   read -p "Enter Git Email: " GIT_EMAIL
@@ -92,7 +96,7 @@ if (( g_flag )); then
 fi
 
 if (( m_flag )); then
-  printf "\n> Mac Sync\n\n"
+  printf_h "Mac Sync"
 
   if [[ "$OSTYPE" == "darwin"* ]]; then
     printf "Setting common Mac settings.\n"
@@ -117,4 +121,4 @@ if (( m_flag )); then
   fi
 fi
 
-printf "\nSync \033[92mcompleted\033[0m.\n\n"
+printf_h "Sync completed!"
