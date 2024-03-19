@@ -9,5 +9,8 @@ rm -rf "$HOME/.dotfiles" && \
   /usr/bin/env bash "$HOME/.dotfiles/dotfiles/.local/bin/ds" -dgmp
 
 # use latest zsh shell from Homebrew
-sudo sh -c "echo $(which zsh) >> /etc/shells"
-chsh -s "$(which zsh)"
+ZSH="$(which zsh)"
+printf "Adding $ZSH to /etc/shells."
+echo "$ZSH" | sudo tee -a "/etc/shells"
+chsh -s "$ZSH"
+printf "Please restart your terminal to complete the bootstrap.\n"
