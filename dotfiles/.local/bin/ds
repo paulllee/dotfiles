@@ -107,10 +107,6 @@ if (( o_flag )); then
 
     printf "Setting up Mac specific applications manually.\n"
 
-    ITERM2="$(osascript -e 'id of app "iTerm2"')"
-    defaults write "$ITERM2" PrefsCustomFolder -string "$HOME/.config/mac"
-    defaults write "$ITERM2" LoadPrefsFromCustomFolder -bool true
-
     SWISH="$(osascript -e 'id of app "Swish"')"
     defaults import "$SWISH" "$HOME/.config/mac/$SWISH.plist"
     
