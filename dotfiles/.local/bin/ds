@@ -98,7 +98,7 @@ fi
 if (( m_flag )); then
   printf_h "Mac Sync"
 
-  if [[ "$OSTYPE" == "darwin"* ]]; then
+  if [[ "$(uname)" == "Darwin" ]]; then
     printf "Setting common Mac settings.\n"
 
     defaults write com.apple.desktopservices DSDontWriteNetworkStores true
