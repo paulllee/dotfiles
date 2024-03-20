@@ -98,8 +98,7 @@ fi
 if (( o_flag )); then
   printf_h "OS Specific Sync"
 
-  OS="$(uname)"
-  if [[ "$OS" == "Darwin" ]]; then
+  if [[ "$(uname)" == "Darwin" ]]; then
     printf "Setting common Mac settings.\n"
 
     defaults write com.apple.desktopservices DSDontWriteNetworkStores true
@@ -117,11 +116,8 @@ if (( o_flag )); then
     
     MACMOUSEFIX="$(osascript -e 'id of app "Mac Mouse Fix"')"
     cp "$HOME/.config/mac/config.plist" "$HOME/Library/Application Support/$MACMOUSEFIX/"
-  elif [[ "$OS" == "Linux" ]]; then
-    printf "Setting up symlink for fonts.\n"
-
-    ln -s "/home/linuxbrew/.linuxbrew/share/fonts" -t "$HOME/.local/share"
-    fc-cache -fv
+  else
+    printf "The detected OS has no specific setup required at the moment.\n"
   fi
 fi
 

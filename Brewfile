@@ -12,11 +12,6 @@ brew "zsh"
 brew "zsh-autosuggestions"
 brew "zsh-syntax-highlighting"
 
-if OS.linux?
-  tap "homebrew/linux-fonts"
-  brew "font-jetbrains-mono-nerd-font"
-end
-
 if OS.mac?
   cask "arc"
   cask "iterm2"
