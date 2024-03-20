@@ -8,10 +8,14 @@ brew "micromamba"
 brew "neovim"
 brew "pure"
 brew "ripgrep"
-brew "tmux"
 brew "zsh"
 brew "zsh-autosuggestions"
 brew "zsh-syntax-highlighting"
+
+if OS.linux?
+  tap "homebrew/linux-fonts"
+  brew "font-jetbrains-mono-nerd-font"
+end
 
 if OS.mac?
   cask "arc"
