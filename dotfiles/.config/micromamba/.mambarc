@@ -1,4 +1,6 @@
 channels:
   - conda-forge
 
-show_channel_urls: True
+changeps1: false
+
+show_channel_urls: true
