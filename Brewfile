@@ -14,7 +14,7 @@ brew "zsh-syntax-highlighting"
 
 if OS.mac?
   cask "arc"
-  cask "iterm2"
+  cask "kitty"
   cask "mac-mouse-fix"
   cask "swish"
 
