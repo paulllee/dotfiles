@@ -32,23 +32,23 @@ Options:
   -h  Print this help message
   -d  Dotfiles sync
   -g  Gitconfig sync
-  -m  Mac sync
+  -o  OS specific sync
   -p  Packages sync
 END
 )
 
 d_flag=0
 g_flag=0
-m_flag=0
+o_flag=0
 p_flag=0
 
-while getopts "hdgmp" FLAG
+while getopts "hdgop" FLAG
 do
   case "${FLAG}" in
     h) printf "$USAGE_MESSAGE\n" && exit 0 ;;
     d) d_flag=1 ;;
     g) g_flag=1 ;;
-    m) m_flag=1 ;;
+    o) o_flag=1 ;;
     p) p_flag=1 ;;
   esac
 done
@@ -95,10 +95,11 @@ if (( g_flag )); then
   cat "$HOME/.gitconfig"
 fi
 
-if (( m_flag )); then
-  printf_h "Mac Sync"
+if (( o_flag )); then
+  printf_h "OS Specific Sync"
 
-  if [[ "$(uname)" == "Darwin" ]]; then
+  OS="$(uname)"
+  if [[ "$OS" == "Darwin" ]]; then
     printf "Setting common Mac settings.\n"
 
     defaults write com.apple.desktopservices DSDontWriteNetworkStores true
@@ -116,8 +117,11 @@ if (( m_flag )); then
     
     MACMOUSEFIX="$(osascript -e 'id of app "Mac Mouse Fix"')"
     cp "$HOME/.config/mac/config.plist" "$HOME/Library/Application Support/$MACMOUSEFIX/"
-  else
-    printf "Skipping because detected OS is not Mac.\n"
+  elif [[ "$OS" == "Linux" ]]; then
+    printf "Setting up symlink for fonts.\n"
+
+    ln -s "/home/linuxbrew/.linuxbrew/share/fonts" -t "$HOME/.local/share"
+    fc-cache -fv
   fi
 fi
 
