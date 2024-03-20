@@ -121,4 +121,4 @@ if (( o_flag )); then
   fi
 fi
 
-printf_h "Sync completed!"
+printf_h "Sync Completed :)"
