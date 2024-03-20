@@ -6,9 +6,4 @@
 
 rm -rf "$HOME/.dotfiles" && \
   git clone --depth=1 https://github.com/paulllee/dotfiles.git "$HOME/.dotfiles" && \
-  /usr/bin/env bash "$HOME/.dotfiles/dotfiles/.local/bin/ds" -dgop
-
-printf "Adding latest zsh from Homebrew to /etc/shells.\n"
-sudo sh -c "echo $(which zsh) >> /etc/shells" && \
-  chsh -s "$(which zsh)"
-printf "Please restart your terminal to complete the bootstrap.\n"
+  /usr/bin/env bash "$HOME/.dotfiles/dotfiles/.local/bin/ds" -dgmp

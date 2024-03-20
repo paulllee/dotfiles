@@ -32,23 +32,23 @@ Options:
   -h  Print this help message
   -d  Dotfiles sync
   -g  Gitconfig sync
-  -o  OS specific sync
+  -m  Mac sync
   -p  Packages sync
 END
 )
 
 d_flag=0
 g_flag=0
-o_flag=0
+m_flag=0
 p_flag=0
 
-while getopts "hdgop" FLAG
+while getopts "hdgmp" FLAG
 do
   case "${FLAG}" in
     h) printf "$USAGE_MESSAGE\n" && exit 0 ;;
     d) d_flag=1 ;;
     g) g_flag=1 ;;
-    o) o_flag=1 ;;
+    m) m_flag=1 ;;
     p) p_flag=1 ;;
   esac
 done
@@ -95,26 +95,22 @@ if (( g_flag )); then
   cat "$HOME/.gitconfig"
 fi
 
-if (( o_flag )); then
-  printf_h "OS Specific Sync"
+if (( m_flag )); then
+  printf_h "Mac Sync"
 
-  if [[ "$(uname)" == "Darwin" ]]; then
-    printf "Setting common Mac settings.\n"
+  printf "Setting common Mac defaults.\n"
 
-    defaults write com.apple.desktopservices DSDontWriteNetworkStores true
-    defaults write -g ApplePressAndHoldEnabled -bool false
-    defaults write com.apple.Finder FXPreferredViewStyle Nlsv
+  defaults write com.apple.desktopservices DSDontWriteNetworkStores true
+  defaults write -g ApplePressAndHoldEnabled -bool false
+  defaults write com.apple.Finder FXPreferredViewStyle Nlsv
 
-    printf "Setting up Mac specific applications manually.\n"
+  printf "Setting up Mac specific applications manually.\n"
 
-    SWISH="$(osascript -e 'id of app "Swish"')"
-    defaults import "$SWISH" "$HOME/.config/mac/$SWISH.plist"
-    
-    MACMOUSEFIX="$(osascript -e 'id of app "Mac Mouse Fix"')"
-    cp "$HOME/.config/mac/config.plist" "$HOME/Library/Application Support/$MACMOUSEFIX/"
-  else
-    printf "The detected OS has no specific setup required at the moment.\n"
-  fi
+  SWISH="$(osascript -e 'id of app "Swish"')"
+  defaults import "$SWISH" "$HOME/.config/mac/$SWISH.plist"
+  
+  MACMOUSEFIX="$(osascript -e 'id of app "Mac Mouse Fix"')"
+  cp "$HOME/.config/mac/config.plist" "$HOME/Library/Application Support/$MACMOUSEFIX/"
 fi
 
 printf_h "Sync Completed :)"
