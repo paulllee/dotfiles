@@ -106,14 +106,14 @@ if (( m_flag )); then
 
   printf "Setting up Mac specific applications manually.\n"
 
-  MACWIN="$DOTFILES_PATH/macwin"
+  MAC="$DOTFILES_PATH/mac"
   APP_SUPPORT="$HOME/Library/Application Support"
 
   SWISH="$(osascript -e 'id of app "Swish"')"
-  defaults import "$SWISH" "$MACWIN/swish.plist"
+  defaults import "$SWISH" "$MAC/swish.plist"
   
   MACMOUSEFIX="$(osascript -e 'id of app "Mac Mouse Fix"')"
-  cp "$MACWIN/macmousefix.plist" "$APP_SUPPORT/$MACMOUSEFIX/config.plist"
+  cp "$MAC/macmousefix.plist" "$APP_SUPPORT/$MACMOUSEFIX/config.plist"
 fi
 
 printf_h "Sync Completed :)"
