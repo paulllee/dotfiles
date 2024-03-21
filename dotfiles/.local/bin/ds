@@ -106,7 +106,7 @@ if (( m_flag )); then
 
   printf "Setting up Mac specific applications manually.\n"
 
-  MAC_PATH="$DOTFILES_PATH/mac"
+  MAC_PATH="$DOTFILES_PATH/os/mac"
   APP_SUPPORT_PATH="$HOME/Library/Application Support"
 
   SWISH="$(osascript -e 'id of app "Swish"')"
