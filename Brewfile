@@ -11,8 +11,8 @@ brew "ripgrep"
 brew "zsh-autosuggestions"
 brew "zsh-syntax-highlighting"
 
+cask "alacritty", args: { "no-quarantine": true }
 cask "arc"
-cask "kitty"
 cask "mac-mouse-fix"
 cask "swish"
 
