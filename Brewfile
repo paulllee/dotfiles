@@ -12,9 +12,9 @@ brew "zsh-autosuggestions"
 brew "zsh-syntax-highlighting"
 
 cask "arc"
+cask "kitty"
 cask "mac-mouse-fix"
 cask "swish"
-cask "wezterm"
 
 tap "homebrew/cask-fonts"
 cask "font-jetbrains-mono-nerd-font"
