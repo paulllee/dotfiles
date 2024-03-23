@@ -1,5 +1,7 @@
 #!/usr/bin/env bash
 
+# [l]anguage [s]erver [p]rotocol
+
 function brew_me() {
   brew install "$@"
 }
