@@ -6,6 +6,8 @@ This bootstrap script pretty much installs and configures everything I need.
 /usr/bin/env bash -c "$(curl -fsSL https://raw.githubusercontent.com/paulllee/dotfiles/main/bootstrap.sh)"
 ```
 
+Restart your terminal after the script completes.
+
 ## dotsync
 
 I provided an app to one-way sync from remote to your local dotfiles via `ds -d`. 
