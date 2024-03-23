@@ -1,0 +1,3 @@
+#!/usr/bin/env bash
+
+fd --hidden --type d . "${1:-$HOME}" | fzf
