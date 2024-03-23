@@ -10,7 +10,7 @@ alias mm="micromamba"
 # FUNCTIONS
 
 function qcd
-  cd "$(ff)"
+  cd "$(ff $argv)"
   clear
 end
 
