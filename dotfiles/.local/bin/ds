@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 
-# [d]ot[s]ync
+# [d]ot [s]ync
 
 set -e
 
