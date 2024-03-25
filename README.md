@@ -1,6 +1,6 @@
 # dotfiles
 
-This bootstrap script pretty much installs and configures everything I need.
+This bootstrap script pretty much installs and configures everything I need on macOS.
 
 ```sh
 /usr/bin/env bash -c "$(curl -fsSL https://raw.githubusercontent.com/paulllee/dotfiles/main/bootstrap.sh)"
