@@ -43,7 +43,7 @@ return {
           }
         ),
         ruff_lsp = get_conf({ "ruff-lsp" }),
-        rust_analyzer = get_conf(get_conf()),
+        rust_analyzer = get_conf(),
         tsserver = get_conf({ "typescript-language-server", "--stdio" })
       }
 
