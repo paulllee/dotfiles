@@ -4,6 +4,8 @@ return {
     build = ":TSUpdate",
     config = function()
       require("nvim-treesitter.configs").setup({
+        -- required parsers that must be installed
+        ensure_installed = { "c", "lua", "vim", "vimdoc", "query" },
         auto_install = true,
         highlight = {
           enable = true,
