@@ -7,7 +7,6 @@ return {
       vim.cmd([[colorscheme catppuccin-mocha]])
     end
   },
-
   {
     "nvim-lualine/lualine.nvim",
     dependencies = { "nvim-tree/nvim-web-devicons" },
@@ -15,7 +14,6 @@ return {
       require("lualine").setup()
     end
   },
-
   {
     "lewis6991/gitsigns.nvim",
     config = function()
