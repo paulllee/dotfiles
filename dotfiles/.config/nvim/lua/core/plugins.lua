@@ -1,4 +1,17 @@
-return {
+local lazypath = vim.fn.stdpath "data" .. "/lazy/lazy.nvim"
+if not vim.loop.fs_stat(lazypath) then
+  vim.fn.system {
+    "git",
+    "clone",
+    "--filter=blob:none",
+    "https://github.com/folke/lazy.nvim.git",
+    "--branch=stable",
+    lazypath,
+  }
+end
+vim.opt.rtp:prepend(lazypath)
+
+require("lazy").setup({
   {
     "neovim/nvim-lspconfig",
     dependencies = { "hrsh7th/cmp-nvim-lsp" },
@@ -112,5 +125,112 @@ return {
         select_signature_key = "<C-;>"
       })
     end
+  },
+
+  -- UI
+  {
+    "catppuccin/nvim",
+    name = "catppuccin",
+    priority = 1000,
+    config = function()
+      vim.cmd([[colorscheme catppuccin-mocha]])
+    end
+  },
+  {
+    "nvim-lualine/lualine.nvim",
+    dependencies = { "nvim-tree/nvim-web-devicons" },
+    config = function()
+      require("lualine").setup()
+    end
+  },
+  {
+    "lewis6991/gitsigns.nvim",
+    config = function()
+      require("gitsigns").setup()
+    end
+  },
+
+  -- TREESITTER
+  {
+    "nvim-treesitter/nvim-treesitter",
+    build = ":TSUpdate",
+    config = function()
+      require("nvim-treesitter.configs").setup({
+        -- required parsers that must be installed
+        ensure_installed = { "c", "lua", "vim", "vimdoc", "query" },
+        auto_install = true,
+        highlight = {
+          enable = true,
+          additional_vim_regex_highlighting = true
+        },
+        indent = { enable = true }
+      })
+    end
+  },
+
+  -- UTIL
+  {
+    "nvim-neo-tree/neo-tree.nvim",
+    branch = "v3.x",
+    dependencies = {
+      "nvim-lua/plenary.nvim",
+      "nvim-tree/nvim-web-devicons",
+      "MunifTanjim/nui.nvim"
+    },
+    config = function()
+      require("neo-tree").setup({
+        close_if_last_window = true,
+        filesystem = {
+          filtered_items = {
+            hide_dotfiles = false,
+            hide_gitignored = false,
+            hide_hidden = false,
+            never_show = { ".git" }
+          }
+        },
+      })
+    end
+  },
+  {
+    "nvim-telescope/telescope.nvim",
+    branch = "0.1.x",
+    dependencies = { "nvim-lua/plenary.nvim" },
+    config = function()
+      require("telescope").setup({
+        pickers = {
+          find_files = {
+            find_command = { "fd", "--hidden", "--type", "f" }
+          },
+          live_grep = {
+            additional_args = { "--hidden", "--glob=!.git" }
+          }
+        }
+      })
+    end
+  },
+  {
+    "akinsho/bufferline.nvim",
+    dependencies = { "nvim-tree/nvim-web-devicons" },
+    config = function()
+      require("bufferline").setup()
+    end,
+  },
+  {
+    "numToStr/Comment.nvim",
+    config = function()
+      require("Comment").setup()
+    end
+  },
+  {
+    "windwp/nvim-autopairs",
+    config = function()
+      require("nvim-autopairs").setup()
+    end
+  },
+  {
+    "folke/which-key.nvim",
+    config = function()
+      require("which-key").setup()
+    end
   }
-}
+})
