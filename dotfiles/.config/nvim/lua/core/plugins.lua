@@ -126,8 +126,6 @@ require("lazy").setup({
       })
     end
   },
-
-  -- UI
   {
     "catppuccin/nvim",
     name = "catppuccin",
@@ -149,8 +147,6 @@ require("lazy").setup({
       require("gitsigns").setup()
     end
   },
-
-  -- TREESITTER
   {
     "nvim-treesitter/nvim-treesitter",
     build = ":TSUpdate",
@@ -167,8 +163,6 @@ require("lazy").setup({
       })
     end
   },
-
-  -- UTIL
   {
     "nvim-neo-tree/neo-tree.nvim",
     branch = "v3.x",
