@@ -12,6 +12,30 @@ end
 vim.opt.rtp:prepend(lazypath)
 
 require("lazy").setup({
+  -- common dependencies
+  "nvim-tree/nvim-web-devicons",
+  "nvim-lua/plenary.nvim",
+
+  -- oneliners
+  { "romgrk/barbar.nvim",        opts = {} },
+  { "numToStr/Comment.nvim",     opts = {} },
+  { "lewis6991/gitsigns.nvim",   opts = {} },
+  { "nvim-lualine/lualine.nvim", opts = {} },
+  { "windwp/nvim-autopairs",     opts = {} },
+  { "nvim-tree/nvim-tree.lua",   opts = {} },
+  { "folke/which-key.nvim",      opts = {} },
+
+  -- theme
+  {
+    "catppuccin/nvim",
+    name = "catppuccin",
+    priority = 1000,
+    config = function()
+      vim.cmd([[colorscheme catppuccin-mocha]])
+    end
+  },
+
+  -- lsp setup
   {
     "neovim/nvim-lspconfig",
     dependencies = { "hrsh7th/cmp-nvim-lsp" },
@@ -65,6 +89,8 @@ require("lazy").setup({
       end
     end
   },
+
+  -- completion setup with proper signature
   {
     "hrsh7th/nvim-cmp",
     dependencies = {
@@ -117,36 +143,15 @@ require("lazy").setup({
   },
   {
     "ray-x/lsp_signature.nvim",
-    config = function()
-      require("lsp_signature").setup({
-        doc_lines = 0,
-        maxwidth = 50,
-        hint_enable = false,
-        select_signature_key = "<C-;>"
-      })
-    end
+    opts = {
+      doc_lines = 0,
+      maxwidth = 50,
+      hint_enable = false,
+      select_signature_key = "<C-;>"
+    }
   },
-  {
-    "catppuccin/nvim",
-    name = "catppuccin",
-    priority = 1000,
-    config = function()
-      vim.cmd([[colorscheme catppuccin-mocha]])
-    end
-  },
-  {
-    "nvim-lualine/lualine.nvim",
-    dependencies = { "nvim-tree/nvim-web-devicons" },
-    config = function()
-      require("lualine").setup()
-    end
-  },
-  {
-    "lewis6991/gitsigns.nvim",
-    config = function()
-      require("gitsigns").setup()
-    end
-  },
+
+  -- treesitter configuration
   {
     "nvim-treesitter/nvim-treesitter",
     build = ":TSUpdate",
@@ -163,68 +168,20 @@ require("lazy").setup({
       })
     end
   },
-  {
-    "nvim-neo-tree/neo-tree.nvim",
-    branch = "v3.x",
-    dependencies = {
-      "nvim-lua/plenary.nvim",
-      "nvim-tree/nvim-web-devicons",
-      "MunifTanjim/nui.nvim"
-    },
-    config = function()
-      require("neo-tree").setup({
-        close_if_last_window = true,
-        filesystem = {
-          filtered_items = {
-            hide_dotfiles = false,
-            hide_gitignored = false,
-            hide_hidden = false,
-            never_show = { ".git" }
-          }
-        },
-      })
-    end
-  },
+
+  -- telescope with hidden files
   {
     "nvim-telescope/telescope.nvim",
-    branch = "0.1.x",
-    dependencies = { "nvim-lua/plenary.nvim" },
-    config = function()
-      require("telescope").setup({
-        pickers = {
-          find_files = {
-            find_command = { "fd", "--hidden", "--type", "f" }
-          },
-          live_grep = {
-            additional_args = { "--hidden", "--glob=!.git" }
-          }
+    tag = "0.1.6",
+    opts = {
+      pickers = {
+        find_files = {
+          find_command = { "fd", "--hidden", "--type", "f" }
+        },
+        live_grep = {
+          additional_args = { "--hidden", "--glob=!.git" }
         }
-      })
-    end
-  },
-  {
-    "akinsho/bufferline.nvim",
-    dependencies = { "nvim-tree/nvim-web-devicons" },
-    config = function()
-      require("bufferline").setup()
-    end,
-  },
-  {
-    "numToStr/Comment.nvim",
-    config = function()
-      require("Comment").setup()
-    end
-  },
-  {
-    "windwp/nvim-autopairs",
-    config = function()
-      require("nvim-autopairs").setup()
-    end
-  },
-  {
-    "folke/which-key.nvim",
-    config = function()
-      require("which-key").setup()
-    end
+      }
+    }
   }
 })
