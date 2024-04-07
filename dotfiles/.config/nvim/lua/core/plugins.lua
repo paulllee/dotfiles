@@ -60,13 +60,13 @@ require("lazy").setup({
       end
 
       local confs = {
-        bashls = get_conf({ "bash-language-server", "start" }),
-        clangd = get_conf(),
-        cssls = get_conf({ "vscode-css-language-server", "--stdio" }),
-        html = get_conf({ "vscode-html-language-server", "--stdio" }),
-        jsonls = get_conf({ "vscode-jsonls-language-server", "--stdio" }),
-        lua_ls = get_conf(),
-        pyright = get_conf(
+        bashls        = get_conf({ "bash-language-server", "start" }),
+        clangd        = get_conf(),
+        cssls         = get_conf({ "vscode-css-language-server", "--stdio" }),
+        html          = get_conf({ "vscode-html-language-server", "--stdio" }),
+        jsonls        = get_conf({ "vscode-jsonls-language-server", "--stdio" }),
+        lua_ls        = get_conf(),
+        pyright       = get_conf(
           { "pyright-langserver", "--stdio" },
           {
             python = {
@@ -79,9 +79,9 @@ require("lazy").setup({
             }
           }
         ),
-        ruff_lsp = get_conf({ "ruff-lsp" }),
+        ruff_lsp      = get_conf({ "ruff-lsp" }),
         rust_analyzer = get_conf(),
-        tsserver = get_conf({ "typescript-language-server", "--stdio" })
+        tsserver      = get_conf({ "typescript-language-server", "--stdio" })
       }
 
       for name, conf in pairs(confs) do
