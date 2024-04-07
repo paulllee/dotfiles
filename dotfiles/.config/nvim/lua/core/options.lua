@@ -18,9 +18,16 @@ vim.o.tabstop = 2
 vim.wo.number = true
 vim.wo.relativenumber = true
 
--- misc
+-- disable line wrap
 vim.o.wrap = false
+
+-- smart case when finding/substitution
 vim.o.smartcase = true
+
+-- use SYSTEM clipboard
 vim.o.clipboard = "unnamedplus"
+
+-- for plugins
 vim.o.timeout = true
 vim.o.timeoutlen = 300
+vim.g.barbar_auto_setup = false
