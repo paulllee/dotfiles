@@ -5,7 +5,8 @@ local function map(mode, lhs, rhs, desc, buffer)
   vim.keymap.set(mode, lhs, "<cmd>" .. rhs .. "<cr>", {
     desc = desc,
     buffer = buffer,
-    noremap = true
+    noremap = true,
+    silent = true
   })
 end
 
