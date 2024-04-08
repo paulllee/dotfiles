@@ -36,7 +36,7 @@ require("lazy").setup({
     end
   },
 
-  -- lsp setup
+  -- lsp
   {
     "neovim/nvim-lspconfig",
     dependencies = { "hrsh7th/cmp-nvim-lsp" },
@@ -91,7 +91,7 @@ require("lazy").setup({
     end
   },
 
-  -- completion setup with proper signature
+  -- completion with proper signature
   {
     "hrsh7th/nvim-cmp",
     dependencies = {
@@ -152,7 +152,7 @@ require("lazy").setup({
     }
   },
 
-  -- treesitter configuration
+  -- treesitter
   {
     "nvim-treesitter/nvim-treesitter",
     build = ":TSUpdate",
