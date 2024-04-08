@@ -17,6 +17,7 @@ require("lazy").setup({
   "nvim-lua/plenary.nvim",
 
   -- oneliners
+  { "rmagatti/auto-session",     opts = {} },
   { "romgrk/barbar.nvim",        opts = {} },
   { "numToStr/Comment.nvim",     opts = {} },
   { "lewis6991/gitsigns.nvim",   opts = {} },
