@@ -16,11 +16,6 @@ map("n", "<Leader>r", "LspRestart", "Restart server")
 map("n", "<Leader>f", "Telescope find_files", "Search files")
 map("n", "<Leader>g", "Telescope live_grep", "Grep files")
 
-map("n", "<C-,>", "BufferPrevious", "Previous Tab")
-map("n", "<C-.>", "BufferNext", "Next Tab")
-map("n", "<C-c>", "BufferClose", "Close Tab")
-map("n", "<C-x>", "BufferRestore", "Restore Tab")
-
 vim.api.nvim_create_autocmd("LspAttach", {
   callback = function(args)
     local function lmap(mode, lhs, rhs, desc)
