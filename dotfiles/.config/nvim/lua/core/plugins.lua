@@ -35,10 +35,52 @@ require("lazy").setup({
     end
   },
 
-  -- lsp
+  -- telescope
+  {
+    "nvim-telescope/telescope.nvim",
+    tag = "0.1.6",
+    opts = {
+      pickers = {
+        find_files = {
+          find_command = { "fd", "--hidden", "--type", "f" }
+        },
+        live_grep = {
+          additional_args = { "--hidden", "--glob=!.git" }
+        }
+      }
+    }
+  },
+
+  -- treesitter
+  {
+    "nvim-treesitter/nvim-treesitter",
+    build = ":TSUpdate",
+    config = function()
+      require("nvim-treesitter.configs").setup({
+        -- required parsers that must be installed
+        ensure_installed = { "c", "lua", "vim", "vimdoc", "query" },
+        auto_install = true,
+        highlight = {
+          enable = true,
+          additional_vim_regex_highlighting = true
+        },
+        indent = { enable = true }
+      })
+    end
+  },
+
+  -- lsp and cmp
   {
     "neovim/nvim-lspconfig",
-    dependencies = { "hrsh7th/cmp-nvim-lsp" },
+    dependencies = {
+      "hrsh7th/nvim-cmp",
+      "hrsh7th/cmp-nvim-lsp",
+      "hrsh7th/cmp-buffer",
+      "hrsh7th/cmp-path",
+      "L3MON4D3/LuaSnip",
+      "onsails/lspkind.nvim",
+      "ray-x/lsp_signature.nvim"
+    },
     config = function()
       local function get_conf(cmd, settings)
         local new_conf = {}
@@ -87,20 +129,7 @@ require("lazy").setup({
       for name, conf in pairs(confs) do
         require("lspconfig")[name].setup(conf)
       end
-    end
-  },
 
-  -- completion with proper signature
-  {
-    "hrsh7th/nvim-cmp",
-    dependencies = {
-      "hrsh7th/cmp-nvim-lsp",
-      "hrsh7th/cmp-buffer",
-      "hrsh7th/cmp-path",
-      "L3MON4D3/LuaSnip",
-      "onsails/lspkind.nvim"
-    },
-    config = function()
       local cmp = require("cmp")
       local ls = require("luasnip")
 
@@ -139,49 +168,13 @@ require("lazy").setup({
           })
         }
       })
-    end
-  },
-  {
-    "ray-x/lsp_signature.nvim",
-    opts = {
-      doc_lines = 0,
-      maxwidth = 50,
-      hint_enable = false,
-      select_signature_key = "<C-;>"
-    }
-  },
 
-  -- treesitter
-  {
-    "nvim-treesitter/nvim-treesitter",
-    build = ":TSUpdate",
-    config = function()
-      require("nvim-treesitter.configs").setup({
-        -- required parsers that must be installed
-        ensure_installed = { "c", "lua", "vim", "vimdoc", "query" },
-        auto_install = true,
-        highlight = {
-          enable = true,
-          additional_vim_regex_highlighting = true
-        },
-        indent = { enable = true }
+      require("lsp_signature").setup({
+        doc_lines = 0,
+        maxwidth = 50,
+        hint_enable = false,
+        select_signature_key = "<C-;>"
       })
     end
-  },
-
-  -- telescope with hidden files
-  {
-    "nvim-telescope/telescope.nvim",
-    tag = "0.1.6",
-    opts = {
-      pickers = {
-        find_files = {
-          find_command = { "fd", "--hidden", "--type", "f" }
-        },
-        live_grep = {
-          additional_args = { "--hidden", "--glob=!.git" }
-        }
-      }
-    }
   }
 })
