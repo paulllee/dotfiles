@@ -12,7 +12,7 @@ end
 vim.opt.rtp:prepend(lazypath)
 
 require("lazy").setup({
-  -- auto-comment (<C-k> on VSCode)
+  -- auto-comment (<C-/> on VSCode)
   {
     "numToStr/Comment.nvim",
     opts = {}
