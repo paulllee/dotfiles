@@ -10,16 +10,14 @@ local function map(mode, lhs, rhs, desc, buffer)
   })
 end
 
-map("n", "<Leader>e", "NvimTreeToggle", "Toggle explorer")
+map("n", "<Leader>e", "Neotree toggle", "Toggle explorer")
 map("n", "<Leader>r", "LspRestart", "Restart server")
 
 map("n", "<Leader>f", "Telescope find_files", "Search files")
 map("n", "<Leader>g", "Telescope live_grep", "Grep files")
 
-map("n", ",", "Grapple toggle_tags", "Grapple menu")
+map("n", ",", "Grapple toggle_tags", "Tag menu")
 map("n", "<C-s>", "Grapple toggle", "Toggle tag file")
-map("n", "H", "Grapple cycle_tags prev", "Go to previous tag")
-map("n", "L", "Grapple cycle_tags next", "Go to next tag")
 
 vim.api.nvim_create_autocmd("LspAttach", {
   callback = function(args)
