@@ -12,31 +12,50 @@ end
 vim.opt.rtp:prepend(lazypath)
 
 require("lazy").setup({
-  -- common dependencies
-  "MunifTanjim/nui.nvim",
-  "nvim-tree/nvim-web-devicons",
-  "nvim-lua/plenary.nvim",
-
-  { "numToStr/Comment.nvim",     opts = {} }, -- comments
-  { "lewis6991/gitsigns.nvim",   opts = {} }, -- git tooltips
-  { "nvim-lualine/lualine.nvim", opts = {} }, -- fancy statusline
-  { "windwp/nvim-autopairs",     opts = {} }, -- autopairings
-  { "nvim-tree/nvim-tree.lua",   opts = {} }, -- file explorer
-  { "folke/which-key.nvim",      opts = {} }, -- keybind tooltips
-
-  -- theme
+  -- auto-comment (<C-k> on VSCode)
   {
-    "catppuccin/nvim",
-    name = "catppuccin",
-    priority = 1000,
-    config = function()
-      vim.cmd([[colorscheme catppuccin-mocha]])
-    end
+    "numToStr/Comment.nvim",
+    opts = {}
+  },
+
+  -- auto-pairing of chars
+  {
+    "windwp/nvim-autopairs",
+    opts = {}
+  },
+
+  -- file explorer
+  {
+    "nvim-neo-tree/neo-tree.nvim",
+    branch = "v3.x",
+    dependencies = {
+      "nvim-lua/plenary.nvim",
+      "nvim-tree/nvim-web-devicons",
+      "MunifTanjim/nui.nvim"
+    },
+    opts = {
+      close_if_last_window = true,
+      filesystem = {
+        filtered_items = {
+          hide_dotfiles = false,
+          hide_gitignored = false,
+          hide_hidden = false,
+          never_show = { ".git" }
+        }
+      }
+    }
+  },
+
+  -- git decorators
+  {
+    "lewis6991/gitsigns.nvim",
+    opts = {}
   },
 
   -- harpoon-like navigation
   {
     "cbochs/grapple.nvim",
+    dependencies = { "nvim-tree/nvim-web-devicons" },
     opts = {
       style = "basename",
       win_opts = {
@@ -44,80 +63,6 @@ require("lazy").setup({
         height = 8
       }
     }
-  },
-
-  -- notification manager
-  {
-    "rcarriga/nvim-notify",
-    opts = {
-      minimum_width = 25,
-      render = "compact",
-      timeout = 2000
-    }
-  },
-
-  -- folke's based ui
-  {
-    "folke/noice.nvim",
-    opts = {
-      lsp = {
-        override = {
-          ["vim.lsp.util.convert_input_to_markdown_lines"] = true,
-          ["vim.lsp.util.stylize_markdown"] = true,
-          ["cmp.entry.get_documentation"] = true
-        }
-      },
-      presets = {
-        command_palette = true,
-        lsp_doc_border = true
-      }
-    }
-  },
-
-  -- telescope
-  {
-    "nvim-telescope/telescope.nvim",
-    tag = "0.1.6",
-    opts = {
-      pickers = {
-        find_files = {
-          find_command = { "fd", "--hidden", "--type", "f" }
-        },
-        live_grep = {
-          additional_args = { "--hidden", "--glob=!.git" }
-        }
-      }
-    }
-  },
-
-  -- treesitter
-  {
-    "nvim-treesitter/nvim-treesitter",
-    build = ":TSUpdate",
-    config = function()
-      require("nvim-treesitter.configs").setup({
-        ensure_installed = {
-          -- the following should always be installed
-          "c",
-          "lua",
-          "vim",
-          "vimdoc",
-          "query",
-
-          -- the following is required by noice.nvim
-          "regex",
-          "bash",
-          "markdown",
-          "markdown_inline"
-        },
-        auto_install = true,
-        highlight = {
-          enable = true,
-          additional_vim_regex_highlighting = true
-        },
-        indent = { enable = true }
-      })
-    end
   },
 
   -- lsp and cmp
@@ -128,7 +73,10 @@ require("lazy").setup({
       "hrsh7th/cmp-nvim-lsp",
       "hrsh7th/cmp-buffer",
       "onsails/lspkind.nvim",
-      { "L3MON4D3/LuaSnip", build = "make install_jsregexp" }
+      {
+        "L3MON4D3/LuaSnip",
+        build = "make install_jsregexp"
+      }
     },
     config = function()
       local function get_conf(cmd, settings)
@@ -241,6 +189,99 @@ require("lazy").setup({
           completion = cmp.config.window.bordered(),
           documentation = cmp.config.window.bordered()
         }
+      })
+    end
+  },
+
+  -- overall prettier ui
+  {
+    "folke/noice.nvim",
+    dependencies = {
+      "MunifTanjim/nui.nvim",
+      {
+        "rcarriga/nvim-notify",
+        opts = {
+          minimum_width = 25,
+          render = "compact",
+          timeout = 500
+        }
+      }
+    },
+    opts = {
+      lsp = {
+        override = {
+          ["vim.lsp.util.convert_input_to_markdown_lines"] = true,
+          ["vim.lsp.util.stylize_markdown"] = true,
+          ["cmp.entry.get_documentation"] = true
+        }
+      },
+      presets = {
+        command_palette = true,
+        lsp_doc_border = true
+      }
+    }
+  },
+
+  -- statusline
+  {
+    "nvim-lualine/lualine.nvim",
+    dependencies = { "nvim-tree/nvim-web-devicons" },
+    opts = {}
+  },
+
+  -- telescope
+  {
+    "nvim-telescope/telescope.nvim",
+    dependencies = { "nvim-lua/plenary.nvim" },
+    tag = "0.1.6",
+    opts = {
+      pickers = {
+        find_files = {
+          find_command = { "fd", "--hidden", "--type", "f" }
+        },
+        live_grep = {
+          additional_args = { "--hidden", "--glob=!.git" }
+        }
+      }
+    }
+  },
+
+  -- theme
+  {
+    "catppuccin/nvim",
+    name = "catppuccin",
+    priority = 1000,
+    config = function()
+      vim.cmd([[colorscheme catppuccin-mocha]])
+    end
+  },
+
+  -- treesitter
+  {
+    "nvim-treesitter/nvim-treesitter",
+    build = ":TSUpdate",
+    config = function()
+      require("nvim-treesitter.configs").setup({
+        ensure_installed = {
+          -- the following should always be installed
+          "c",
+          "lua",
+          "vim",
+          "vimdoc",
+          "query",
+
+          -- the following is required by noice.nvim
+          "regex",
+          "bash",
+          "markdown",
+          "markdown_inline"
+        },
+        auto_install = true,
+        highlight = {
+          enable = true,
+          additional_vim_regex_highlighting = true
+        },
+        indent = { enable = true }
       })
     end
   }
