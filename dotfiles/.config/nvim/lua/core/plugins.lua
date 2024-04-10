@@ -42,7 +42,8 @@ require("lazy").setup({
           hide_hidden = false,
           never_show = { ".git" }
         }
-      }
+      },
+      window = { width = 30 }
     }
   },
 
@@ -59,7 +60,7 @@ require("lazy").setup({
     opts = {
       style = "basename",
       win_opts = {
-        width = 32,
+        width = 30,
         height = 8
       }
     }
