@@ -13,17 +13,17 @@ vim.opt.rtp:prepend(lazypath)
 
 require("lazy").setup({
   -- common dependencies
+  "MunifTanjim/nui.nvim",
+  "rcarriga/nvim-notify",
   "nvim-tree/nvim-web-devicons",
   "nvim-lua/plenary.nvim",
 
-  -- oneliners
-  { "otavioschwanck/arrow.nvim", opts = { show_icons = true } },
-  { "numToStr/Comment.nvim",     opts = {} },
-  { "lewis6991/gitsigns.nvim",   opts = {} },
-  { "nvim-lualine/lualine.nvim", opts = {} },
-  { "windwp/nvim-autopairs",     opts = {} },
-  { "nvim-tree/nvim-tree.lua",   opts = {} },
-  { "folke/which-key.nvim",      opts = {} },
+  { "numToStr/Comment.nvim",     opts = {} }, -- comments
+  { "lewis6991/gitsigns.nvim",   opts = {} }, -- git tooltips
+  { "nvim-lualine/lualine.nvim", opts = {} }, -- fancy statusline
+  { "windwp/nvim-autopairs",     opts = {} }, -- autopairings
+  { "nvim-tree/nvim-tree.lua",   opts = {} }, -- file explorer
+  { "folke/which-key.nvim",      opts = {} }, -- keybind tooltips
 
   -- theme
   {
@@ -33,6 +33,33 @@ require("lazy").setup({
     config = function()
       vim.cmd([[colorscheme catppuccin-mocha]])
     end
+  },
+
+  -- harpoon-like navigation
+  {
+    "otavioschwanck/arrow.nvim",
+    opts = {
+      show_icons = true,
+      leader_key = ","
+    }
+  },
+
+  -- fancy ui
+  {
+    "folke/noice.nvim",
+    opts = {
+      lsp = {
+        override = {
+          ["vim.lsp.util.convert_input_to_markdown_lines"] = true,
+          ["vim.lsp.util.stylize_markdown"] = true,
+          ["cmp.entry.get_documentation"] = true
+        }
+      },
+      presets = {
+        command_palette = true,
+        lsp_doc_border = true
+      }
+    }
   },
 
   -- telescope
@@ -57,8 +84,20 @@ require("lazy").setup({
     build = ":TSUpdate",
     config = function()
       require("nvim-treesitter.configs").setup({
-        -- required parsers that must be installed
-        ensure_installed = { "c", "lua", "vim", "vimdoc", "query" },
+        ensure_installed = {
+          -- the following MUST be installed
+          "c",
+          "lua",
+          "vim",
+          "vimdoc",
+          "query",
+
+          -- noice.nvim requires the following
+          "regex",
+          "bash",
+          "markdown",
+          "markdown_inline"
+        },
         auto_install = true,
         highlight = {
           enable = true,
@@ -76,10 +115,8 @@ require("lazy").setup({
       "hrsh7th/nvim-cmp",
       "hrsh7th/cmp-nvim-lsp",
       "hrsh7th/cmp-buffer",
-      "hrsh7th/cmp-path",
-      "L3MON4D3/LuaSnip",
       "onsails/lspkind.nvim",
-      "ray-x/lsp_signature.nvim"
+      { "L3MON4D3/LuaSnip", build = "make install_jsregexp" }
     },
     config = function()
       local function get_conf(cmd, settings)
@@ -135,10 +172,16 @@ require("lazy").setup({
 
       cmp.setup({
         completion = { completeopt = "menu,menuone,noinsert" },
-        sources = {
-          { name = "nvim_lsp" },
-          { name = "buffer" },
-          { name = "path" }
+        formatting = {
+          format = require("lspkind").cmp_format({
+            mode = "symbol_text",
+            maxwidth = 50,
+            ellipsis_char = "...",
+            menu = {
+              nvim_lsp = "",
+              buffer = ""
+            }
+          })
         },
         mapping = {
           ["<C-y>"] = cmp.mapping.confirm({ select = false }),
@@ -155,25 +198,37 @@ require("lazy").setup({
             require("luasnip").lsp_expand(args.body)
           end
         },
-        formatting = {
-          format = require("lspkind").cmp_format({
-            mode = "symbol_text",
-            maxwidth = 50,
-            ellipsis_char = "...",
-            menu = {
-              nvim_lsp = "[LSP]",
-              buffer = "[BUF]",
-              path = "[PATH]"
-            }
-          })
+        sorting = {
+          comparators = {
+            cmp.config.compare.offset,
+            cmp.config.compare.exact,
+            cmp.config.compare.score,
+            cmp.config.compare.recently_used,
+            -- sorts completion items with one or more underscores
+            -- helpful in python especially
+            function(entry1, entry2)
+              local _, entry1_under = entry1.completion_item.label:find("^_+")
+              local _, entry2_under = entry2.completion_item.label:find("^_+")
+              entry1_under = entry1_under or 0
+              entry2_under = entry2_under or 0
+              if entry1_under > entry2_under then
+                return false
+              elseif entry1_under < entry2_under then
+                return true
+              end
+            end,
+            cmp.config.compare.locality,
+            cmp.config.compare.kind
+          }
+        },
+        sources = {
+          { name = "nvim_lsp" },
+          { name = "buffer" }
+        },
+        window = {
+          completion = cmp.config.window.bordered(),
+          documentation = cmp.config.window.bordered()
         }
-      })
-
-      require("lsp_signature").setup({
-        doc_lines = 0,
-        maxwidth = 50,
-        hint_enable = false,
-        select_signature_key = "<C-;>"
       })
     end
   }
