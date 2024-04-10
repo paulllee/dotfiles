@@ -85,14 +85,14 @@ require("lazy").setup({
     config = function()
       require("nvim-treesitter.configs").setup({
         ensure_installed = {
-          -- the following MUST be installed
+          -- the following should always be installed
           "c",
           "lua",
           "vim",
           "vimdoc",
           "query",
 
-          -- noice.nvim requires the following
+          -- the following is required by noice.nvim
           "regex",
           "bash",
           "markdown",
