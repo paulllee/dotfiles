@@ -214,6 +214,22 @@ require("lazy").setup({
           ["vim.lsp.util.convert_input_to_markdown_lines"] = true,
           ["vim.lsp.util.stylize_markdown"] = true,
           ["cmp.entry.get_documentation"] = true
+        },
+        hover = {
+          opts = {
+            size = {
+              max_width = 50,
+              max_height = 12
+            }
+          }
+        },
+        signature = {
+          opts = {
+            size = {
+              max_width = 50,
+              max_height = 12
+            }
+          }
         }
       },
       presets = {
