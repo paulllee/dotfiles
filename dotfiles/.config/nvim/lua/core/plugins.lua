@@ -14,7 +14,6 @@ vim.opt.rtp:prepend(lazypath)
 require("lazy").setup({
   -- common dependencies
   "MunifTanjim/nui.nvim",
-  "rcarriga/nvim-notify",
   "nvim-tree/nvim-web-devicons",
   "nvim-lua/plenary.nvim",
 
@@ -37,14 +36,27 @@ require("lazy").setup({
 
   -- harpoon-like navigation
   {
-    "otavioschwanck/arrow.nvim",
+    "cbochs/grapple.nvim",
     opts = {
-      show_icons = true,
-      leader_key = ","
+      style = "basename",
+      win_opts = {
+        width = 32,
+        height = 8
+      }
     }
   },
 
-  -- fancy ui
+  -- notification manager
+  {
+    "rcarriga/nvim-notify",
+    opts = {
+      minimum_width = 25,
+      render = "compact",
+      timeout = 2000
+    }
+  },
+
+  -- folke's based ui
   {
     "folke/noice.nvim",
     opts = {
@@ -143,7 +155,7 @@ require("lazy").setup({
         clangd        = get_conf(),
         cssls         = get_conf({ "vscode-css-language-server", "--stdio" }),
         html          = get_conf({ "vscode-html-language-server", "--stdio" }),
-        jsonls        = get_conf({ "vscode-jsonls-language-server", "--stdio" }),
+        jsonls        = get_conf({ "vscode-json-language-server", "--stdio" }),
         lua_ls        = get_conf(),
         pyright       = get_conf(
           { "pyright-langserver", "--stdio" },
