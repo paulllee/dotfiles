@@ -96,6 +96,13 @@ require("lazy").setup({
         return new_conf
       end
 
+      local python_path = vim.fn.exepath("python3")
+
+      -- for Windows, the normal name is python rather than python3
+      if vim.fn.has("win32") == 1 then
+        python_path = vim.fn.exepath("python")
+      end
+
       local confs = {
         bashls        = get_conf({ "bash-language-server", "start" }),
         clangd        = get_conf(),
@@ -112,7 +119,7 @@ require("lazy").setup({
                 typeCheckingMode = "off"
               },
               -- telling pyright what the current python environment is
-              pythonPath = vim.fn.exepath("python3")
+              pythonPath = python_path
             }
           }
         ),
