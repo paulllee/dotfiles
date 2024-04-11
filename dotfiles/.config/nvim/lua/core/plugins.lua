@@ -70,14 +70,11 @@ require("lazy").setup({
   {
     "neovim/nvim-lspconfig",
     dependencies = {
+      "dcampos/nvim-snippy",
       "hrsh7th/nvim-cmp",
       "hrsh7th/cmp-nvim-lsp",
       "hrsh7th/cmp-buffer",
-      "onsails/lspkind.nvim",
-      {
-        "L3MON4D3/LuaSnip",
-        build = "make install_jsregexp"
-      }
+      "onsails/lspkind.nvim"
     },
     config = function()
       local function get_conf(cmd, settings)
@@ -129,8 +126,6 @@ require("lazy").setup({
       end
 
       local cmp = require("cmp")
-      local ls = require("luasnip")
-
       cmp.setup({
         completion = { completeopt = "menu,menuone,noinsert" },
         formatting = {
@@ -150,13 +145,11 @@ require("lazy").setup({
           ["<C-p>"] = cmp.mapping.select_prev_item({ behavior = "select" }),
           ["<C-n>"] = cmp.mapping.select_next_item({ behavior = "select" }),
           ["<C-d>"] = cmp.mapping.scroll_docs(5),
-          ["<C-u>"] = cmp.mapping.scroll_docs(-5),
-          ["<C-j>"] = cmp.mapping(function() ls.jump(-1) end, { "i", "s" }),
-          ["<C-k>"] = cmp.mapping(function() ls.jump(1) end, { "i", "s" })
+          ["<C-u>"] = cmp.mapping.scroll_docs(-5)
         },
         snippet = {
           expand = function(args)
-            require("luasnip").lsp_expand(args.body)
+            require("snippy").expand_snippet(args.body)
           end
         },
         sorting = {
