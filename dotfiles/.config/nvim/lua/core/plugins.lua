@@ -96,11 +96,11 @@ require("lazy").setup({
         return new_conf
       end
 
-      local python_path = vim.fn.exepath("python3")
+      local python_path = vim.fn.exepath("python")
 
-      -- for Windows, the normal name is python rather than python3
-      if vim.fn.has("win32") == 1 then
-        python_path = vim.fn.exepath("python")
+      -- if python3 exists, use that instead
+      if vim.fn.executable("python3") == 1 then
+        python_path = vim.fn.exepath("python3")
       end
 
       local confs = {
