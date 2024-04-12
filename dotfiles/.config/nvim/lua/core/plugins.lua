@@ -66,6 +66,12 @@ require("lazy").setup({
     }
   },
 
+  -- key-bindings menu
+  {
+    "folke/which-key.nvim",
+    opts = {}
+  },
+
   -- lsp and cmp
   {
     "neovim/nvim-lspconfig",
