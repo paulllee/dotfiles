@@ -55,14 +55,10 @@ require("lazy").setup({
 
   -- harpoon-like navigation
   {
-    "cbochs/grapple.nvim",
-    dependencies = { "nvim-tree/nvim-web-devicons" },
+    "otavioschwanck/arrow.nvim",
     opts = {
-      style = "basename",
-      win_opts = {
-        width = 30,
-        height = 8
-      }
+      show_icons = true,
+      leader_key = ","
     }
   },
 
