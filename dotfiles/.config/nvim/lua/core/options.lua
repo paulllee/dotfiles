@@ -26,8 +26,3 @@ vim.o.smartcase = true
 
 -- use SYSTEM clipboard
 vim.o.clipboard = "unnamedplus"
-
--- for plugins
-vim.o.timeout = true
-vim.o.timeoutlen = 300
-vim.g.barbar_auto_setup = false
