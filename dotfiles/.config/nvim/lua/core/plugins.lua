@@ -265,6 +265,17 @@ require("lazy").setup({
     }
   },
 
+  -- terminal
+  {
+    "akinsho/toggleterm.nvim",
+    version = "*",
+    opts = {
+      direction = "float",
+      open_mapping = [[<C-\>]],
+      persist_mode = true
+    }
+  },
+
   -- theme
   {
     "catppuccin/nvim",
