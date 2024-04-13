@@ -56,6 +56,7 @@ require("lazy").setup({
   -- harpoon-like navigation
   {
     "otavioschwanck/arrow.nvim",
+    dependencies = { "nvim-tree/nvim-web-devicons" },
     opts = {
       show_icons = true,
       leader_key = ","
@@ -282,7 +283,7 @@ require("lazy").setup({
     name = "catppuccin",
     priority = 1000,
     config = function()
-      vim.cmd([[colorscheme catppuccin-mocha]])
+      vim.cmd("colorscheme catppuccin-mocha")
     end
   },
 
