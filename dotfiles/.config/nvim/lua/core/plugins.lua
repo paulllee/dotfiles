@@ -252,8 +252,11 @@ require("lazy").setup({
   -- telescope
   {
     "nvim-telescope/telescope.nvim",
-    dependencies = { "nvim-lua/plenary.nvim" },
-    tag = "0.1.6",
+    dependencies = {
+      "nvim-lua/plenary.nvim",
+      "nvim-tree/nvim-web-devicons"
+    },
+    branch = "0.1.x",
     opts = {
       pickers = {
         find_files = {
@@ -269,7 +272,6 @@ require("lazy").setup({
   -- terminal
   {
     "akinsho/toggleterm.nvim",
-    version = "*",
     opts = {
       direction = "float",
       open_mapping = [[<C-\>]],
