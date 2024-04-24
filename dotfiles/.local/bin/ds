@@ -93,6 +93,10 @@ if (( g_flag )); then
 
   git config --global pull.rebase false
 
+  git config --global merge.tool nvimdiff
+  git config --global mergetool.keepBackup false
+  git config --global mergetool.prompt false
+
   cat "$HOME/.gitconfig"
 fi
 
