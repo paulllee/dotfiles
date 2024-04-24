@@ -27,6 +27,9 @@ vim.o.smartcase = true
 -- use SYSTEM clipboard
 vim.o.clipboard = "unnamedplus"
 
+-- allows for persistent undos
+vim.o.undofile = true
+
 -- set timeout for which-key plugin
 vim.o.timeout = true
 vim.o.timeoutlen = 150
