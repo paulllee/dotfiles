@@ -8,7 +8,8 @@ vim.g.loaded_perl_provider = 0
 vim.g.loaded_ruby_provider = 0
 vim.g.loaded_node_provider = 0
 
--- use folding for markdown but default to unfolded on open
+-- enable markdown folds
+-- but default to unfolded on file open
 vim.g.markdown_folding = 1
 vim.o.foldlevel = 99
 
