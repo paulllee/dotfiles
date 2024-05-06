@@ -8,8 +8,9 @@ vim.g.loaded_perl_provider = 0
 vim.g.loaded_ruby_provider = 0
 vim.g.loaded_node_provider = 0
 
--- use folding in markdown files
+-- use folding for markdown but default to unfolded on open
 vim.g.markdown_folding = 1
+vim.o.foldlevel = 99
 
 -- globally set tab to 2 spaces
 vim.o.expandtab = true
