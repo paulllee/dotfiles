@@ -251,7 +251,18 @@ require("lazy").setup({
     dependencies = { "nvim-tree/nvim-web-devicons" },
     opts = {
       sections = {
-        lualine_x = { "fileformat", "filetype" },
+        lualine_b = { "branch", "diagnostics" },
+        lualine_x = {
+          -- displays register if present
+          function()
+            local reg = vim.fn.reg_recording()
+            if reg == "" then
+              return ""
+            end
+            return "recording @" .. reg
+          end,
+          "filetype"
+        },
         lualine_y = { "grapple" }
       }
     }
