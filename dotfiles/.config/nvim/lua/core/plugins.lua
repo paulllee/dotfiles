@@ -12,12 +12,6 @@ end
 vim.opt.rtp:prepend(lazypath)
 
 require("lazy").setup({
-  -- auto-comment (<C-/> on VSCode)
-  {
-    "numToStr/Comment.nvim",
-    opts = {}
-  },
-
   -- auto-pairing of chars
   {
     "windwp/nvim-autopairs",
