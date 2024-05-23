@@ -123,10 +123,13 @@ require("lazy").setup({
     opts = specs.snippy
   },
 
-  -- overall prettier ui (without nvim-notify)
+  -- overall prettier ui
   {
     "folke/noice.nvim",
-    dependencies = { "MunifTanjim/nui.nvim" },
+    dependencies = {
+      "MunifTanjim/nui.nvim",
+      "rcarriga/nvim-notify"
+    },
     opts = specs.noice
   },
 
