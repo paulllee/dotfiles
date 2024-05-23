@@ -10,12 +10,12 @@ function npm_me() {
   npm install -g "$@"
 }
 
-# auto-installed
-# - lua
-# - rust
-
 # (re-)create contained lsp environment JUST for ruff
 yes | micromamba create -n lsp python=3.12
+
+# installed prior from Brewfile
+# - lua
+# - rust
 
 # python
 pip_me ruff
