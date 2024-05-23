@@ -25,7 +25,7 @@ cmap("n", "<Leader>e", "Neotree toggle")
 cmap("n", "<Leader>f", "FzfLua files")
 cmap("n", "<Leader>g", "FzfLua live_grep")
 
-cmap("n", "<Leader>x", "Grapple toggle")
+cmap("n", "<Leader>s", "Grapple toggle")
 cmap("n", ",", "Grapple toggle_tags")
 
 vim.api.nvim_create_autocmd("LspAttach", {
