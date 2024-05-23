@@ -5,7 +5,6 @@ fish_add_path "$HOME/.local/bin"
 # ALIASES
 
 alias lg="lazygit"
-alias mm="micromamba"
 
 # FUNCTIONS
 
@@ -24,11 +23,7 @@ set -gx FZF_DEFAULT_OPTS "--border=rounded \
 --color=fg:#cdd6f4,header:#f38ba8,info:#cba6f7,pointer:#f5e0dc \
 --color=marker:#f5e0dc,fg+:#cdd6f4,prompt:#cba6f7,hl+:#f38ba8"
 
-set -gx MAMBA_ROOT_PREFIX "$HOME/.micromamba"
-set -gx MAMBARC "$HOME/.config/micromamba/.mambarc"
-
 # PACKAGES
 
 eval "$(/opt/homebrew/bin/brew shellenv)"
-eval "$(micromamba shell hook -s fish)"
 starship init fish | source
