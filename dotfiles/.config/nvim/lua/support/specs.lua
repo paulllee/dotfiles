@@ -7,24 +7,21 @@ local ui_height = 12
 
 specs.default = {}
 
-specs.neotree = {
-  close_if_last_window = true,
-  filesystem = {
-    filtered_items = {
-      hide_dotfiles = false,
-      hide_gitignored = false,
-      hide_hidden = false,
-      never_show = { ".git" }
-    }
-  },
-  window = { width = ui_width }
-}
-
 specs.grapple = {
   style = "basename",
   win_opts = {
     width = ui_width,
     height = ui_height
+  }
+}
+
+specs.lspkind = {
+  mode = "symbol_text",
+  maxwidth = ui_width + 20,
+  ellipsis_char = "...",
+  menu = {
+    nvim_lsp = "",
+    buffer = ""
   }
 }
 
@@ -48,23 +45,25 @@ specs.lsps = {
   tsserver = {}
 }
 
-specs.lspkind = {
-  mode = "symbol_text",
-  maxwidth = ui_width + 20,
-  ellipsis_char = "...",
-  menu = {
-    nvim_lsp = "",
-    buffer = ""
+specs.lualine = {
+  sections = {
+    lualine_b = { "branch", "diagnostics" },
+    lualine_x = { helpers.get_reg, "filetype" },
+    lualine_y = { "grapple" }
   }
 }
 
-specs.snippy = {
-  mappings = {
-    is = {
-      ["<Tab>"] = "next",
-      ["<S-Tab>"] = "previous"
+specs.neotree = {
+  close_if_last_window = true,
+  filesystem = {
+    filtered_items = {
+      hide_dotfiles = false,
+      hide_gitignored = false,
+      hide_hidden = false,
+      never_show = { ".git" }
     }
-  }
+  },
+  window = { width = ui_width }
 }
 
 local noice_size = {
@@ -89,11 +88,23 @@ specs.noice = {
   }
 }
 
-specs.lualine = {
-  sections = {
-    lualine_b = { "branch", "diagnostics" },
-    lualine_x = { helpers.get_reg, "filetype" },
-    lualine_y = { "grapple" }
+specs.snippy = {
+  mappings = {
+    is = {
+      ["<Tab>"] = "next",
+      ["<S-Tab>"] = "previous"
+    }
+  }
+}
+
+specs.telescope = {
+  pickers = {
+    find_files = {
+      find_command = { "fd", "--hidden", "--type", "f" }
+    },
+    live_grep = {
+      additional_args = { "--hidden", "--glob=!.git" }
+    }
   }
 }
 

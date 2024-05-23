@@ -20,54 +20,7 @@ require("lazy").setup({
     opts = specs.default
   },
 
-  -- file explorer
-  {
-    "nvim-neo-tree/neo-tree.nvim",
-    branch = "v3.x",
-    dependencies = {
-      "nvim-lua/plenary.nvim",
-      "nvim-tree/nvim-web-devicons",
-      "MunifTanjim/nui.nvim"
-    },
-    opts = specs.neotree
-  },
-
-  -- fzf no telescope
-  {
-    "ibhagwan/fzf-lua",
-    dependencies = { "nvim-tree/nvim-web-devicons" },
-    opts = specs.default
-  },
-
-  -- git decorators
-  {
-    "lewis6991/gitsigns.nvim",
-    opts = specs.default
-  },
-
-  -- harpoon-like navigation
-  {
-    "cbochs/grapple.nvim",
-    dependencies = { "nvim-tree/nvim-web-devicons" },
-    opts = specs.grapple
-  },
-
-  -- lsp + cmp + snippy
-  {
-    "neovim/nvim-lspconfig",
-    dependencies = { "hrsh7th/cmp-nvim-lsp" },
-    -- due to external lib use, it is not in specs
-    config = function()
-      local lspconfig = require("lspconfig")
-      local cmp_lsp = require("cmp_nvim_lsp")
-
-      for name, lsp in pairs(specs.lsps) do
-        lsp.capabilities = cmp_lsp.default_capabilities()
-        lspconfig[name].setup(lsp)
-      end
-    end
-  },
-
+  -- cmp
   {
     "hrsh7th/nvim-cmp",
     dependencies = {
@@ -86,7 +39,7 @@ require("lazy").setup({
         completion = { completeopt = "menu,menuone,noinsert" },
         formatting = { format = lspkind.cmp_format(specs.lspkind) },
         mapping = {
-          ["<C-y>"] = cmp.mapping.confirm({ select = true }),
+          ["<CR>"] = cmp.mapping.confirm({ select = true }),
           ["<C-p>"] = cmp.mapping.select_prev_item(),
           ["<C-n>"] = cmp.mapping.select_next_item()
         },
@@ -118,9 +71,45 @@ require("lazy").setup({
     end
   },
 
+  -- file explorer
   {
-    "dcampos/nvim-snippy",
-    opts = specs.snippy
+    "nvim-neo-tree/neo-tree.nvim",
+    branch = "v3.x",
+    dependencies = {
+      "nvim-lua/plenary.nvim",
+      "nvim-tree/nvim-web-devicons",
+      "MunifTanjim/nui.nvim"
+    },
+    opts = specs.neotree
+  },
+
+  -- git decorators
+  {
+    "lewis6991/gitsigns.nvim",
+    opts = specs.default
+  },
+
+  -- harpoon-like navigation
+  {
+    "cbochs/grapple.nvim",
+    dependencies = { "nvim-tree/nvim-web-devicons" },
+    opts = specs.grapple
+  },
+
+  -- lsp
+  {
+    "neovim/nvim-lspconfig",
+    dependencies = { "hrsh7th/cmp-nvim-lsp" },
+    -- due to external lib use, it is not in specs
+    config = function()
+      local lspconfig = require("lspconfig")
+      local cmp_lsp = require("cmp_nvim_lsp")
+
+      for name, lsp in pairs(specs.lsps) do
+        lsp.capabilities = cmp_lsp.default_capabilities()
+        lspconfig[name].setup(lsp)
+      end
+    end
   },
 
   -- overall prettier ui
@@ -133,11 +122,25 @@ require("lazy").setup({
     opts = specs.noice
   },
 
+  -- snippy
+  {
+    "dcampos/nvim-snippy",
+    opts = specs.snippy
+  },
+
   -- statusline
   {
     "nvim-lualine/lualine.nvim",
     dependencies = { "nvim-tree/nvim-web-devicons" },
     opts = specs.lualine
+  },
+
+  -- telescope
+  {
+    "nvim-telescope/telescope.nvim",
+    dependencies = { "nvim-lua/plenary.nvim" },
+    branch = "0.1.x",
+    opts = specs.telescope
   },
 
   -- terminal
