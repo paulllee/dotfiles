@@ -86,7 +86,7 @@ require("lazy").setup({
         completion = { completeopt = "menu,menuone,noinsert" },
         formatting = { format = lspkind.cmp_format(specs.lspkind) },
         mapping = {
-          ["<CR>"] = cmp.mapping.confirm({ select = true }),
+          ["<C-y>"] = cmp.mapping.confirm({ select = true }),
           ["<C-p>"] = cmp.mapping.select_prev_item(),
           ["<C-n>"] = cmp.mapping.select_next_item()
         },
