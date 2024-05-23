@@ -50,6 +50,7 @@ specs.lsps = {
 
 specs.lspkind = {
   mode = "symbol_text",
+  maxwidth = ui_width + 20,
   ellipsis_char = "...",
   menu = {
     nvim_lsp = "",
