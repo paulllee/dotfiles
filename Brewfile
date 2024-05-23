@@ -9,6 +9,10 @@ brew "neovim"
 brew "starship"
 brew "ripgrep"
 
+brew "node"
+brew "lua-language-server"
+brew "rust-analyzer"
+
 cask "arc"
 cask "kitty"
 cask "mac-mouse-fix"

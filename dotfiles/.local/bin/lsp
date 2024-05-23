@@ -2,26 +2,20 @@
 
 # [l]anguage [s]erver [p]rotocol
 
-function brew_me() {
-  brew install "$@"
-}
-
 function pip_me() {
   micromamba run -n lsp pip install "$@"
 }
 
 function npm_me() {
-  micromamba run -n lsp npm install -g "$@"
+  npm install -g "$@"
 }
 
-# lua
-brew_me lua-language-server
+# auto-installed
+# - lua
+# - rust
 
-# rust
-brew_me rust-analyzer
-
-# (re-)create contained lsp environment
-yes | micromamba create -n lsp python=3.12 nodejs=20.9.0
+# (re-)create contained lsp environment JUST for ruff
+yes | micromamba create -n lsp python=3.12
 
 # python
 pip_me ruff
