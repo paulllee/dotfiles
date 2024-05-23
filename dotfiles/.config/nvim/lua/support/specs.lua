@@ -2,6 +2,9 @@ local specs = {}
 
 local helpers = require("support.helpers")
 
+local ui_width = 30
+local ui_height = 12
+
 specs.default = {}
 
 specs.neotree = {
@@ -14,14 +17,14 @@ specs.neotree = {
       never_show = { ".git" }
     }
   },
-  window = { width = helpers.width }
+  window = { width = ui_width }
 }
 
 specs.grapple = {
   style = "basename",
   win_opts = {
-    width = helpers.width,
-    height = helpers.height
+    width = ui_width,
+    height = ui_height
   }
 }
 
@@ -68,8 +71,8 @@ specs.snippy = {
 
 local noice_size = {
   size = {
-    max_width = helpers.width + 20,
-    max_height = helpers.height
+    max_width = ui_width + 20,
+    max_height = ui_height
   }
 }
 specs.noice = {

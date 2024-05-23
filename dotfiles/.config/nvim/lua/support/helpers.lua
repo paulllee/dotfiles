@@ -1,9 +1,5 @@
 local helpers = {}
 
--- common width/height used for ui components
-helpers.width = 30
-helpers.height = 12
-
 -- used to grab the current available python path
 helpers.get_python_path = function()
   if vim.fn.executable("python3") == 1 then
