@@ -38,12 +38,9 @@ vim.api.nvim_create_autocmd("LspAttach", {
     lmap("n", "gs", "lua vim.lsp.buf.signature_help()")
 
     lmap("n", "gd", "FzfLua lsp_definitions")
-    lmap("n", "gD", "FzfLua lsp_declarations")
-    lmap("n", "gi", "FzfLua lsp_implementations")
     lmap("n", "gr", "FzfLua lsp_references")
 
-    lmap("n", "<F2>", "lua vim.lsp.buf.rename()")
-    lmap("n", "<F3>", "lua vim.lsp.buf.format()")
-    lmap("n", "<F4>", "FzfLua lsp_code_actions")
+    lmap("n", "<Leader>R", "lua vim.lsp.buf.rename()")
+    lmap("n", "<Leader>F", "lua vim.lsp.buf.format()")
   end
 })
