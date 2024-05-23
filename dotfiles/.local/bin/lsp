@@ -2,24 +2,21 @@
 
 # [l]anguage [s]erver [p]rotocol
 
-function pip_me() {
-  micromamba run -n lsp pip install "$@"
+function pipx_me() {
+  pipx install "$@"
 }
 
 function npm_me() {
   npm install -g "$@"
 }
 
-# (re-)create contained lsp environment JUST for ruff
-yes | micromamba create -n lsp python=3.12
-
 # installed prior from Brewfile
 # - lua
 # - rust
 
 # python
-pip_me ruff
-pip_me ruff-lsp
+pipx_me ruff
+pipx_me ruff-lsp
 npm_me pyright
 
 # bash
