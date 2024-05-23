@@ -43,10 +43,7 @@ specs.lsps = {
       }
     }
   },
-  ruff_lsp = {
-    cmd = { "micromamba", "run", "-n", "lsp", "ruff-lsp" },
-    on_attach = helpers.ruff_lsp_on_attach
-  },
+  ruff_lsp = { on_attach = helpers.ruff_lsp_on_attach },
   rust_analyzer = {},
   tsserver = {}
 }
