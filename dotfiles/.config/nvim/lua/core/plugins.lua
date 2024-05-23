@@ -29,8 +29,8 @@ require("lazy").setup({
       "hrsh7th/cmp-buffer",
       "onsails/lspkind.nvim"
     },
-    -- due to external lib use, it is not in specs
     config = function()
+      -- due to external lib use, it is not in specs
       local cmp = require("cmp")
       local lspkind = require("lspkind")
       local snippy = require("snippy")
@@ -100,8 +100,8 @@ require("lazy").setup({
   {
     "neovim/nvim-lspconfig",
     dependencies = { "hrsh7th/cmp-nvim-lsp" },
-    -- due to external lib use, it is not in specs
     config = function()
+      -- due to external lib use, it is not in specs
       local lspconfig = require("lspconfig")
       local cmp_lsp = require("cmp_nvim_lsp")
 
