@@ -22,8 +22,8 @@ end
 
 cmap("n", "<Leader>e", "Neotree toggle")
 
-cmap("n", "<Leader>f", "FzfLua files")
-cmap("n", "<Leader>g", "FzfLua live_grep")
+cmap("n", "<Leader>f", "Telescope find_files")
+cmap("n", "<Leader>g", "Telescope live_grep")
 
 cmap("n", "<C-s>", "Grapple toggle")
 cmap("n", ",", "Grapple toggle_tags")
@@ -37,8 +37,8 @@ vim.api.nvim_create_autocmd("LspAttach", {
     lmap("n", "gh", "lua vim.lsp.buf.hover()")
     lmap("n", "gs", "lua vim.lsp.buf.signature_help()")
 
-    lmap("n", "gd", "FzfLua lsp_definitions")
-    lmap("n", "gr", "FzfLua lsp_references")
+    lmap("n", "gd", "Telescope lsp_definitions")
+    lmap("n", "gr", "Telescope lsp_references")
 
     lmap("n", "<Leader>R", "lua vim.lsp.buf.rename()")
     lmap("n", "<Leader>F", "lua vim.lsp.buf.format()")
