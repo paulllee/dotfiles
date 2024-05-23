@@ -1,8 +1,7 @@
--- all keybinds in <cmd><cr> format
--- no need to have plugins loaded beforehand
+-- vim.keymap.set wrapper for sane defaults
 -- `desc` and `buffer` are optional
 local function map(mode, lhs, rhs, desc, buffer)
-  vim.keymap.set(mode, lhs, "<cmd>" .. rhs .. "<cr>", {
+  vim.keymap.set(mode, lhs, rhs, {
     desc = desc,
     buffer = buffer,
     noremap = true,
@@ -10,30 +9,41 @@ local function map(mode, lhs, rhs, desc, buffer)
   })
 end
 
-map("n", "<Leader>e", "Neotree toggle", "Open explorer")
-map("n", "<Leader>r", "LspRestart", "Restart server")
+map("n", "<C-w><C-h>", "<C-w>h")
+map("n", "<C-w><C-j>", "<C-w>j")
+map("n", "<C-w><C-k>", "<C-w>k")
+map("n", "<C-w><C-l>", "<C-w>l")
 
-map("n", "<Leader>f", "Telescope find_files", "Search files")
-map("n", "<Leader>g", "Telescope live_grep", "Grep files")
+-- all keybinds in <CMD><CR> format
+-- no need to have plugins loaded beforehand
+local function cmap(mode, lhs, rhs, desc, buffer)
+  map(mode, lhs, "<CMD>" .. rhs .. "<CR>", desc, buffer)
+end
 
-map("n", ",", "Grapple toggle_tags", "Open tag menu")
-map("n", "<C-s>", "Grapple toggle", "Toggle tag")
+cmap("n", "<Leader>e", "Neotree toggle")
+
+cmap("n", "<Leader>f", "FzfLua files")
+cmap("n", "<Leader>g", "FzfLua live_grep")
+
+cmap("n", "<Leader>x", "Grapple toggle")
+cmap("n", ",", "Grapple toggle_tags")
 
 vim.api.nvim_create_autocmd("LspAttach", {
   callback = function(args)
     local function lmap(mode, lhs, rhs, desc)
-      map(mode, lhs, rhs, desc, args.buf)
+      cmap(mode, lhs, rhs, desc, args.buf)
     end
 
-    lmap("n", "gd", "Telescope lsp_definitions", "Definitions")
-    lmap("n", "gD", "Telescope diagnostics", "Diagnostics")
-    lmap("n", "gi", "Telescope lsp_implementations", "Implementations")
-    lmap("n", "gr", "Telescope lsp_references", "References")
+    lmap("n", "gh", "lua vim.lsp.buf.hover()")
+    lmap("n", "gs", "lua vim.lsp.buf.signature_help()")
 
-    lmap("n", "gh", "lua vim.lsp.buf.hover()", "Hover")
-    lmap("n", "gs", "lua vim.lsp.buf.signature_help()", "Signature")
+    lmap("n", "gd", "FzfLua lsp_definitions")
+    lmap("n", "gD", "FzfLua lsp_declarations")
+    lmap("n", "gi", "FzfLua lsp_implementations")
+    lmap("n", "gr", "FzfLua lsp_references")
 
-    lmap("n", "<Leader>F", "lua vim.lsp.buf.format()", "Format")
-    lmap("n", "<Leader>R", "lua vim.lsp.buf.rename()", "Rename")
+    lmap("n", "<F2>", "lua vim.lsp.buf.rename()")
+    lmap("n", "<F3>", "lua vim.lsp.buf.format()")
+    lmap("n", "<F4>", "FzfLua lsp_code_actions")
   end
 })
