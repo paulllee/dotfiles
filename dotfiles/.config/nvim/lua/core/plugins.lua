@@ -118,7 +118,7 @@ require("lazy").setup({
     opts = specs.notify
   },
 
-  -- overall prettier ui
+  -- prettier ui
   {
     "folke/noice.nvim",
     dependencies = {
