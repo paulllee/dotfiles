@@ -2,14 +2,14 @@
 vim.g.mapleader = " "
 vim.g.maplocalleader = " "
 
--- remove unused providers from nvim
+-- remove unused providers for nvim
 vim.g.loaded_python3_provider = 0
 vim.g.loaded_perl_provider = 0
 vim.g.loaded_ruby_provider = 0
 vim.g.loaded_node_provider = 0
 
 -- enable markdown folds
--- but default to unfolded on file open
+-- default to unfolded on file open
 vim.g.markdown_folding = 1
 vim.o.foldlevel = 99
 

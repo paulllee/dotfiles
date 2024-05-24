@@ -1,5 +1,4 @@
--- vim.keymap.set wrapper for sane defaults
--- `desc` and `buffer` are optional
+-- vim.keymap.set wrapper with sane defaults
 local function map(mode, lhs, rhs, desc, buffer)
   vim.keymap.set(mode, lhs, rhs, {
     desc = desc,
@@ -9,16 +8,16 @@ local function map(mode, lhs, rhs, desc, buffer)
   })
 end
 
+-- all rhs default to <CMD>rhs<CR> format
+local function cmap(mode, lhs, rhs, desc, buffer)
+  map(mode, lhs, "<CMD>" .. rhs .. "<CR>", desc, buffer)
+end
+
+-- to go between windows more conveniently
 map("n", "<C-w><C-h>", "<C-w>h")
 map("n", "<C-w><C-j>", "<C-w>j")
 map("n", "<C-w><C-k>", "<C-w>k")
 map("n", "<C-w><C-l>", "<C-w>l")
-
--- all keybinds in <CMD><CR> format
--- no need to have plugins loaded beforehand
-local function cmap(mode, lhs, rhs, desc, buffer)
-  map(mode, lhs, "<CMD>" .. rhs .. "<CR>", desc, buffer)
-end
 
 cmap("n", "<Leader>e", "Neotree toggle")
 
@@ -30,6 +29,7 @@ cmap("n", ",", "Grapple toggle_tags")
 
 vim.api.nvim_create_autocmd("LspAttach", {
   callback = function(args)
+    -- wraps cmap for lsp keybinds
     local function lmap(mode, lhs, rhs, desc)
       cmap(mode, lhs, rhs, desc, args.buf)
     end
