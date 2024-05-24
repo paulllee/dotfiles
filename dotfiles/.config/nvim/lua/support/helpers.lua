@@ -8,21 +8,20 @@ helpers.get_python_path = function()
   return vim.fn.exepath("python")
 end
 
--- disable hover for ruff in favor of pyright
-helpers.ruff_lsp_on_attach = function(client, _)
+-- prioritize pyright hover
+helpers.get_on_attach_ruff = function(client, _)
   client.server_capabilities.hoverProvider = false
 end
 
--- sorts completion items with one or more underscores
--- helpful in python especially
-helpers.get_cmp_under_comparator = function(entry1, entry2)
-  local _, entry1_under = entry1.completion_item.label:find("^_+")
-  local _, entry2_under = entry2.completion_item.label:find("^_+")
-  entry1_under = entry1_under or 0
-  entry2_under = entry2_under or 0
-  if entry1_under > entry2_under then
+-- compares based on two or more underscores
+helpers.get_compare_underscore = function(a, b)
+  local _, us1 = a.completion_item.label:find("^_+")
+  local _, us2 = b.completion_item.label:find("^_+")
+  us1 = us1 or 0
+  us2 = us2 or 0
+  if us1 > us2 then
     return false
-  elseif entry1_under < entry2_under then
+  elseif us1 < us2 then
     return true
   end
 end

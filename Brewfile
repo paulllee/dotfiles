@@ -1,5 +1,3 @@
-brew "colima"
-brew "docker"
 brew "fd"
 brew "fish"
 brew "fzf"
@@ -10,7 +8,6 @@ brew "node"
 brew "pipx"
 brew "python@3.12"
 brew "ripgrep"
-brew "rust-analyzer"
 brew "starship"
 
 cask "arc"

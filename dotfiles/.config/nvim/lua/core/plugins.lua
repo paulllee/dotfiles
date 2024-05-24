@@ -39,7 +39,7 @@ require("lazy").setup({
         completion = { completeopt = "menu,menuone,noinsert" },
         formatting = { format = lspkind.cmp_format(specs.lspkind) },
         mapping = {
-          ["<CR>"] = cmp.mapping.confirm({ select = true }),
+          ["<C-y>"] = cmp.mapping.confirm({ select = true }),
           ["<C-p>"] = cmp.mapping.select_prev_item(),
           ["<C-n>"] = cmp.mapping.select_next_item()
         },
@@ -54,7 +54,7 @@ require("lazy").setup({
             cmp.config.compare.exact,
             cmp.config.compare.score,
             cmp.config.compare.recently_used,
-            helpers.get_cmp_under_comparator,
+            helpers.get_compare_underscore,
             cmp.config.compare.locality,
             cmp.config.compare.kind
           }

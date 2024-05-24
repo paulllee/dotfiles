@@ -23,10 +23,7 @@ specs.lspkind = {
 }
 
 specs.lsps = {
-  bashls = {},
   clangd = {},
-  cssls = {},
-  html = {},
   jsonls = {},
   lua_ls = {},
   pyright = {
@@ -37,9 +34,7 @@ specs.lsps = {
       }
     }
   },
-  ruff_lsp = { on_attach = helpers.ruff_lsp_on_attach },
-  rust_analyzer = {},
-  tsserver = {}
+  ruff_lsp = { on_attach = helpers.get_on_attach_ruff }
 }
 
 specs.lualine = {
