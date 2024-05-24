@@ -19,7 +19,7 @@ map("n", "<C-w><C-j>", "<C-w>j")
 map("n", "<C-w><C-k>", "<C-w>k")
 map("n", "<C-w><C-l>", "<C-w>l")
 
-cmap("n", "<Leader>e", "Neotree toggle")
+cmap("n", "<Leader>e", "Oil --float")
 
 cmap("n", "<Leader>f", "Telescope find_files")
 cmap("n", "<Leader>g", "Telescope live_grep")

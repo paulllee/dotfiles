@@ -35,4 +35,12 @@ helpers.get_reg = function()
   return "recording @" .. reg
 end
 
+-- get always hidden files for oil
+helpers.get_always_hidden = function(name, _)
+  if name == ".git" then
+    return true
+  end
+  return false
+end
+
 return helpers

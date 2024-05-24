@@ -2,19 +2,22 @@ local specs = {}
 
 local helpers = require("support.helpers")
 
+local ui_width = 40
+local ui_height = 12
+
 specs.default = {}
 
 specs.grapple = {
   style = "basename",
   win_opts = {
-    width = 30,
-    height = 12
+    width = ui_width,
+    height = ui_height
   }
 }
 
 specs.lspkind = {
   mode = "symbol_text",
-  maxwidth = 50,
+  maxwidth = ui_width,
   ellipsis_char = "...",
   menu = {
     nvim_lsp = "",
@@ -45,23 +48,10 @@ specs.lualine = {
   }
 }
 
-specs.neotree = {
-  close_if_last_window = true,
-  filesystem = {
-    filtered_items = {
-      hide_dotfiles = false,
-      hide_gitignored = false,
-      hide_hidden = false,
-      never_show = { ".git" }
-    }
-  },
-  window = { width = 30 }
-}
-
 local noice_size = {
   size = {
-    max_width = 50,
-    max_height = 12
+    max_width = ui_width,
+    max_height = ui_height
   }
 }
 specs.noice = {
@@ -84,6 +74,17 @@ specs.notify = {
   render = "compact",
   stages = "static",
   timeout = 2500
+}
+
+specs.oil = {
+  view_options = {
+    show_hidden = true,
+    is_always_hidden = helpers.get_always_hidden
+  },
+  float = {
+    max_width = ui_width,
+    max_height = ui_height
+  }
 }
 
 specs.snippy = {

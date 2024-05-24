@@ -39,9 +39,9 @@ require("lazy").setup({
         completion = { completeopt = "menu,menuone,noinsert" },
         formatting = { format = lspkind.cmp_format(specs.lspkind) },
         mapping = {
-          ["<C-y>"] = cmp.mapping.confirm({ select = true }),
-          ["<C-p>"] = cmp.mapping.select_prev_item(),
-          ["<C-n>"] = cmp.mapping.select_next_item()
+          ["<C-y>"] = cmp.mapping.confirm(),
+          ["<C-p>"] = cmp.mapping.select_prev_item({ behavior = "select" }),
+          ["<C-n>"] = cmp.mapping.select_next_item({ behavior = "select" })
         },
         snippet = {
           expand = function(args)
@@ -73,14 +73,9 @@ require("lazy").setup({
 
   -- file explorer
   {
-    "nvim-neo-tree/neo-tree.nvim",
-    branch = "v3.x",
-    dependencies = {
-      "nvim-lua/plenary.nvim",
-      "nvim-tree/nvim-web-devicons",
-      "MunifTanjim/nui.nvim"
-    },
-    opts = specs.neotree
+    "stevearc/oil.nvim",
+    dependencies = { "nvim-tree/nvim-web-devicons" },
+    opts = specs.oil
   },
 
   -- git decorators
