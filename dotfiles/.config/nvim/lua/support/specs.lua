@@ -2,22 +2,19 @@ local specs = {}
 
 local helpers = require("support.helpers")
 
-local ui_width = 30
-local ui_height = 12
-
 specs.default = {}
 
 specs.grapple = {
   style = "basename",
   win_opts = {
-    width = ui_width,
-    height = ui_height
+    width = 30,
+    height = 12
   }
 }
 
 specs.lspkind = {
   mode = "symbol_text",
-  maxwidth = ui_width + 20,
+  maxwidth = 50,
   ellipsis_char = "...",
   menu = {
     nvim_lsp = "",
@@ -63,13 +60,13 @@ specs.neotree = {
       never_show = { ".git" }
     }
   },
-  window = { width = ui_width }
+  window = { width = 30 }
 }
 
 local noice_size = {
   size = {
-    max_width = ui_width + 20,
-    max_height = ui_height
+    max_width = 50,
+    max_height = 12
   }
 }
 specs.noice = {
