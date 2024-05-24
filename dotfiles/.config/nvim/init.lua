@@ -39,7 +39,7 @@ vim.o.undofile = true
 -- [[ PLUGINS ]]
 
 -- install lazy manager
-local lazy = vim.fn.stdpath("data/lazy/lazy.nvim")
+local lazy = vim.fn.stdpath("data") .. "/lazy/lazy.nvim"
 if not vim.loop.fs_stat(lazy) then
   vim.fn.system({
     "git",
@@ -72,7 +72,6 @@ require("lazy").setup({
       "onsails/lspkind.nvim"
     },
     config = function()
-      -- due to external lib use, it is not in specs
       local cmp = require("cmp")
       local lspkind = require("lspkind")
       local snippy = require("snippy")
@@ -157,7 +156,7 @@ require("lazy").setup({
   -- git decorators
   {
     "lewis6991/gitsigns.nvim",
-    opts = specs.default
+    opts = {}
   },
 
   -- harpoon-like navigation
@@ -179,7 +178,6 @@ require("lazy").setup({
     "neovim/nvim-lspconfig",
     dependencies = { "hrsh7th/cmp-nvim-lsp" },
     config = function()
-      -- due to external lib use, it is not in specs
       local lspconfig = require("lspconfig")
       local cmp_lsp = require("cmp_nvim_lsp")
 
