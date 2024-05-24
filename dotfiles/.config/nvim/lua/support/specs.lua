@@ -88,6 +88,12 @@ specs.noice = {
   }
 }
 
+specs.notify = {
+  render = "compact",
+  stages = "static",
+  timeout = 2500
+}
+
 specs.snippy = {
   mappings = {
     is = {

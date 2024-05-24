@@ -112,6 +112,12 @@ require("lazy").setup({
     end
   },
 
+  -- notify customization
+  {
+    "rcarriga/nvim-notify",
+    opts = specs.notify
+  },
+
   -- overall prettier ui
   {
     "folke/noice.nvim",
