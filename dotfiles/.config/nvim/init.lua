@@ -221,10 +221,14 @@ require("lazy").setup({
         require("lspconfig")[lsp].setup(conf)
       end
 
+      -- for when i decide to code in a small window
+      local function get_dynamic_maxwidth()
+        return math.floor(0.35 * vim.o.columns)
+      end
       local formatting = {
         format = require("lspkind").cmp_format({
           mode = "symbol_text",
-          maxwidth = 50,
+          maxwidth = get_dynamic_maxwidth,
           ellipsis_char = "...",
           menu = {
             nvim_lsp = "",
