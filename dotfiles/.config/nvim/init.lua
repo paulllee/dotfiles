@@ -55,21 +55,25 @@ end
 vim.opt.rtp:prepend(lazypath)
 
 require("lazy").setup({
+  -- autopairs
   {
     "windwp/nvim-autopairs",
     opts = {}
   },
 
+  -- git helpers
   {
     "lewis6991/gitsigns.nvim",
     opts = {}
   },
 
+  -- modern ui for input and select
   {
     "stevearc/dressing.nvim",
-    opts = {},
+    opts = {}
   },
 
+  -- buffer styled file explorer
   {
     "stevearc/oil.nvim",
     dependencies = { "nvim-tree/nvim-web-devicons" },
@@ -78,12 +82,14 @@ require("lazy").setup({
     }
   },
 
+  -- quick switch between frequent files
   {
     "cbochs/grapple.nvim",
     dependencies = { "nvim-tree/nvim-web-devicons" },
     opts = {}
   },
 
+  -- modern notifications
   {
     "j-hui/fidget.nvim",
     opts = {
@@ -91,6 +97,7 @@ require("lazy").setup({
     }
   },
 
+  -- floating terminal
   {
     "akinsho/toggleterm.nvim",
     opts = {
@@ -100,6 +107,7 @@ require("lazy").setup({
     }
   },
 
+  -- modular statusline
   {
     "nvim-lualine/lualine.nvim",
     dependencies = { "nvim-tree/nvim-web-devicons" },
@@ -112,6 +120,7 @@ require("lazy").setup({
     }
   },
 
+  -- browsing made easy
   {
     "nvim-telescope/telescope.nvim",
     dependencies = { "nvim-lua/plenary.nvim" },
@@ -128,6 +137,7 @@ require("lazy").setup({
     }
   },
 
+  -- theme of choice
   {
     "catppuccin/nvim",
     name = "catppuccin",
@@ -137,6 +147,7 @@ require("lazy").setup({
     end
   },
 
+  -- treesitter
   {
     "nvim-treesitter/nvim-treesitter",
     build = ":TSUpdate",
@@ -147,18 +158,23 @@ require("lazy").setup({
         highlight = { enable = true },
         indent = { enable = true }
       })
-      vim.api.nvim_create_autocmd({ "FileType" }, {
-        callback = function()
-          if require("nvim-treesitter.parsers").has_parser() then
-            vim.o.foldmethod = "expr"
-            vim.o.foldexpr = "nvim_treesitter#foldexpr()"
-          else
-          end
-        end,
+
+      -- if available, utilize treesitter's folding expr for the
+      -- current FileType
+      local function use_treesitter_expr()
+        if require("nvim-treesitter.parsers").has_parser() then
+          vim.o.foldmethod = "expr"
+          vim.o.foldexpr = "nvim_treesitter#foldexpr()"
+        end
+      end
+
+      vim.api.nvim_create_autocmd("FileType", {
+        callback = use_treesitter_expr
       })
     end
   },
 
+  -- lsp + cmp
   {
     "neovim/nvim-lspconfig",
     dependencies = {
@@ -201,7 +217,6 @@ require("lazy").setup({
       }
 
       for lsp, conf in pairs(confs) do
-        -- adding cmp capabilities to all lsps
         conf.capabilities = require("cmp_nvim_lsp").default_capabilities()
         require("lspconfig")[lsp].setup(conf)
       end
@@ -290,14 +305,24 @@ local function map(mode, lhs, rhs, desc, buffer)
   })
 end
 
+-- clear highlight from pattern after search
+map("n", "<Leader>q", "noh")
+
+-- delete all trailing whitespace
+map("n", "<Leader>w", [[%s/\s\+$//]])
+
+-- oil in floating window
 map("n", "<Leader>e", "Oil --float")
 
+-- telescope
 map("n", "<Leader>f", "Telescope find_files")
 map("n", "<Leader>g", "Telescope live_grep")
 
+-- grapple
 map("n", ",", "Grapple toggle_tags")
 map("n", "<C-s>", "Grapple toggle")
 
+-- lsp
 vim.api.nvim_create_autocmd("LspAttach", {
   callback = function(args)
     local function lmap(mode, lhs, rhs, desc)
