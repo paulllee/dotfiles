@@ -10,9 +10,11 @@ vim.g.loaded_perl_provider = 0
 vim.g.loaded_ruby_provider = 0
 vim.g.loaded_node_provider = 0
 
--- enable markdown folds and default to expanded
-vim.g.markdown_folding = 1
-vim.o.foldlevel = 99
+-- enable code fold using syntax
+vim.o.foldmethod = "syntax"
+
+-- disables auto-folding on launch
+vim.o.foldenable = false
 
 -- globally set tab to 2 spaces
 vim.o.expandtab = true
@@ -140,26 +142,19 @@ require("lazy").setup({
     build = ":TSUpdate",
     config = function()
       require("nvim-treesitter.configs").setup({
-        ensure_installed = {
-          -- the following should always be installed
-          "c",
-          "lua",
-          "vim",
-          "vimdoc",
-          "query",
-
-          -- the following is required by noice.nvim
-          "regex",
-          "bash",
-          "markdown",
-          "markdown_inline"
-        },
+        ensure_installed = { "c", "lua", "vim", "vimdoc", "query" },
         auto_install = true,
-        highlight = {
-          enable = true,
-          additional_vim_regex_highlighting = true
-        },
+        highlight = { enable = true },
         indent = { enable = true }
+      })
+      vim.api.nvim_create_autocmd({ "FileType" }, {
+        callback = function()
+          if require("nvim-treesitter.parsers").has_parser() then
+            vim.o.foldmethod = "expr"
+            vim.o.foldexpr = "nvim_treesitter#foldexpr()"
+          else
+          end
+        end,
       })
     end
   },
@@ -211,65 +206,73 @@ require("lazy").setup({
         require("lspconfig")[lsp].setup(conf)
       end
 
-      local cmp = require("cmp")
-
-      cmp.setup({
-        completion = { completeopt = "menu,menuone,noinsert" },
-        formatting = {
-          format = require("lspkind").cmp_format({
-            mode = "symbol_text",
-            maxwidth = 50,
-            ellipsis_char = "...",
-            menu = {
-              nvim_lsp = "",
-              buffer = ""
-            }
-          })
-        },
-        mapping = {
-          ["<C-y>"] = cmp.mapping.confirm(),
-          ["<C-p>"] = cmp.mapping.select_prev_item({ behavior = "select" }),
-          ["<C-n>"] = cmp.mapping.select_next_item({ behavior = "select" })
-        },
-        snippet = {
-          expand = function(args)
-            require("snippy").expand_snippet(args.body)
-          end
-        },
-        sorting = {
-          comparators = {
-            cmp.config.compare.offset,
-            cmp.config.compare.exact,
-            cmp.config.compare.score,
-            cmp.config.compare.recently_used,
-            -- sort completion items with two underscores in a row
-            function(a, b)
-              local _, us1 = a.completion_item.label:find("^_+")
-              local _, us2 = b.completion_item.label:find("^_+")
-              us1 = us1 or 0
-              us2 = us2 or 0
-              if us1 > us2 then
-                return false
-              elseif us1 < us2 then
-                return true
-              end
-            end,
-            cmp.config.compare.locality,
-            cmp.config.compare.kind
+      local formatting = {
+        format = require("lspkind").cmp_format({
+          mode = "symbol_text",
+          maxwidth = 50,
+          ellipsis_char = "...",
+          menu = {
+            nvim_lsp = "",
+            buffer = ""
           }
-        },
-        sources = {
-          { name = "nvim_lsp" },
-          { name = "buffer" }
-        }
-      })
+        })
+      }
 
-      require("snippy").setup({
+      local cmp = require("cmp")
+      local mapping = {
+        ["<C-y>"] = cmp.mapping.confirm(),
+        ["<C-p>"] = cmp.mapping.select_prev_item({ behavior = "select" }),
+        ["<C-n>"] = cmp.mapping.select_next_item({ behavior = "select" })
+      }
+
+      local snippy = require("snippy")
+      snippy.setup({
         mappings = {
           is = {
             ["<Tab>"] = "next",
             ["<S-Tab>"] = "previous"
           }
+        }
+      })
+      local snippet = {
+        expand = function(args)
+          snippy.expand_snippet(args.body)
+        end
+      }
+
+      -- sort completion items with two underscores in a row
+      local function compare_double_underscore(a, b)
+        local _, us1 = a.completion_item.label:find("^_+")
+        local _, us2 = b.completion_item.label:find("^_+")
+        us1 = us1 or 0
+        us2 = us2 or 0
+        if us1 > us2 then
+          return false
+        elseif us1 < us2 then
+          return true
+        end
+      end
+      local sorting = {
+        comparators = {
+          cmp.config.compare.offset,
+          cmp.config.compare.exact,
+          cmp.config.compare.score,
+          cmp.config.compare.recently_used,
+          compare_double_underscore,
+          cmp.config.compare.locality,
+          cmp.config.compare.kind
+        }
+      }
+
+      cmp.setup({
+        completion = { completeopt = "menu,menuone,noinsert" },
+        formatting = formatting,
+        mapping = mapping,
+        snippet = snippet,
+        sorting = sorting,
+        sources = {
+          { name = "nvim_lsp" },
+          { name = "buffer" }
         }
       })
     end
