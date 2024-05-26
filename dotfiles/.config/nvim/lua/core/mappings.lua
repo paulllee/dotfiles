@@ -8,41 +8,37 @@ local function map(mode, lhs, rhs, desc, buffer)
   })
 end
 
--- clear highlight from pattern after search
-map("n", "<Leader>q", "noh")
-
--- delete all trailing whitespace
-map("n", "<Leader>w", [[%s/\s\+$//]])
-
--- oil in floating window
-map("n", "<Leader>e", "Oil --float")
+-- oil
+map("n", "-", "Oil")
 
 -- telescope
-map("n", "<Leader>f", "Telescope find_files")
-map("n", "<Leader>g", "Telescope live_grep")
+map("n", "ff", "Telescope find_files")
+map("n", "fg", "Telescope live_grep")
 
 -- grapple
-map("n", ",", "Grapple toggle_tags")
-map("n", "<C-s>", "Grapple toggle")
+map("n", "m", "Grapple toggle_tags")
+map("n", "M", "Grapple toggle")
+
+local M = {}
 
 -- lsp
-vim.api.nvim_create_autocmd("LspAttach", {
-  callback = function(args)
-    -- lsp specific map function
-    local function lmap(mode, lhs, rhs, desc)
-      map(mode, lhs, rhs, desc, args.buf)
-    end
-
-    -- telescope instead of vim builtin funcs
-    lmap("n", "gd", "Telescope lsp_definitions")
-    lmap("n", "gr", "Telescope lsp_references")
-
-    -- use vim builtin for hover and sig help
-    lmap("n", "gh", "lua vim.lsp.buf.hover()")
-    lmap("n", "gs", "lua vim.lsp.buf.signature_help()")
-
-    -- renaming and formatting
-    lmap("n", "<Leader>R", "lua vim.lsp.buf.rename()")
-    lmap("n", "<Leader>F", "lua vim.lsp.buf.format()")
+function M.lsp_mappings(args)
+  -- wraps map with lsp buffer
+  local function lmap(mode, lhs, rhs, desc)
+    map(mode, lhs, rhs, desc, args.buf)
   end
-})
+
+  -- telescope instead of vim builtins
+  lmap("n", "gd", "Telescope lsp_definitions")
+  lmap("n", "gr", "Telescope lsp_references")
+
+  -- use vim builtin for hover and sig help
+  lmap("n", "K", "lua vim.lsp.buf.hover()")
+  lmap("n", "<C-k>", "lua vim.lsp.buf.signature_help()")
+
+  -- renaming and formatting
+  lmap("n", "<F2>", "lua vim.lsp.buf.rename()")
+  lmap("n", "<F3>", "lua vim.lsp.buf.format()")
+end
+
+return M
