@@ -86,9 +86,11 @@ require("lazy").setup({
     opts = {
       pickers = {
         find_files = {
+          theme = "dropdown",
           find_command = { "fd", "--hidden", "--type", "f" }
         },
         live_grep = {
+          theme = "dropdown",
           additional_args = { "--hidden", "--glob=!{.git}" }
         }
       }
