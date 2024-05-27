@@ -31,13 +31,10 @@ require("lazy").setup({
     opts = {}
   },
 
-  -- buffer styled file explorer
+  -- hop motion
   {
-    "stevearc/oil.nvim",
-    dependencies = { "nvim-tree/nvim-web-devicons" },
-    opts = {
-      view_options = { show_hidden = true }
-    }
+    "smoka7/hop.nvim",
+    opts = {}
   },
 
   -- quick switch between frequent files
@@ -55,6 +52,15 @@ require("lazy").setup({
     }
   },
 
+  -- buffer styled file explorer
+  {
+    "stevearc/oil.nvim",
+    dependencies = { "nvim-tree/nvim-web-devicons" },
+    opts = {
+      view_options = { show_hidden = true }
+    }
+  },
+
   -- floating terminal
   {
     "akinsho/toggleterm.nvim",
@@ -63,6 +69,16 @@ require("lazy").setup({
       open_mapping = [[<C-\>]],
       persist_mode = true
     }
+  },
+
+  -- theme of choice
+  {
+    "catppuccin/nvim",
+    name = "catppuccin",
+    priority = 1000,
+    config = function()
+      vim.cmd("colorscheme catppuccin-mocha")
+    end
   },
 
   -- modular statusline
@@ -95,16 +111,6 @@ require("lazy").setup({
         }
       }
     }
-  },
-
-  -- theme of choice
-  {
-    "catppuccin/nvim",
-    name = "catppuccin",
-    priority = 1000,
-    config = function()
-      vim.cmd("colorscheme catppuccin-mocha")
-    end
   },
 
   -- treesitter

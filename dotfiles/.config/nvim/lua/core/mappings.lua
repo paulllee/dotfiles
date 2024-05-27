@@ -19,6 +19,9 @@ map("n", "<Leader>g", "Telescope live_grep")
 map("n", "m", "Grapple toggle_tags")
 map("n", "M", "Grapple toggle")
 
+-- hop
+map("n", "gw", "HopWord")
+
 local M = {}
 
 -- lsp
