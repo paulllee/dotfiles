@@ -12,8 +12,8 @@ end
 map("n", "-", "Oil")
 
 -- telescope
-map("n", "ff", "Telescope find_files")
-map("n", "fg", "Telescope live_grep")
+map("n", "<Leader>f", "Telescope find_files")
+map("n", "<Leader>g", "Telescope live_grep")
 
 -- grapple
 map("n", "m", "Grapple toggle_tags")
@@ -34,7 +34,7 @@ function M.lsp_mappings(args)
 
   -- use vim builtin for hover and sig help
   lmap("n", "K", "lua vim.lsp.buf.hover()")
-  lmap("n", "<C-k>", "lua vim.lsp.buf.signature_help()")
+  lmap({ "n", "i" }, "<C-k>", "lua vim.lsp.buf.signature_help()")
 
   -- renaming and formatting
   lmap("n", "<F2>", "lua vim.lsp.buf.rename()")
