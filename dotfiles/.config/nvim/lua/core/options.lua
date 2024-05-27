@@ -35,3 +35,7 @@ vim.o.clipboard = "unnamedplus"
 
 -- allows for persistent undos
 vim.o.undofile = true
+
+-- better search
+vim.o.hlsearch = false
+vim.o.incsearch = true
