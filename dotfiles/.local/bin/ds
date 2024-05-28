@@ -5,7 +5,8 @@
 set -e
 
 if [[ "$#" == 0 ]]; then
-  printf "$(basename "$0"): No flags provided. Please review usage via '$(basename "$0") -h'.\n"
+  printf "$(basename "$0"): No flags provided. "
+  printf "Please review usage via '$(basename "$0") -h'.\n"
   exit 1
 fi
 
@@ -23,13 +24,17 @@ USAGE_MESSAGE=$(
 cat <<- END
 A series of helpers for your dotfiles
 
-Usage: 
-  $(basename "$0") [options]                         Uses default dotfiles path ($HOME/.dotfiles)
-  [DOTFILES_PATH=<path>] $(basename "$0") [options]  Use custom dotfiles path
+Usage:
+  $(basename "$0") [options]
+    Uses default dotfiles path ($HOME/.dotfiles)
+
+  [DOTFILES_PATH=<path>] $(basename "$0") [options]
+    Use custom dotfiles path
 
 Options:
   -h  Print this help message
   -d  Dotfiles sync
+  -e  Environment sync
   -g  Gitconfig sync
   -m  Mac sync
   -p  Packages sync
@@ -37,15 +42,17 @@ END
 )
 
 d_flag=0
+e_flag=0
 g_flag=0
 m_flag=0
 p_flag=0
 
-while getopts "hdgmp" FLAG
+while getopts "hdegmp" FLAG
 do
   case "${FLAG}" in
     h) printf "$USAGE_MESSAGE\n" && exit 0 ;;
     d) d_flag=1 ;;
+    e) e_flag=1 ;;
     g) g_flag=1 ;;
     m) m_flag=1 ;;
     p) p_flag=1 ;;
@@ -73,6 +80,26 @@ if (( d_flag )); then
   rsync --exclude ".DS_Store" -avhP "$DOTFILES_PATH/dotfiles/" "$HOME/"
 
   fd . "$HOME/.local/bin" --type f --exec-batch chmod +x {}
+fi
+
+if (( e_flag )); then
+  printf_h "Environment Sync"
+
+  # setup temp pipx binary for installing python executables
+  python3 -m venv /tmp/venv
+  /tmp/venv/bin/pip install pipx
+
+  # lua
+  brew install lua-language-server
+
+  # python
+  /tmp/venv/bin/pipx install poetry
+  /tmp/venv/bin/pipx install ruff
+  /tmp/venv/bin/pipx install ruff-lsp
+  npm install -g pyright
+
+  # json
+  npm install -g vscode-json-languageserver
 fi
 
 if (( g_flag )); then
@@ -116,7 +143,7 @@ if (( m_flag )); then
 
   SWISH="$(osascript -e 'id of app "Swish"')"
   defaults import "$SWISH" "$BACKUPS/swish.plist"
-  
+
   MACMOUSEFIX="$(osascript -e 'id of app "Mac Mouse Fix"')"
   cp "$BACKUPS/macmousefix.plist" "$APP_SUPPORT/$MACMOUSEFIX/config.plist"
 fi
