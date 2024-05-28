@@ -8,6 +8,10 @@ vim.g.loaded_perl_provider = 0
 vim.g.loaded_ruby_provider = 0
 vim.g.loaded_node_provider = 0
 
+-- relative line numbers
+vim.wo.number = true
+vim.wo.relativenumber = true
+
 -- enable code fold using syntax
 vim.o.foldmethod = "syntax"
 
@@ -19,10 +23,6 @@ vim.o.expandtab = true
 vim.o.shiftwidth = 2
 vim.o.softtabstop = 2
 vim.o.tabstop = 2
-
--- relative line numbers
-vim.wo.number = true
-vim.wo.relativenumber = true
 
 -- disable line wrap
 vim.o.wrap = false
