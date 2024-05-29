@@ -29,8 +29,8 @@ function M.lsp_mappings(args)
   lmap("n", "gr", "Telescope lsp_references")
 
   -- use vim builtin for hover and sig help
-  lmap("n", "K", "lua vim.lsp.buf.hover()")
-  lmap({ "n", "i" }, "<C-k>", "lua vim.lsp.buf.signature_help()")
+  lmap("n", "gh", "lua vim.lsp.buf.hover()")
+  lmap("n", "gs", "lua vim.lsp.buf.signature_help()")
 
   -- renaming and formatting
   lmap("n", "<F2>", "lua vim.lsp.buf.rename()")
