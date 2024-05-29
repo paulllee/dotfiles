@@ -15,13 +15,6 @@ map("n", "-", "Oil")
 map("n", "<Leader>f", "Telescope find_files")
 map("n", "<Leader>g", "Telescope live_grep")
 
--- grapple
-map("n", "m", "Grapple toggle_tags")
-map("n", "M", "Grapple toggle")
-
--- hop
-map("n", "gw", "HopWord")
-
 local M = {}
 
 -- lsp

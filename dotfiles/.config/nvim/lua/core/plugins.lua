@@ -25,25 +25,6 @@ require("lazy").setup({
     opts = {}
   },
 
-  -- modern ui for input and select
-  {
-    "stevearc/dressing.nvim",
-    opts = {}
-  },
-
-  -- hop motion
-  {
-    "smoka7/hop.nvim",
-    opts = {}
-  },
-
-  -- quick switch between frequent files
-  {
-    "cbochs/grapple.nvim",
-    dependencies = { "nvim-tree/nvim-web-devicons" },
-    opts = {}
-  },
-
   -- modern notifications
   {
     "j-hui/fidget.nvim",
@@ -88,8 +69,7 @@ require("lazy").setup({
     opts = {
       sections = {
         lualine_b = { "branch", "diagnostics" },
-        lualine_x = { "filetype" },
-        lualine_y = { "grapple" }
+        lualine_x = { "filetype" }
       }
     }
   },
@@ -123,19 +103,6 @@ require("lazy").setup({
         auto_install = true,
         highlight = { enable = true },
         indent = { enable = true }
-      })
-
-      -- if available, utilize treesitter's folding expr for the
-      -- current FileType
-      local function use_treesitter_expr()
-        if require("nvim-treesitter.parsers").has_parser() then
-          vim.o.foldmethod = "expr"
-          vim.o.foldexpr = "nvim_treesitter#foldexpr()"
-        end
-      end
-
-      vim.api.nvim_create_autocmd("FileType", {
-        callback = use_treesitter_expr
       })
     end
   },

@@ -12,12 +12,6 @@ vim.g.loaded_node_provider = 0
 vim.wo.number = true
 vim.wo.relativenumber = true
 
--- enable code fold using syntax
-vim.o.foldmethod = "syntax"
-
--- disables auto-folding on launch
-vim.o.foldenable = false
-
 -- globally set tab to 2 spaces
 vim.o.expandtab = true
 vim.o.shiftwidth = 2
