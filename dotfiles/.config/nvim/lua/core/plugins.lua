@@ -52,6 +52,18 @@ require("lazy").setup({
     end
   },
 
+  -- treesitter
+  {
+    "nvim-treesitter/nvim-treesitter",
+    build = ":TSUpdate",
+    config = function()
+      require("nvim-treesitter.configs").setup({
+        auto_install = true,
+        highlight = { enable = true }
+      })
+    end
+  },
+
   -- modular statusline
   {
     "nvim-lualine/lualine.nvim",
@@ -63,19 +75,6 @@ require("lazy").setup({
         lualine_y = { "diagnostics" }
       }
     }
-  },
-
-  -- treesitter
-  {
-    "nvim-treesitter/nvim-treesitter",
-    build = ":TSUpdate",
-    config = function()
-      require("nvim-treesitter.configs").setup({
-        auto_install = true,
-        highlight = { enable = true },
-        indent = { enable = true }
-      })
-    end
   },
 
   -- browsing made easy

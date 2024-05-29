@@ -1,7 +1,11 @@
--- keymap set wrapper for only <CMD><CR> styled rhs
-local function map(mode, lhs, rhs, desc, buffer)
-  vim.keymap.set(mode, lhs, "<CMD>" .. rhs .. "<CR>", {
-    desc = desc,
+-- returns rhs as <CMD>rhs<CR>
+local function cmd(rhs)
+  return "<CMD>" .. rhs .. "<CR>"
+end
+
+-- vim.keymap.set with sane defaults
+local function map(mode, lhs, rhs, buffer)
+  vim.keymap.set(mode, lhs, rhs, {
     buffer = buffer,
     noremap = true,
     silent = true
@@ -9,32 +13,30 @@ local function map(mode, lhs, rhs, desc, buffer)
 end
 
 -- oil
-map("n", "-", "Oil")
+map("n", "-", cmd("Oil"))
 
 -- telescope
-map("n", "<Leader>f", "Telescope find_files")
-map("n", "<Leader>g", "Telescope live_grep")
+map("n", "<Leader>f", cmd("Telescope find_files"))
+map("n", "<Leader>g", cmd("Telescope live_grep"))
 
 local M = {}
 
 -- lsp
 function M.lsp_mappings(args)
-  -- wraps map with lsp buffer
-  local function lmap(mode, lhs, rhs, desc)
-    map(mode, lhs, rhs, desc, args.buf)
+  -- adds lsp buffer to mappings
+  local function lmap(mode, lhs, rhs)
+    map(mode, lhs, rhs, args.buf)
   end
 
-  -- telescope instead of vim builtins
-  lmap("n", "gd", "Telescope lsp_definitions")
-  lmap("n", "gr", "Telescope lsp_references")
+  -- telescope instead of vim lsp builtins
+  lmap("n", "gd", cmd("Telescope lsp_definitions"))
+  lmap("n", "gr", cmd("Telescope lsp_references"))
 
-  -- use vim builtin for hover and sig help
-  lmap("n", "gh", "lua vim.lsp.buf.hover()")
-  lmap("n", "gs", "lua vim.lsp.buf.signature_help()")
-
-  -- renaming and formatting
-  lmap("n", "<F2>", "lua vim.lsp.buf.rename()")
-  lmap("n", "<F3>", "lua vim.lsp.buf.format()")
+  -- vim lsp builtins
+  local lsp = vim.lsp.buf
+  lmap({ "n", "i" }, "<C-k>", lsp.signature_help)
+  lmap("n", "<F2>", lsp.rename)
+  lmap("n", "<F3>", lsp.format)
 end
 
 return M
