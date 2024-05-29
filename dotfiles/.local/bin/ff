@@ -2,4 +2,4 @@
 
 # [f]d [f]zf
 
-fd --hidden --type d . "${1:-$HOME}" | fzf
+fd --hidden --exclude ".git" --type d . "${1:-$HOME}" | fzf

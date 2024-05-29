@@ -42,16 +42,6 @@ require("lazy").setup({
     }
   },
 
-  -- floating terminal
-  {
-    "akinsho/toggleterm.nvim",
-    opts = {
-      direction = "float",
-      open_mapping = [[<C-\>]],
-      persist_mode = true
-    }
-  },
-
   -- theme of choice
   {
     "catppuccin/nvim",
@@ -68,10 +58,24 @@ require("lazy").setup({
     dependencies = { "nvim-tree/nvim-web-devicons" },
     opts = {
       sections = {
-        lualine_b = { "branch", "diagnostics" },
-        lualine_x = { "filetype" }
+        lualine_b = { "branch" },
+        lualine_x = { "filetype" },
+        lualine_y = { "diagnostics" }
       }
     }
+  },
+
+  -- treesitter
+  {
+    "nvim-treesitter/nvim-treesitter",
+    build = ":TSUpdate",
+    config = function()
+      require("nvim-treesitter.configs").setup({
+        auto_install = true,
+        highlight = { enable = true },
+        indent = { enable = true }
+      })
+    end
   },
 
   -- browsing made easy
@@ -83,28 +87,18 @@ require("lazy").setup({
       pickers = {
         find_files = {
           theme = "dropdown",
-          find_command = { "fd", "--hidden", "--type", "f" }
+          find_command = {
+            "fd", "--hidden", "--exclude", ".git", "--type", "f"
+          }
         },
         live_grep = {
           theme = "dropdown",
-          additional_args = { "--hidden", "--glob=!{.git}" }
+          additional_args = {
+            "--hidden", "--glob", "!.git"
+          }
         }
       }
     }
-  },
-
-  -- treesitter
-  {
-    "nvim-treesitter/nvim-treesitter",
-    build = ":TSUpdate",
-    config = function()
-      require("nvim-treesitter.configs").setup({
-        ensure_installed = { "c", "lua", "vim", "vimdoc", "query" },
-        auto_install = true,
-        highlight = { enable = true },
-        indent = { enable = true }
-      })
-    end
   },
 
   -- lsp + cmp
@@ -149,8 +143,9 @@ require("lazy").setup({
         ruff_lsp = { on_attach = on_attach_ruff }
       }
 
+      local cmp_lsp = require("cmp_nvim_lsp")
       for lsp, conf in pairs(confs) do
-        conf.capabilities = require("cmp_nvim_lsp").default_capabilities()
+        conf.capabilities = cmp_lsp.default_capabilities()
         require("lspconfig")[lsp].setup(conf)
       end
 
@@ -171,10 +166,11 @@ require("lazy").setup({
       }
 
       local cmp = require("cmp")
+      local behavior = { behavior = "select" }
       local mapping = {
         ["<C-y>"] = cmp.mapping.confirm(),
-        ["<C-p>"] = cmp.mapping.select_prev_item({ behavior = "select" }),
-        ["<C-n>"] = cmp.mapping.select_next_item({ behavior = "select" })
+        ["<C-p>"] = cmp.mapping.select_prev_item(behavior),
+        ["<C-n>"] = cmp.mapping.select_next_item(behavior)
       }
 
       local snippy = require("snippy")
