@@ -10,8 +10,8 @@ local function map(mode, lhs, rhs, buffer)
   })
 end
 
-map({ "i", "s" }, "<Tab>", function() vim.snippet.jump(1) end)
-map({ "i", "s" }, "<S-Tab>", function() vim.snippet.jump(-1) end)
+map({ "i", "s" }, "<C-j>", function() vim.snippet.jump(-1) end)
+map({ "i", "s" }, "<C-k>", function() vim.snippet.jump(1) end)
 
 map("n", "-", cmd("Oil"))
 
