@@ -12,7 +12,6 @@ end
 
 map({ "i", "s" }, "<Tab>", function() vim.snippet.jump(1) end)
 map({ "i", "s" }, "<S-Tab>", function() vim.snippet.jump(-1) end)
-map("n", [[<C-\>]], cmd("terminal"))
 
 map("n", "-", cmd("Oil"))
 
