@@ -12,27 +12,17 @@ end
 vim.opt.rtp:prepend(lazypath)
 
 require("lazy").setup({
-  {
-    "altermo/ultimate-autopair.nvim",
-    opts = {}
-  },
-
-  {
-    "lewis6991/gitsigns.nvim",
-    opts = {}
-  },
-
+  { "altermo/ultimate-autopair.nvim", opts = {} },
+  { "lewis6991/gitsigns.nvim",        opts = {} },
   {
     "j-hui/fidget.nvim",
     opts = { notification = { override_vim_notify = true } }
   },
-
   {
     "stevearc/oil.nvim",
     dependencies = { "nvim-tree/nvim-web-devicons" },
     opts = { view_options = { show_hidden = true } }
   },
-
   {
     "catppuccin/nvim",
     name = "catppuccin",
@@ -41,7 +31,6 @@ require("lazy").setup({
       vim.cmd("colorscheme catppuccin-mocha")
     end
   },
-
   {
     "nvim-lualine/lualine.nvim",
     dependencies = { "nvim-tree/nvim-web-devicons" },
@@ -53,7 +42,6 @@ require("lazy").setup({
       }
     }
   },
-
   {
     "nvim-treesitter/nvim-treesitter",
     build = ":TSUpdate",
@@ -65,7 +53,6 @@ require("lazy").setup({
       })
     end
   },
-
   {
     "nvim-telescope/telescope.nvim",
     dependencies = { "nvim-lua/plenary.nvim" },
@@ -85,7 +72,6 @@ require("lazy").setup({
       }
     }
   },
-
   {
     "neovim/nvim-lspconfig",
     dependencies = { "hrsh7th/cmp-nvim-lsp" },
@@ -120,7 +106,6 @@ require("lazy").setup({
       end
     end
   },
-
   {
     "hrsh7th/nvim-cmp",
     dependencies = {
