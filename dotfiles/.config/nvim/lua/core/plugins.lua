@@ -12,35 +12,21 @@ end
 vim.opt.rtp:prepend(lazypath)
 
 require("lazy").setup({
-  { "altermo/ultimate-autopair.nvim", opts = {} },
-  { "lewis6991/gitsigns.nvim",        opts = {} },
-  {
-    "j-hui/fidget.nvim",
-    opts = { notification = { override_vim_notify = true } }
-  },
-  {
-    "stevearc/oil.nvim",
-    dependencies = { "nvim-tree/nvim-web-devicons" },
-    opts = { view_options = { show_hidden = true } }
-  },
   {
     "catppuccin/nvim",
     name = "catppuccin",
-    priority = 1000,
-    config = function()
-      vim.cmd("colorscheme catppuccin-mocha")
-    end
+    priority = 150,
+    config = function() vim.cmd("colorscheme catppuccin-mocha") end
   },
+  { "nvim-tree/nvim-web-devicons", priority = 100 },
+  { "windwp/nvim-autopairs",       opts = {} },
+  { "lewis6991/gitsigns.nvim",     opts = {} },
+  { "ibhagwan/fzf-lua",            opts = {} },
+  { "stevearc/oil.nvim",           opts = {} },
+  { "nvim-lualine/lualine.nvim",   opts = {} },
   {
-    "nvim-lualine/lualine.nvim",
-    dependencies = { "nvim-tree/nvim-web-devicons" },
-    opts = {
-      sections = {
-        lualine_b = { "branch" },
-        lualine_x = { "filetype" },
-        lualine_y = { "diagnostics" }
-      }
-    }
+    "j-hui/fidget.nvim",
+    opts = { notification = { override_vim_notify = true } }
   },
   {
     "nvim-treesitter/nvim-treesitter",
@@ -54,33 +40,9 @@ require("lazy").setup({
     end
   },
   {
-    "nvim-telescope/telescope.nvim",
-    dependencies = { "nvim-lua/plenary.nvim" },
-    branch = "0.1.x",
-    opts = {
-      pickers = {
-        find_files = {
-          theme = "dropdown",
-          find_command = {
-            "fd", "--hidden", "--exclude", ".git", "--type", "f"
-          }
-        },
-        live_grep = {
-          theme = "dropdown",
-          additional_args = { "--hidden", "--glob", "!.git" }
-        }
-      }
-    }
-  },
-  {
     "neovim/nvim-lspconfig",
     dependencies = { "hrsh7th/cmp-nvim-lsp" },
     config = function()
-      local python_path = vim.fn.exepath("python")
-      if vim.fn.executable("python3") == 1 then
-        python_path = vim.fn.exepath("python3")
-      end
-
       local opts = {}
 
       opts.clangd = {}
@@ -90,13 +52,18 @@ require("lazy").setup({
         settings = {
           python = {
             analysis = { typeCheckingMode = "off" },
-            pythonPath = python_path
+            pythonPath = (function()
+              if vim.fn.executable("python3") == 1 then
+                return vim.fn.exepath("python3")
+              end
+              return vim.fn.exepath("python")
+            end)()
           }
         }
       }
       opts.ruff_lsp = {
-        on_attach = function(a, _)
-          a.server_capabilities.hoverProvider = false
+        on_attach = function(c, _)
+          c.server_capabilities.hoverProvider = false
         end
       }
 
@@ -108,10 +75,7 @@ require("lazy").setup({
   },
   {
     "hrsh7th/nvim-cmp",
-    dependencies = {
-      "hrsh7th/cmp-buffer",
-      "onsails/lspkind.nvim"
-    },
+    dependencies = { "hrsh7th/cmp-buffer", "onsails/lspkind.nvim" },
     config = function()
       local cmp = require("cmp")
       local opts = {}
@@ -119,23 +83,16 @@ require("lazy").setup({
       opts.completion = { completeopt = "menu,menuone,noinsert" }
       opts.formatting = {
         format = require("lspkind").cmp_format({
-          mode = "symbol_text",
-          maxwidth = function() return math.floor(0.35 * vim.o.columns) end,
-          ellipsis_char = "...",
-          menu = {
-            nvim_lsp = "",
-            buffer = ""
-          }
+          mode = "text",
+          maxwidth = math.floor(0.35 * vim.o.columns)
         })
       }
       opts.mapping = {
-        ["<C-y>"] = cmp.mapping.confirm(),
+        ["<C-y>"] = cmp.mapping.confirm({ select = false }),
         ["<C-p>"] = cmp.mapping.select_prev_item({ behavior = "select" }),
         ["<C-n>"] = cmp.mapping.select_next_item({ behavior = "select" })
       }
-      opts.snippet = {
-        expand = function(a) vim.snippet.expand(a.body) end
-      }
+      opts.snippet = { expand = function(a) vim.snippet.expand(a.body) end }
       opts.sorting = {
         comparators = {
           cmp.config.compare.offset,
@@ -147,11 +104,7 @@ require("lazy").setup({
             local _, y = b.completion_item.label:find("^_+")
             x = x or 0
             y = y or 0
-            if x == y then
-              return
-            else
-              return x < y
-            end
+            if x == y then return else return x < y end
           end,
           cmp.config.compare.locality,
           cmp.config.compare.kind
