@@ -9,9 +9,6 @@ end
 local oil = require("oil")
 local fzf = require("fzf-lua")
 
-map({ "i", "s" }, "<C-h>", function() vim.snippet.jump(-1) end)
-map({ "i", "s" }, "<C-l>", function() vim.snippet.jump(1) end)
-
 map("n", "-", oil.open)
 
 map("n", "<Leader>f", fzf.files)
@@ -20,10 +17,16 @@ map("n", "<Leader>g", fzf.live_grep)
 vim.api.nvim_create_autocmd("LspAttach", {
   callback = function(ev)
     map("n", "gd", fzf.lsp_definitions, ev.buf)
-    map("n", "gr", fzf.lsp_references, ev.buf)
-    map("n", "<F2>", vim.lsp.buf.rename, ev.buf)
-    map("n", "<F3>", vim.lsp.buf.format, ev.buf)
-    map("n", "<F4>", fzf.lsp_code_actions, ev.buf)
-    map({ "n", "i" }, "<C-k>", vim.lsp.buf.signature_help, ev.buf)
+    map("n", "gf", vim.lsp.buf.format, ev.buf)
+
+    -- TODO: get used to upcoming new defaults in >0.10. remove once it is
+    --       in a stable release. maybe keep the fzf mappings as i perfer
+    --       fzf over default
+    map({ "i", "s" }, "<Tab>", function() vim.snippet.jump(1) end, ev.buf)
+    map({ "i", "s" }, "<S-Tab>", function() vim.snippet.jump(-1) end, ev.buf)
+    map("n", "grn", vim.lsp.buf.rename, ev.buf)
+    map("n", "grr", fzf.lsp_references, ev.buf)
+    map("n", "gra", fzf.lsp_code_actions, ev.buf)
+    map("i", "<C-S>", vim.lsp.buf.signature_help, ev.buf)
   end
 })

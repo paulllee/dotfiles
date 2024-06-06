@@ -74,6 +74,8 @@ require("lazy").setup({
     end
   },
   {
+    -- TODO: once landed, replace with default autocompletion remove
+    --       cmp_nvim_lsp from lspconfig above as well
     "hrsh7th/nvim-cmp",
     dependencies = { "hrsh7th/cmp-buffer", "onsails/lspkind.nvim" },
     config = function()
