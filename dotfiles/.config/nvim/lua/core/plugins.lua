@@ -74,8 +74,6 @@ require("lazy").setup({
     end
   },
   {
-    -- TODO: once landed, replace with default autocompletion remove
-    --       cmp_nvim_lsp from lspconfig above as well
     "hrsh7th/nvim-cmp",
     dependencies = { "hrsh7th/cmp-buffer", "onsails/lspkind.nvim" },
     config = function()
@@ -94,26 +92,32 @@ require("lazy").setup({
         ["<C-p>"] = cmp.mapping.select_prev_item({ behavior = "select" }),
         ["<C-n>"] = cmp.mapping.select_next_item({ behavior = "select" })
       }
-      opts.snippet = { expand = function(a) vim.snippet.expand(a.body) end }
       opts.sorting = {
         comparators = {
           cmp.config.compare.offset,
           cmp.config.compare.exact,
           cmp.config.compare.score,
           cmp.config.compare.recently_used,
+          cmp.config.compare.locality,
+          cmp.config.compare.kind,
+          cmp.config.compare.length,
+          cmp.config.compare.order,
           function(a, b)
             local _, x = a.completion_item.label:find("^_+")
             local _, y = b.completion_item.label:find("^_+")
             x = x or 0
             y = y or 0
             if x == y then return else return x < y end
-          end,
-          cmp.config.compare.locality,
-          cmp.config.compare.kind
+          end
         }
       }
       opts.sources = {
-        { name = "nvim_lsp" },
+        {
+          name = "nvim_lsp",
+          entry_filter = function(e)
+            return cmp.lsp.CompletionItemKind.Snippet ~= e:get_kind()
+          end
+        },
         { name = "buffer" }
       }
 
