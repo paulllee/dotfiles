@@ -1,25 +1,32 @@
-local function map(mode, lhs, rhs, buffer)
-  vim.keymap.set(mode, lhs, rhs, {
-    buffer = buffer,
-    noremap = true,
-    silent = true
-  })
-end
+local opts = { noremap = true, silent = true }
 
-local oil = require("oil")
+vim.keymap.set("n", "-", require("oil").open, opts)
+
 local fzf = require("fzf-lua")
-
-map("n", "-", oil.open)
-
-map("n", "<Leader>f", fzf.files)
-map("n", "<Leader>g", fzf.live_grep)
+vim.keymap.set("n", "<Leader>f", fzf.files, opts)
+vim.keymap.set("n", "<Leader>g", fzf.live_grep, opts)
 
 vim.api.nvim_create_autocmd("LspAttach", {
   callback = function(ev)
-    map("n", "gd", fzf.lsp_definitions, ev.buf)
-    map("n", "gf", vim.lsp.buf.format, ev.buf)
-    map("n", "grr", fzf.lsp_references, ev.buf)
-    map("n", "grn", vim.lsp.buf.rename, ev.buf)
-    map("i", "<C-S>", vim.lsp.buf.signature_help, ev.buf)
+    opts.buffer = ev.buf
+
+    vim.keymap.set("n", "gd", vim.lsp.buf.definition, opts)
+    vim.keymap.set("n", "gD", vim.lsp.buf.declaration, opts)
+    vim.keymap.set("n", "gf", vim.lsp.buf.format, opts)
+
+    -- getting used to new default keymaps arriving in 0.11
+    vim.keymap.set("n", "grr", vim.lsp.buf.references, opts)
+    vim.keymap.set("n", "grn", vim.lsp.buf.rename, opts)
+    vim.keymap.set("i", "<C-S>", vim.lsp.buf.signature_help, opts)
+
+    opts.expr = true
+    vim.keymap.set({ "i", "s" }, "<S-Tab>", function()
+      if vim.snippet.active() then vim.snippet.jump(-1)
+      else return "<S-Tab>" end
+    end, opts)
+    vim.keymap.set({ "i", "s" }, "<Tab>", function()
+      if vim.snippet.active() then vim.snippet.jump(1)
+      else return "<Tab>" end
+    end, opts)
   end
 })

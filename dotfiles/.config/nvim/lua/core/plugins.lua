@@ -75,7 +75,11 @@ require("lazy").setup({
   },
   {
     "hrsh7th/nvim-cmp",
-    dependencies = { "hrsh7th/cmp-buffer", "onsails/lspkind.nvim" },
+    dependencies = {
+      "hrsh7th/cmp-nvim-lsp",
+      "hrsh7th/cmp-buffer",
+      "onsails/lspkind.nvim"
+    },
     config = function()
       local cmp = require("cmp")
       local opts = {}
@@ -92,32 +96,19 @@ require("lazy").setup({
         ["<C-p>"] = cmp.mapping.select_prev_item({ behavior = "select" }),
         ["<C-n>"] = cmp.mapping.select_next_item({ behavior = "select" })
       }
-      opts.sorting = {
-        comparators = {
-          cmp.config.compare.offset,
-          cmp.config.compare.exact,
-          cmp.config.compare.score,
-          cmp.config.compare.recently_used,
-          cmp.config.compare.locality,
-          cmp.config.compare.kind,
-          cmp.config.compare.length,
-          cmp.config.compare.order,
-          function(a, b)
-            local _, x = a.completion_item.label:find("^_+")
-            local _, y = b.completion_item.label:find("^_+")
-            x = x or 0
-            y = y or 0
-            if x == y then return else return x < y end
-          end
-        }
+      opts.snippet = {
+        expand = function(a) vim.snippet.expand(a.body) end
       }
+      opts.sorting = require("cmp.config.default")().sorting
+      table.insert(opts.sorting.comparators, function(entry1, entry2)
+        local _, x = entry1.completion_item.label:find("^_+")
+        local _, y = entry2.completion_item.label:find("^_+")
+        x = x or 0
+        y = y or 0
+        if x == y then return else return x < y end
+      end)
       opts.sources = {
-        {
-          name = "nvim_lsp",
-          entry_filter = function(e)
-            return cmp.lsp.CompletionItemKind.Snippet ~= e:get_kind()
-          end
-        },
+        { name = "nvim_lsp" },
         { name = "buffer" }
       }
 
