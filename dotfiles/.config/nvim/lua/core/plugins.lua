@@ -25,10 +25,6 @@ require("lazy").setup({
   { "stevearc/oil.nvim",           opts = {} },
   { "nvim-lualine/lualine.nvim",   opts = {} },
   {
-    "j-hui/fidget.nvim",
-    opts = { notification = { override_vim_notify = true } }
-  },
-  {
     "nvim-treesitter/nvim-treesitter",
     build = ":TSUpdate",
     config = function()
@@ -87,7 +83,6 @@ require("lazy").setup({
       opts.completion = { completeopt = "menu,menuone,noinsert" }
       opts.formatting = {
         format = require("lspkind").cmp_format({
-          mode = "text",
           maxwidth = math.floor(0.35 * vim.o.columns)
         })
       }
