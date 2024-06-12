@@ -6,7 +6,7 @@ set -e
 
 if ! [[ -x "$(command -v brew)" ]]; then
   printf "Homebrew (https://brew.sh) is not found but is required.\n"
-    exit 1
+  exit 1
 fi
 
 if [[ "$#" == 0 ]]; then
@@ -77,10 +77,6 @@ fi
 
 if (( d_flag )); then
   printf_h "Dotfiles Sync"
-
-  git -C "$DOTFILES_PATH" checkout main 1> /dev/null 2> /dev/null
-  git -C "$DOTFILES_PATH" pull
-  git -C "$DOTFILES_PATH" checkout -
 
   rsync --exclude ".DS_Store" -avhP "$DOTFILES_PATH/dotfiles/" "$HOME/"
 
