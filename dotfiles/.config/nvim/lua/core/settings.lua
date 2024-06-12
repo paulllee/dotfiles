@@ -5,8 +5,15 @@ vim.g.loaded_ruby_provider = 0
 
 vim.o.expandtab = true
 vim.o.shiftwidth = 2
-vim.o.softtabstop = 2
 vim.o.tabstop = 2
+
+vim.api.nvim_create_autocmd("FileType", {
+  pattern = { "c", "json", "ps1", "python" },
+  callback = function()
+    vim.bo.shiftwidth = 4
+    vim.bo.tabstop = 4
+  end
+})
 
 vim.o.clipboard = "unnamedplus"
 vim.o.hlsearch = false
