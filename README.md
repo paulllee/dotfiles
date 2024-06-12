@@ -10,7 +10,9 @@ Everything needed to setup macOS.
     ```
 4.  Change the default shell to fish:
     ```sh
-    which fish | sudo tee -a /etc/shells && chsh -s "$(which fish)"
+    # Run these commands sequentially
+    which fish | sudo tee -a /etc/shells
+    chsh -s "$(which fish)"
     ```
 5.  Restart your terminal after the script completes.
 
