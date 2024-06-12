@@ -1,6 +1,3 @@
-vim.g.mapleader = " "
-vim.g.maplocalleader = " "
-
 vim.g.loaded_node_provider = 0
 vim.g.loaded_perl_provider = 0
 vim.g.loaded_python3_provider = 0
@@ -21,3 +18,13 @@ vim.o.wrap = false
 
 vim.wo.number = true
 vim.wo.relativenumber = true
+
+vim.cmd([[colorscheme catppuccin-mocha]])
+
+vim.api.nvim_create_autocmd("BufWritePre", {
+  callback = function()
+    local save = vim.fn.winsaveview()
+    vim.cmd([[%s/\s\+$//e]])
+    vim.fn.winrestview(save)
+  end
+})
