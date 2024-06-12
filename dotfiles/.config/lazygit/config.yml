@@ -1,7 +1,7 @@
 gui:
   nerdFontsVersion: "3"
   showFileIcons: true
-  theme:  # catppuccin-mocha
+  theme:
     activeBorderColor:
       - "#89b4fa"
       - bold
