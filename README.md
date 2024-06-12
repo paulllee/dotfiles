@@ -2,13 +2,13 @@
 
 Everything needed to setup macOS.
 
-1.  Install Homebrew (https://brew.sh).
+1.  Install [Homebrew](https://brew.sh).
 2.  Clone the dotfiles to `$HOME/.dotfiles`.
 3.  Run the initial dotsync script to set up the dotfiles:
     ```sh
     /usr/bin/env bash "$HOME/.dotfiles/dotfiles/.local/bin/ds" -degmp
     ```
-4.  Change the default shell to fish:
+4.  Change the default shell to `fish`:
     ```sh
     # run these commands sequentially
     which fish | sudo tee -a /etc/shells
