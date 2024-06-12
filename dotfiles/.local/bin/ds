@@ -95,7 +95,6 @@ if (( e_flag )); then
   # python
   /tmp/venv/bin/pipx install poetry
   /tmp/venv/bin/pipx install ruff
-  /tmp/venv/bin/pipx install ruff-lsp
   npm install -g pyright
 
   # json
