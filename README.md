@@ -1,18 +1,15 @@
 # dotfiles
 
-This bootstrap script pretty much installs and configures everything I need on macOS.
+Everything needed to setup my macOS.
 
-```sh
-/usr/bin/env bash -c "$(curl -fsSL https://raw.githubusercontent.com/paulllee/dotfiles/main/bootstrap.sh)"
-```
+1.  Install Homebrew (https://brew.sh).
+2.  Clone this repo to `$HOME/.dotfiles`.
+3.  Run `/usr/bin/env bash $HOME/.dotfiles/bootstrap.sh`.
+4.  Restart your terminal after the script completes.
 
-Restart your terminal after the script completes.
+That's it, you're all set from here!
 
 ## dotsync
 
 I provided an app to one-way sync from remote to your local dotfiles via `ds -d`.
 View `ds -h` for more information.
-
-## theme
-
-My favorite theme is catppuccin mocha. It is used everywhere that it can.
