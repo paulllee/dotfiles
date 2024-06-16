@@ -147,7 +147,8 @@ require("lazy").setup({
               end)()
             }
           }
-        }
+        },
+        rust_analyzer = {}
       }
       for k, v in pairs(lsps) do
         v.capabilities = require("cmp_nvim_lsp").default_capabilities()

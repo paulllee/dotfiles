@@ -101,6 +101,10 @@ if (( e_flag )); then
 
   # json
   npm install -g vscode-json-languageserver
+
+  # rust
+  brew install rust
+  brew install rust-analyzer
 fi
 
 if (( g_flag )); then
