@@ -95,6 +95,7 @@ if (( e_flag )); then
 
   # python
   /tmp/venv/bin/pipx install poetry
+  /tmp/venv/bin/pipx install pylint
   /tmp/venv/bin/pipx install ruff
   npm install -g pyright
 
