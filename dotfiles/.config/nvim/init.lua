@@ -114,7 +114,6 @@ require("lazy").setup({
   {
     "nvim-treesitter/nvim-treesitter",
     build = ":TSUpdate",
-    event = "BufNew",
     config = function()
       require("nvim-treesitter.configs").setup({
         auto_install = true,
