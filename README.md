@@ -6,7 +6,7 @@ Everything needed to setup macOS.
 2.  Clone the dotfiles to `$HOME/.dotfiles`.
 3.  Run the initial dotsync script to set up the dotfiles:
     ```sh
-    /usr/bin/env bash "$HOME/.dotfiles/dotfiles/.local/bin/ds" -degmp
+    /usr/bin/env bash "$HOME/.dotfiles/dotfiles/.local/bin/ds" -dgmp
     ```
 4.  Change the default shell to `fish`:
     ```sh

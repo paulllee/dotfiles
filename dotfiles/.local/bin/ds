@@ -39,7 +39,6 @@ Usage:
 Options:
   -h  Print this help message
   -d  Dotfiles sync
-  -e  Environment sync
   -g  Gitconfig sync
   -m  Mac sync
   -p  Packages sync
@@ -47,17 +46,15 @@ END
 )
 
 d_flag=0
-e_flag=0
 g_flag=0
 m_flag=0
 p_flag=0
 
-while getopts "hdegmp" FLAG
+while getopts "hdgmp" FLAG
 do
   case "${FLAG}" in
     h) printf "$USAGE_MESSAGE\n" && exit 0 ;;
     d) d_flag=1 ;;
-    e) e_flag=1 ;;
     g) g_flag=1 ;;
     m) m_flag=1 ;;
     p) p_flag=1 ;;
@@ -73,6 +70,16 @@ if (( p_flag )); then  # MUST BE RAN FIRST!
   brew bundle --file "$DOTFILES_PATH/Brewfile" --force cleanup
   brew cleanup
   brew autoremove
+
+  npm install -g pyright
+  npm install -g vscode-json-languageserver
+
+  python3 -m venv /tmp/venv
+  /tmp/venv/bin/pip install pipx
+
+  /tmp/venv/bin/pipx install poetry
+  /tmp/venv/bin/pipx install pylint
+  /tmp/venv/bin/pipx install ruff
 fi
 
 if (( d_flag )); then
@@ -81,30 +88,6 @@ if (( d_flag )); then
   rsync --exclude ".DS_Store" -avhP "$DOTFILES_PATH/dotfiles/" "$HOME/"
 
   fd . "$HOME/.local/bin" --type f --exec-batch chmod +x {}
-fi
-
-if (( e_flag )); then
-  printf_h "Environment Sync"
-
-  # setup temp pipx binary for installing python executables
-  python3 -m venv /tmp/venv
-  /tmp/venv/bin/pip install pipx
-
-  # lua
-  brew install lua-language-server
-
-  # python
-  /tmp/venv/bin/pipx install poetry
-  /tmp/venv/bin/pipx install pylint
-  /tmp/venv/bin/pipx install ruff
-  npm install -g pyright
-
-  # json
-  npm install -g vscode-json-languageserver
-
-  # rust
-  brew install rust
-  brew install rust-analyzer
 fi
 
 if (( g_flag )); then
