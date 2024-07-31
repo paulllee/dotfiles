@@ -59,6 +59,7 @@ vim.opt.rtp:prepend(lazypath)
 
 require("lazy").setup({
   { "nvim-tree/nvim-web-devicons" },
+  { "OXY2DEV/markview.nvim",      ft = "markdown" },
   { "windwp/nvim-autopairs",      opts = {} },
   { "lewis6991/gitsigns.nvim",    opts = {} },
   { "nvim-lualine/lualine.nvim",  opts = {} },
