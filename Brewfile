@@ -7,8 +7,6 @@ brew "neovim"
 brew "node"
 brew "python@3.12"
 brew "ripgrep"
-brew "rust"
-brew "rust-analyzer"
 brew "starship"
 
 cask "arc"
