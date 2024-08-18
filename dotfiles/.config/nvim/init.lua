@@ -59,9 +59,9 @@ vim.opt.rtp:prepend(lazypath)
 
 require("lazy").setup({
   { "nvim-tree/nvim-web-devicons" },
-  { "windwp/nvim-autopairs",      opts = {} },
-  { "lewis6991/gitsigns.nvim",    opts = {} },
-  { "nvim-lualine/lualine.nvim",  opts = {} },
+  { "windwp/nvim-autopairs",     opts = {} },
+  { "lewis6991/gitsigns.nvim",   opts = {} },
+  { "nvim-lualine/lualine.nvim", opts = {} },
   {
     "catppuccin/nvim",
     name = "catppuccin",
@@ -69,12 +69,6 @@ require("lazy").setup({
     config = function()
       vim.cmd([[colorscheme catppuccin-mocha]])
     end
-  },
-  {
-    "j-hui/fidget.nvim",
-    opts = {
-      notification = { override_vim_notify = true }
-    }
   },
   {
     "stevearc/oil.nvim",
@@ -89,30 +83,9 @@ require("lazy").setup({
       { "<Leader>f", "<CMD>FzfLua files<CR>" },
       { "<Leader>g", "<CMD>FzfLua live_grep<CR>" }
     },
-    opts = {}
-  },
-  {
-    "stevearc/conform.nvim",
     opts = {
-      formatters_by_ft = {
-        python = { "ruff" }
-      },
-      format_on_save = { lsp_fallback = true }
+      winopts = { backdrop = 100 }
     }
-  },
-  {
-    "mfussenegger/nvim-lint",
-    config = function()
-      local lint = require("lint")
-      lint.linters_by_ft = {
-        python = { "pylint", "ruff" }
-      }
-      vim.api.nvim_create_autocmd("InsertLeave", {
-        callback = function()
-          lint.try_lint()
-        end
-      })
-    end
   },
   {
     "nvim-treesitter/nvim-treesitter",
@@ -125,92 +98,5 @@ require("lazy").setup({
         indent = { enable = true }
       })
     end
-  },
-  {
-    "neovim/nvim-lspconfig",
-    dependencies = {
-      "hrsh7th/nvim-cmp",
-      "hrsh7th/cmp-nvim-lsp",
-      "hrsh7th/cmp-buffer",
-      "onsails/lspkind.nvim"
-    },
-    config = function()
-      local lsps = {
-        clangd = {},
-        jsonls = {},
-        lua_ls = {},
-        pyright = {
-          settings = {
-            python = {
-              analysis = { typeCheckingMode = "off" },
-              pythonPath = (function()
-                if vim.fn.executable("python3") == 1 then
-                  return vim.fn.exepath("python3")
-                end
-                return vim.fn.exepath("python")
-              end)()
-            }
-          }
-        }
-      }
-      for k, v in pairs(lsps) do
-        v.capabilities = require("cmp_nvim_lsp").default_capabilities()
-        require("lspconfig")[k].setup(v)
-      end
-
-      local cmp = require("cmp")
-      cmp.setup({
-        completion = { completeopt = "menu,menuone,noinsert" },
-        formatting = {
-          format = require("lspkind").cmp_format({
-            maxwidth = math.floor(0.35 * vim.o.columns)
-          })
-        },
-        mapping = {
-          ["<C-y>"] = cmp.mapping.confirm({ select = false }),
-          ["<C-p>"] = cmp.mapping.select_prev_item({ behavior = "select" }),
-          ["<C-n>"] = cmp.mapping.select_next_item({ behavior = "select" })
-        },
-        snippet = {
-          expand = function(args)
-            vim.snippet.expand(args.body)
-          end
-        },
-        sources = {
-          { name = "nvim_lsp" },
-          { name = "buffer" }
-        }
-      })
-
-      vim.api.nvim_create_autocmd("LspAttach", {
-        callback = function(ev)
-          local opts = { noremap = true, buffer = ev.buf }
-
-          vim.keymap.set("n", "gd", vim.lsp.buf.definition, opts)
-          vim.keymap.set("n", "gD", vim.lsp.buf.declaration, opts)
-
-          -- getting used to new default keymaps arriving in 0.11
-          vim.keymap.set("n", "grr", vim.lsp.buf.references, opts)
-          vim.keymap.set("n", "grn", vim.lsp.buf.rename, opts)
-          vim.keymap.set("i", "<C-S>", vim.lsp.buf.signature_help, opts)
-
-          opts.expr = true
-          vim.keymap.set({ "i", "s" }, "<S-Tab>", function()
-            if vim.snippet.active() then
-              vim.snippet.jump(-1)
-            else
-              return "<S-Tab>"
-            end
-          end, opts)
-          vim.keymap.set({ "i", "s" }, "<Tab>", function()
-            if vim.snippet.active() then
-              vim.snippet.jump(1)
-            else
-              return "<Tab>"
-            end
-          end, opts)
-        end
-      })
-    end
-  },
-})
+  }
+}, { rocks = { enabled = false } })
