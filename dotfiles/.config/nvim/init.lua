@@ -1,11 +1,6 @@
 vim.g.mapleader = " "
 vim.g.maplocalleader = " "
 
-vim.g.loaded_node_provider = 0
-vim.g.loaded_perl_provider = 0
-vim.g.loaded_python3_provider = 0
-vim.g.loaded_ruby_provider = 0
-
 vim.o.expandtab = true
 vim.o.shiftwidth = 2
 vim.o.tabstop = 2
@@ -22,9 +17,6 @@ vim.o.clipboard = "unnamedplus"
 vim.o.scrolloff = 10
 vim.o.undofile = true
 vim.o.wrap = false
-
-vim.o.hlsearch = false
-vim.o.incsearch = true
 
 vim.o.ignorecase = true
 vim.o.smartcase = true
@@ -96,6 +88,55 @@ require("lazy").setup({
         auto_install = true,
         highlight = { enable = true },
         indent = { enable = true }
+      })
+    end
+  },
+  {
+    "VonHeikemen/lsp-zero.nvim",
+    dependencies = {
+      "williamboman/mason.nvim",
+      "williamboman/mason-lspconfig.nvim",
+      "neovim/nvim-lspconfig",
+      "hrsh7th/nvim-cmp",
+      "hrsh7th/cmp-nvim-lsp",
+      "hrsh7th/cmp-buffer"
+    },
+    branch = "v4.x",
+    config = function()
+      local lsp_zero = require("lsp-zero")
+
+      local lsp_attach = function(_, bufnr)
+        lsp_zero.default_keymaps({ buffer = bufnr })
+      end
+
+      lsp_zero.extend_lspconfig({
+        sign_text = true,
+        lsp_attach = lsp_attach
+      })
+
+      require("mason").setup()
+      require("mason-lspconfig").setup({
+        ensure_installed = { "lua_ls", "basedpyright" },
+        handlers = {
+          function(server_name)
+            require("lspconfig")[server_name].setup({})
+          end
+        }
+      })
+
+      local cmp = require("cmp")
+
+      cmp.setup({
+        sources = {
+          { name = "nvim_lsp" },
+          { name = "buffer" }
+        },
+        snippet = {
+          expand = function(args)
+            vim.snippet.expand(args.body)
+          end,
+        },
+        mapping = cmp.mapping.preset.insert({}),
       })
     end
   }
