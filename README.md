@@ -1,6 +1,6 @@
 # dotfiles
 
-Everything needed to setup macOS.
+Everything needed to setup my macOS environment.
 
 1.  Install [Homebrew](https://brew.sh).
 2.  Clone the dotfiles to `$HOME/.dotfiles`.
@@ -15,8 +15,4 @@ Everything needed to setup macOS.
     chsh -s "$(which fish)"
     ```
 5.  Restart your terminal after the script completes.
-
-## dotsync
-
-I provided an app to one-way sync your local dotfiles via `ds -d`.
-View `ds -h` for more information.
+6.  View `ds -h` for more information on dotsync.
