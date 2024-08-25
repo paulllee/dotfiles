@@ -136,7 +136,7 @@ require("lazy").setup({
             vim.snippet.expand(args.body)
           end,
         },
-        mapping = cmp.mapping.preset.insert({}),
+        mapping = cmp.mapping.preset.insert(),
       })
     end
   }
