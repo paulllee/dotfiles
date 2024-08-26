@@ -116,10 +116,25 @@ require("lazy").setup({
 
       require("mason").setup()
       require("mason-lspconfig").setup({
-        ensure_installed = { "lua_ls", "basedpyright" },
+        ensure_installed = { "lua_ls", "pyright" },
         handlers = {
           function(server_name)
             require("lspconfig")[server_name].setup({})
+          end,
+          pyright = function()
+            require("lspconfig").pyright.setup({
+              settings = {
+                python = {
+                  analysis = { typeCheckingMode = "off" },
+                  pythonPath = (function()
+                    if vim.fn.executable("python3") == 1 then
+                      return vim.fn.exepath("python3")
+                    end
+                    return vim.fn.exepath("python")
+                  end)
+                }
+              }
+            })
           end
         }
       })
@@ -127,16 +142,22 @@ require("lazy").setup({
       local cmp = require("cmp")
 
       cmp.setup({
+        completion = { completeopt = "menu,menuone,noinsert" },
+        mapping = cmp.mapping.preset.insert(),
         sources = {
-          { name = "nvim_lsp" },
+          {
+            name = "nvim_lsp",
+            entry_filter = function(e)
+              return cmp.lsp.CompletionItemKind.Snippet ~= e:get_kind()
+            end
+          },
           { name = "buffer" }
         },
         snippet = {
           expand = function(args)
             vim.snippet.expand(args.body)
-          end,
-        },
-        mapping = cmp.mapping.preset.insert(),
+          end
+        }
       })
     end
   }
