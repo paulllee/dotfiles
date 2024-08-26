@@ -1,6 +1,6 @@
 # dotfiles
 
-Everything needed to setup my macOS environment.
+Everything needed to set up my macOS environment.
 
 1.  Install [Homebrew](https://brew.sh).
 2.  Clone the dotfiles to `$HOME/.dotfiles`.
