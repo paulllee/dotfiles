@@ -3,7 +3,7 @@ brew "fish"
 brew "fzf"
 brew "lazygit"
 brew "neovim"
-brew "python@3.12"
+brew "pixi"
 brew "ripgrep"
 brew "starship"
 
