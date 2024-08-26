@@ -131,7 +131,7 @@ require("lazy").setup({
                       return vim.fn.exepath("python3")
                     end
                     return vim.fn.exepath("python")
-                  end)
+                  end)()
                 }
               }
             })
