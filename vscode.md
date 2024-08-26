@@ -1,5 +1,7 @@
 # vscode
 
+Everything needed to set up my VSCode workspace.
+
 1.  Install `JetBrainsMono Nerd Font Mono`.
 2.  Install the following extensions:
     ```
