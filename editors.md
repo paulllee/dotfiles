@@ -1,14 +1,27 @@
-# vscode
+# editors
 
-Everything needed to set up my VSCode workspace.
+Setup instructions for my editors of choice.
 
-1.  Install `JetBrainsMono Nerd Font Mono`.
-2.  Install the following extensions:
+## neovim
+
+1.  Before launching up neovim, run the following commands
+    in your **dotfiles** directory:
+    ```sh
+    pixi init
+    pixi add nodejs
+    ```
+2.  Launch up neovim and wait for `pyright` to install.
+3.  After it completes, you can delete the `pixi` related
+    directories and files in the cwd.
+
+## vscode
+
+1.  Launch up vscode and install the following extensions:
     ```
     Catppuccin.catppuccin-vsc
     vscodevim.vim
     ```
-3.  Use the configuration below for `settings.json`:
+2.  Use the configuration below for `settings.json`:
     ```json
     {
         "breadcrumbs.enabled": false,
