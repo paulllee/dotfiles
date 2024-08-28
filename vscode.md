@@ -1,20 +1,4 @@
-# editors
-
-Setup instructions for my editors of choice.
-
-## neovim
-
-1.  Before launching up neovim, run the following commands
-    in your **dotfiles** directory:
-    ```sh
-    pixi init
-    pixi add nodejs
-    ```
-2.  Launch up neovim and wait for `pyright` to install.
-3.  After it completes, you can delete the `pixi` related
-    directories and files in the cwd.
-
-## vscode
+# vscode
 
 1.  Launch up vscode and install the following extensions:
     ```
