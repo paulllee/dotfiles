@@ -99,7 +99,8 @@ require("lazy").setup({
       "neovim/nvim-lspconfig",
       "hrsh7th/nvim-cmp",
       "hrsh7th/cmp-nvim-lsp",
-      "hrsh7th/cmp-buffer"
+      "hrsh7th/cmp-buffer",
+      "onsails/lspkind.nvim"
     },
     branch = "v4.x",
     config = function()
@@ -143,14 +144,14 @@ require("lazy").setup({
 
       cmp.setup({
         completion = { completeopt = "menu,menuone,noinsert" },
-        mapping = cmp.mapping.preset.insert(),
+        formatting = {
+          format = require("lspkind").cmp_format({
+            maxwidth = math.floor(0.35 * vim.o.columns),
+            menu = {}
+          })
+        },
         sources = {
-          {
-            name = "nvim_lsp",
-            entry_filter = function(e)
-              return cmp.lsp.CompletionItemKind.Snippet ~= e:get_kind()
-            end
-          },
+          { name = "nvim_lsp" },
           { name = "buffer" }
         },
         snippet = {
