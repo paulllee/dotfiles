@@ -13,6 +13,13 @@ vim.api.nvim_create_autocmd("FileType", {
   end
 })
 
+vim.api.nvim_create_autocmd("FileType", {
+  pattern = { "markdown" },
+  callback = function()
+    vim.o.colorcolumn = "80"
+  end
+})
+
 vim.o.clipboard = "unnamedplus"
 vim.o.scrolloff = 10
 vim.o.undofile = true
@@ -51,6 +58,7 @@ vim.opt.rtp:prepend(lazypath)
 
 require("lazy").setup({
   { "nvim-tree/nvim-web-devicons" },
+  { "xiyaowong/virtcolumn.nvim" },
   { "windwp/nvim-autopairs",      opts = {} },
   { "lewis6991/gitsigns.nvim",    opts = {} },
   { "nvim-lualine/lualine.nvim",  opts = {} },
