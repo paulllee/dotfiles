@@ -64,11 +64,9 @@ require("lazy").setup({
   { "nvim-lualine/lualine.nvim",                 opts = {} },
   { "MeanderingProgrammer/render-markdown.nvim", opts = {} },
   {
-    "catppuccin/nvim",
-    name = "catppuccin",
-    priority = 100,
+    "scottmckendry/cyberdream.nvim",
     config = function()
-      vim.cmd([[colorscheme catppuccin-mocha]])
+      vim.cmd([[colorscheme cyberdream]])
     end
   },
   {
