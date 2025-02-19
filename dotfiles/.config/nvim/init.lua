@@ -17,6 +17,7 @@ vim.api.nvim_create_autocmd("FileType", {
   pattern = { "markdown" },
   callback = function()
     vim.o.colorcolumn = "80"
+    vim.o.textwidth = 80
   end
 })
 
@@ -64,6 +65,12 @@ require("lazy").setup({
   { "nvim-lualine/lualine.nvim",                 opts = {} },
   { "MeanderingProgrammer/render-markdown.nvim", opts = {} },
   {
+    "saghen/blink.cmp",
+    -- use latest release for pre-built binaries
+    version = "*",
+    opts = {}
+  },
+  {
     "scottmckendry/cyberdream.nvim",
     config = function()
       vim.cmd([[colorscheme cyberdream]])
@@ -104,10 +111,7 @@ require("lazy").setup({
       "williamboman/mason.nvim",
       "williamboman/mason-lspconfig.nvim",
       "neovim/nvim-lspconfig",
-      "hrsh7th/nvim-cmp",
-      "hrsh7th/cmp-nvim-lsp",
-      "hrsh7th/cmp-buffer",
-      "onsails/lspkind.nvim"
+      "saghen/blink.cmp",
     },
     branch = "v4.x",
     config = function()
@@ -124,10 +128,12 @@ require("lazy").setup({
 
       require("mason").setup()
       require("mason-lspconfig").setup({
-        ensure_installed = { "lua_ls", "pyright" },
+        ensure_installed = { "lua_ls", "pyright", "marksman" },
         handlers = {
-          function(server_name)
-            require("lspconfig")[server_name].setup({})
+          function(lsp)
+            require("lspconfig")[lsp].setup({
+              capabilities = require("blink.cmp").get_lsp_capabilities()
+            })
           end,
           pyright = function()
             require("lspconfig").pyright.setup({
@@ -143,28 +149,13 @@ require("lazy").setup({
                 }
               }
             })
-          end
-        }
-      })
-
-      local cmp = require("cmp")
-
-      cmp.setup({
-        completion = { completeopt = "menu,menuone,noinsert" },
-        formatting = {
-          format = require("lspkind").cmp_format({
-            maxwidth = math.floor(0.35 * vim.o.columns),
-            menu = {}
-          })
-        },
-        mapping = cmp.mapping.preset.insert(),
-        sources = {
-          { name = "nvim_lsp" },
-          { name = "buffer" }
-        },
-        snippet = {
-          expand = function(args)
-            vim.snippet.expand(args.body)
+          end,
+          marksman = function()
+            require("lspconfig").marksman.setup({
+              on_attach = function(c, _)
+                c.server_capabilities.semanticTokensProvider = nil
+              end
+            })
           end
         }
       })
