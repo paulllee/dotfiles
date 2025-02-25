@@ -8,6 +8,7 @@ brew "pixi"
 brew "ripgrep"
 brew "starship"
 
+cask "discord"
 cask "kitty"
 cask "mac-mouse-fix"
 cask "swish"
