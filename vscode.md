@@ -1,6 +1,6 @@
 # vscode
 
-1.  Launch up vscode and install the following extensions:
+1.  Install the following extensions:
 
     ```sh
     code --install-extension catppuccin.catppuccin-vsc
