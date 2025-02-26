@@ -117,45 +117,40 @@ require("lazy").setup({
     config = function()
       local lsp_zero = require("lsp-zero")
 
-      local lsp_attach = function(_, bufnr)
-        lsp_zero.default_keymaps({ buffer = bufnr })
-      end
-
       lsp_zero.extend_lspconfig({
         sign_text = true,
-        lsp_attach = lsp_attach
+        lsp_attach = function(_, b)
+          lsp_zero.default_keymaps({ buffer = b })
+        end
       })
+
+      local confs = {}
+
+      confs.lua_ls = {}
+      confs.basedpyright = {
+        settings = {
+          python = {
+            analysis = { typeCheckingMode = "off" }
+          }
+        }
+      }
+      confs.marksman = {
+        on_attach = function(c, _)
+          local sc = c.server_capabilities
+          sc.semanticTokensProvider = nil
+        end
+      }
+
+      local cmp = require("blink.cmp")
 
       require("mason").setup()
       require("mason-lspconfig").setup({
-        ensure_installed = { "lua_ls", "pyright", "marksman" },
+        ensure_installed = vim.tbl_keys(confs),
         handlers = {
           function(lsp)
-            require("lspconfig")[lsp].setup({
-              capabilities = require("blink.cmp").get_lsp_capabilities()
-            })
-          end,
-          pyright = function()
-            require("lspconfig").pyright.setup({
-              settings = {
-                python = {
-                  analysis = { typeCheckingMode = "off" },
-                  pythonPath = (function()
-                    if vim.fn.executable("python3") == 1 then
-                      return vim.fn.exepath("python3")
-                    end
-                    return vim.fn.exepath("python")
-                  end)()
-                }
-              }
-            })
-          end,
-          marksman = function()
-            require("lspconfig").marksman.setup({
-              on_attach = function(c, _)
-                c.server_capabilities.semanticTokensProvider = nil
-              end
-            })
+            local conf = confs[lsp] or {}
+            conf.capabilities = cmp.get_lsp_capabilities()
+            require("lspconfig")[lsp].setup(conf)
           end
         }
       })
