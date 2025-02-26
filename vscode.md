@@ -1,11 +1,16 @@
 # vscode
 
 1.  Launch up vscode and install the following extensions:
+
+    ```sh
+    code --install-extension catppuccin.catppuccin-vsc
+    # code --install-extension ms-dotnettools.csdevkit
+    # code --install-extension ms-vscode-remote.remote-ssh
+    code --install-extension vscodevim.vim
     ```
-    Catppuccin.catppuccin-vsc
-    vscodevim.vim
-    ```
+
 2.  Use the configuration below for `settings.json`:
+
     ```json
     {
         "breadcrumbs.enabled": false,
