@@ -129,6 +129,7 @@ require("lazy").setup({
       local confs = {}
 
       confs.lua_ls = {}
+
       confs.basedpyright = {
         settings = {
           basedpyright = {
@@ -141,11 +142,16 @@ require("lazy").setup({
           }
         }
       }
+
       confs.marksman = {
         on_attach = function(c, _)
           c.server_capabilities.semanticTokensProvider = nil
         end
       }
+
+      if vim.fn.has("win32") == 1 then
+        confs.omnisharp = {}
+      end
 
       require("mason").setup()
       require("mason-lspconfig").setup({
