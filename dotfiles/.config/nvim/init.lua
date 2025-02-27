@@ -116,12 +116,14 @@ require("lazy").setup({
     branch = "v4.x",
     config = function()
       local lsp_zero = require("lsp-zero")
+      local cmp = require("blink.cmp")
 
       lsp_zero.extend_lspconfig({
         sign_text = true,
         lsp_attach = function(_, b)
           lsp_zero.default_keymaps({ buffer = b })
-        end
+        end,
+        capabilities = cmp.get_lsp_capabilities()
       })
 
       local confs = {}
@@ -130,7 +132,10 @@ require("lazy").setup({
       confs.basedpyright = {
         settings = {
           python = {
-            analysis = { typeCheckingMode = "off" }
+            analysis = { typeCheckingMode = "off" },
+            pythonPath = vim.fn.executable("python3") == 1 and
+              vim.fn.exepath("python3") or
+              vim.fn.exepath("python")
           }
         }
       }
@@ -141,16 +146,12 @@ require("lazy").setup({
         end
       }
 
-      local cmp = require("blink.cmp")
-
       require("mason").setup()
       require("mason-lspconfig").setup({
         ensure_installed = vim.tbl_keys(confs),
         handlers = {
           function(lsp)
-            local conf = confs[lsp] or {}
-            conf.capabilities = cmp.get_lsp_capabilities()
-            require("lspconfig")[lsp].setup(conf)
+            require("lspconfig")[lsp].setup(confs[lsp] or {})
           end
         }
       })
