@@ -131,18 +131,19 @@ require("lazy").setup({
       confs.lua_ls = {}
       confs.basedpyright = {
         settings = {
+          basedpyright = {
+            analysis = { typeCheckingMode = "off" }
+          },
           python = {
-            analysis = { typeCheckingMode = "off" },
             pythonPath = vim.fn.executable("python3") == 1 and
-              vim.fn.exepath("python3") or
-              vim.fn.exepath("python")
+                vim.fn.exepath("python3") or
+                vim.fn.exepath("python")
           }
         }
       }
       confs.marksman = {
         on_attach = function(c, _)
-          local sc = c.server_capabilities
-          sc.semanticTokensProvider = nil
+          c.server_capabilities.semanticTokensProvider = nil
         end
       }
 
