@@ -65,12 +65,6 @@ require("lazy").setup({
   { "nvim-lualine/lualine.nvim",                 opts = {} },
   { "MeanderingProgrammer/render-markdown.nvim", opts = {} },
   {
-    "saghen/blink.cmp",
-    -- use latest release for pre-built binaries
-    version = "*",
-    opts = {}
-  },
-  {
     "scottmckendry/cyberdream.nvim",
     config = function()
       vim.cmd([[colorscheme cyberdream]])
@@ -104,6 +98,12 @@ require("lazy").setup({
         indent = { enable = true }
       })
     end
+  },
+  {
+    "saghen/blink.cmp",
+    -- must denote version for pre-built binaries
+    version = "*",
+    opts = {}
   },
   {
     "VonHeikemen/lsp-zero.nvim",
