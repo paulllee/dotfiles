@@ -5,6 +5,7 @@
     ```sh
     code --install-extension catppuccin.catppuccin-vsc
     # code --install-extension ms-dotnettools.csdevkit
+    # code --install-extension ms-python.python
     # code --install-extension ms-vscode-remote.remote-ssh
     code --install-extension vscodevim.vim
     ```
