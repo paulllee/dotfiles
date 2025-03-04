@@ -143,11 +143,7 @@ require("lazy").setup({
         }
       }
 
-      confs.marksman = {
-        on_attach = function(c, _)
-          c.server_capabilities.semanticTokensProvider = nil
-        end
-      }
+      confs.markdown_oxide = {}
 
       if vim.fn.has("win32") == 1 then
         confs.omnisharp = {}
