@@ -10,6 +10,7 @@ brew "uv"
 cask "discord"
 cask "kitty"
 cask "mac-mouse-fix"
+cask "obsidian"
 cask "swish"
 
 tap "homebrew/cask-fonts"
