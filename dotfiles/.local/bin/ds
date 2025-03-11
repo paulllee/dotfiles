@@ -64,7 +64,7 @@ done
 if (( p_flag )); then  # MUST BE RAN FIRST!
   printf_h "Packages Sync"
 
-  brew bundle --file "$DOTFILES_PATH/Brewfile" --no-lock
+  brew bundle --file "$DOTFILES_PATH/Brewfile"
   brew upgrade
 
   brew bundle --file "$DOTFILES_PATH/Brewfile" --force cleanup
