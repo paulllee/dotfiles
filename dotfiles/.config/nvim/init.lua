@@ -130,12 +130,10 @@ require("lazy").setup({
 
       confs.lua_ls = {}
 
-      confs.basedpyright = {
+      confs.pyright = {
         settings = {
-          basedpyright = {
-            analysis = { typeCheckingMode = "off" }
-          },
           python = {
+            analysis = { typeCheckingMode = "off" },
             pythonPath = vim.fn.executable("python3") == 1 and
                 vim.fn.exepath("python3") or
                 vim.fn.exepath("python")
