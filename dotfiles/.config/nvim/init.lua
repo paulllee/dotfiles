@@ -121,8 +121,15 @@ require("lazy").setup({
       local cmp = require("blink.cmp")
 
       lsp_zero.extend_lspconfig({
-        sign_text = true,
         lsp_attach = function(_, b)
+          vim.diagnostic.config({
+            virtual_lines = { current_line = true },
+            virtual_text = true
+          })
+          vim.keymap.del("n", "grn")
+          vim.keymap.del("n", "gra")
+          vim.keymap.del("n", "grr")
+          vim.keymap.del("n", "gri")
           lsp_zero.default_keymaps({ buffer = b })
         end,
         capabilities = cmp.get_lsp_capabilities()
