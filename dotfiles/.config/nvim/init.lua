@@ -64,6 +64,7 @@ require("lazy").setup({
   { "lewis6991/gitsigns.nvim",                   opts = {} },
   { "nvim-lualine/lualine.nvim",                 opts = {} },
   { "MeanderingProgrammer/render-markdown.nvim", opts = {} },
+  { "mcauley-penney/visual-whitespace.nvim",     opts = {} },
   {
     "catppuccin/nvim",
     name = "catppuccin",
@@ -78,6 +79,14 @@ require("lazy").setup({
       { "-", "<CMD>Oil<CR>", noremap = true }
     },
     opts = {}
+  },
+  {
+    "lukas-reineke/indent-blankline.nvim",
+    main = "ibl",
+    opts = {
+      indent = { char = "│" },
+      scope = { show_start = false }
+    }
   },
   {
     "ibhagwan/fzf-lua",
