@@ -1,9 +1,53 @@
+-- lazy.nvim one time installation
+
+local lazypath = vim.fn.stdpath("data") .. "/lazy/lazy.nvim"
+if not vim.uv.fs_stat(lazypath) then
+  vim.fn.system({
+    "git",
+    "clone",
+    "--filter=blob:none",
+    "--branch=stable",
+    "https://github.com/folke/lazy.nvim.git",
+    lazypath
+  })
+end
+vim.opt.rtp:prepend(lazypath)
+
+-- settings
+
 vim.g.mapleader = " "
 vim.g.maplocalleader = " "
 
 vim.o.expandtab = true
 vim.o.shiftwidth = 2
 vim.o.tabstop = 2
+
+vim.o.clipboard = "unnamedplus"
+vim.o.scrolloff = 10
+vim.o.undofile = true
+vim.o.wrap = false
+
+vim.o.ignorecase = true
+vim.o.smartcase = true
+
+vim.wo.number = true
+vim.wo.relativenumber = true
+
+-- delete gr-defaults
+
+vim.keymap.del("n", "grn")
+vim.keymap.del("n", "gra")
+vim.keymap.del("n", "grr")
+vim.keymap.del("n", "gri")
+
+-- configure diagnostics
+
+vim.diagnostic.config({
+  virtual_lines = { current_line = true },
+  virtual_text = true
+})
+
+-- create helpful autocmds
 
 vim.api.nvim_create_autocmd("FileType", {
   pattern = { "c", "json", "ps1", "python" },
@@ -21,21 +65,6 @@ vim.api.nvim_create_autocmd("FileType", {
   end
 })
 
-vim.o.clipboard = "unnamedplus"
-vim.o.scrolloff = 10
-vim.o.undofile = true
-vim.o.wrap = false
-
-vim.o.ignorecase = true
-vim.o.smartcase = true
-
-vim.wo.number = true
-vim.wo.relativenumber = true
-
-vim.filetype.add({
-  filename = { ["Brewfile"] = "ruby" }
-})
-
 vim.api.nvim_create_autocmd("BufWritePre", {
   callback = function()
     local save = vim.fn.winsaveview()
@@ -44,18 +73,40 @@ vim.api.nvim_create_autocmd("BufWritePre", {
   end
 })
 
-local lazypath = vim.fn.stdpath("data") .. "/lazy/lazy.nvim"
-if not vim.uv.fs_stat(lazypath) then
-  vim.fn.system({
-    "git",
-    "clone",
-    "--filter=blob:none",
-    "https://github.com/folke/lazy.nvim.git",
-    "--branch=stable",
-    lazypath
-  })
+vim.api.nvim_create_autocmd("LspAttach", {
+  callback = function(ev)
+    local nmap = function(lhs, cmd)
+      vim.keymap.set("n", lhs, cmd, { buffer = ev.buf })
+    end
+    nmap("gd", vim.lsp.buf.definition)
+    nmap("gr", vim.lsp.buf.references)
+    nmap("<F2>", vim.lsp.buf.rename)
+    nmap("<F3>", vim.lsp.buf.format)
+    nmap("<F4>", vim.lsp.buf.code_action)
+  end
+})
+
+-- configure lsps
+
+local lsps = {
+  lua_ls = {},
+  pyright = {
+    settings = {
+      python = {
+        analysis = { typeCheckingMode = "off" },
+        pythonPath = vim.fn.executable("python3") == 1 and
+            vim.fn.exepath("python3") or
+            vim.fn.exepath("python")
+      }
+    }
+  },
+  markdown_oxide = {}
+}
+if vim.fn.has("win32") == 1 then
+  lsps.omnisharp = {}
 end
-vim.opt.rtp:prepend(lazypath)
+
+-- install plugins
 
 require("lazy").setup({
   { "nvim-tree/nvim-web-devicons" },
@@ -114,66 +165,22 @@ require("lazy").setup({
     end
   },
   {
-    "saghen/blink.cmp",
-    -- must denote version for pre-built binaries
-    version = "*",
-    opts = {}
-  },
-  {
-    "VonHeikemen/lsp-zero.nvim",
+    "neovim/nvim-lspconfig",
     dependencies = {
       "williamboman/mason.nvim",
       "williamboman/mason-lspconfig.nvim",
-      "neovim/nvim-lspconfig",
-      "saghen/blink.cmp",
+      { "saghen/blink.cmp", version = "*", opts = {} },
     },
-    branch = "v4.x",
     config = function()
-      local lsp_zero = require("lsp-zero")
-      local cmp = require("blink.cmp")
-
-      lsp_zero.extend_lspconfig({
-        lsp_attach = function(_, b)
-          vim.diagnostic.config({
-            virtual_lines = { current_line = true },
-            virtual_text = true
-          })
-          vim.keymap.del("n", "grn")
-          vim.keymap.del("n", "gra")
-          vim.keymap.del("n", "grr")
-          vim.keymap.del("n", "gri")
-          lsp_zero.default_keymaps({ buffer = b })
-        end,
-        capabilities = cmp.get_lsp_capabilities()
-      })
-
-      local confs = {}
-
-      confs.lua_ls = {}
-
-      confs.pyright = {
-        settings = {
-          python = {
-            analysis = { typeCheckingMode = "off" },
-            pythonPath = vim.fn.executable("python3") == 1 and
-                vim.fn.exepath("python3") or
-                vim.fn.exepath("python")
-          }
-        }
-      }
-
-      confs.markdown_oxide = {}
-
-      if vim.fn.has("win32") == 1 then
-        confs.omnisharp = {}
-      end
-
+      local cmp = require("blink.cmp").get_lsp_capabilities()
       require("mason").setup()
       require("mason-lspconfig").setup({
-        ensure_installed = vim.tbl_keys(confs),
+        ensure_installed = vim.tbl_keys(lsps),
         handlers = {
-          function(lsp)
-            require("lspconfig")[lsp].setup(confs[lsp] or {})
+          function(name)
+            local conf = lsps[name] or {}
+            conf.capabilities = cmp
+            require("lspconfig")[name].setup(conf)
           end
         }
       })
