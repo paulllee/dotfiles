@@ -1,18 +1,3 @@
--- lazy.nvim one time installation
-
-local lazypath = vim.fn.stdpath("data") .. "/lazy/lazy.nvim"
-if not vim.uv.fs_stat(lazypath) then
-  vim.fn.system({
-    "git",
-    "clone",
-    "--filter=blob:none",
-    "--branch=stable",
-    "https://github.com/folke/lazy.nvim.git",
-    lazypath
-  })
-end
-vim.opt.rtp:prepend(lazypath)
-
 -- settings
 
 vim.g.mapleader = " "
@@ -22,33 +7,6 @@ vim.o.expandtab = true
 vim.o.shiftwidth = 2
 vim.o.tabstop = 2
 
-vim.o.clipboard = "unnamedplus"
-vim.o.scrolloff = 10
-vim.o.undofile = true
-vim.o.wrap = false
-
-vim.o.ignorecase = true
-vim.o.smartcase = true
-
-vim.wo.number = true
-vim.wo.relativenumber = true
-
--- delete gr-defaults
-
-vim.keymap.del("n", "grn")
-vim.keymap.del("n", "gra")
-vim.keymap.del("n", "grr")
-vim.keymap.del("n", "gri")
-
--- configure diagnostics
-
-vim.diagnostic.config({
-  virtual_lines = { current_line = true },
-  virtual_text = true
-})
-
--- create helpful autocmds
-
 vim.api.nvim_create_autocmd("FileType", {
   pattern = { "c", "json", "ps1", "python" },
   callback = function()
@@ -56,6 +14,14 @@ vim.api.nvim_create_autocmd("FileType", {
     vim.bo.tabstop = 4
   end
 })
+
+vim.o.clipboard = "unnamedplus"
+vim.o.scrolloff = 10
+vim.o.undofile = true
+vim.o.wrap = false
+
+vim.o.ignorecase = true
+vim.o.smartcase = true
 
 vim.api.nvim_create_autocmd("FileType", {
   pattern = { "markdown" },
@@ -65,28 +31,45 @@ vim.api.nvim_create_autocmd("FileType", {
   end
 })
 
-vim.api.nvim_create_autocmd("BufWritePre", {
-  callback = function()
-    local save = vim.fn.winsaveview()
-    vim.cmd([[%s/\s\+$//e]])
-    vim.fn.winrestview(save)
-  end
-})
+vim.wo.number = true
+vim.wo.relativenumber = true
+
+-- mappings
+
+local ndel = function(lhs)
+  vim.keymap.del("n", lhs)
+end
+
+ndel("grn")
+ndel("gra")
+ndel("grr")
+ndel("gri")
+
+local nmap = function(lhs, cmd, opt)
+  vim.keymap.set("n", lhs, cmd, opt or {})
+end
+
+nmap("<Leader><Leader>", function()
+  local save_pos = vim.fn.winsaveview()
+  -- remove trailing whitespace
+  vim.cmd([[%s/\s\+$//e]])
+  vim.fn.winrestview(save_pos)
+end)
 
 vim.api.nvim_create_autocmd("LspAttach", {
   callback = function(ev)
-    local nmap = function(lhs, cmd)
-      vim.keymap.set("n", lhs, cmd, { buffer = ev.buf })
+    local nmapb = function(lhs, cmd)
+      nmap(lhs, cmd, { buffer = ev.buf })
     end
-    nmap("gd", vim.lsp.buf.definition)
-    nmap("gr", vim.lsp.buf.references)
-    nmap("<F2>", vim.lsp.buf.rename)
-    nmap("<F3>", vim.lsp.buf.format)
-    nmap("<F4>", vim.lsp.buf.code_action)
+    nmapb("gd", vim.lsp.buf.definition)
+    nmapb("gr", vim.lsp.buf.references)
+    nmapb("<F2>", vim.lsp.buf.rename)
+    nmapb("<F3>", vim.lsp.buf.format)
+    nmapb("<F4>", vim.lsp.buf.code_action)
   end
 })
 
--- configure lsps
+-- lsps/diagnostics
 
 local lsps = {
   lua_ls = {},
@@ -106,7 +89,25 @@ if vim.fn.has("win32") == 1 then
   lsps.omnisharp = {}
 end
 
--- install plugins
+vim.diagnostic.config({
+  virtual_lines = { current_line = true },
+  virtual_text = true
+})
+
+-- packages
+
+local lazypath = vim.fn.stdpath("data") .. "/lazy/lazy.nvim"
+if not vim.uv.fs_stat(lazypath) then
+  vim.fn.system({
+    "git",
+    "clone",
+    "--filter=blob:none",
+    "--branch=stable",
+    "https://github.com/folke/lazy.nvim.git",
+    lazypath
+  })
+end
+vim.opt.rtp:prepend(lazypath)
 
 require("lazy").setup({
   { "nvim-tree/nvim-web-devicons" },
