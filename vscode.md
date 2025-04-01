@@ -5,8 +5,6 @@
     ```sh
     code --install-extension catppuccin.catppuccin-vsc
     # code --install-extension ms-dotnettools.csdevkit
-    # code --install-extension ms-python.python
-    # code --install-extension ms-vscode-remote.remote-ssh
     code --install-extension vscodevim.vim
     ```
 
@@ -18,7 +16,7 @@
         "editor.cursorSurroundingLines": 10,
         "editor.fontFamily": "JetBrainsMono Nerd Font Mono",
         "editor.fontLigatures": true,
-        "editor.fontSize": 14,
+        "editor.fontSize": 13,
         "editor.lightbulb.enabled": "off",
         "editor.minimap.enabled": false,
         "editor.scrollbar.vertical": "hidden",
@@ -26,7 +24,7 @@
         "editor.stickyScroll.enabled": false,
         "editor.lineNumbers": "relative",
         "extensions.ignoreRecommendations": true,
-        "terminal.integrated.fontSize": 14,
+        "terminal.integrated.fontSize": 13,
         "terminal.integrated.tabs.enabled": false,
         "vim.useSystemClipboard": true,
         "vim.leader": "<space>",
@@ -44,7 +42,7 @@
         ],
         "window.commandCenter": false,
         "workbench.activityBar.location": "bottom",
-        "workbench.colorTheme": "Catppuccin Mocha",
+        "workbench.colorTheme": "Catppuccin Latte",
         "workbench.editor.showTabs": "none"
     }
     ```
