@@ -34,6 +34,15 @@ vim.api.nvim_create_autocmd("FileType", {
 vim.wo.number = true
 vim.wo.relativenumber = true
 
+vim.api.nvim_create_autocmd("BufWritePre", {
+  callback = function()
+    local save_pos = vim.fn.winsaveview()
+    -- remove trailing whitespace
+    vim.cmd([[%s/\s\+$//e]])
+    vim.fn.winrestview(save_pos)
+  end
+})
+
 -- mappings
 
 local ndel = function(lhs)
@@ -45,27 +54,16 @@ ndel("gra")
 ndel("grr")
 ndel("gri")
 
-local nmap = function(lhs, cmd, opt)
-  vim.keymap.set("n", lhs, cmd, opt or {})
-end
-
-nmap("<Leader><Leader>", function()
-  local save_pos = vim.fn.winsaveview()
-  -- remove trailing whitespace
-  vim.cmd([[%s/\s\+$//e]])
-  vim.fn.winrestview(save_pos)
-end)
-
 vim.api.nvim_create_autocmd("LspAttach", {
   callback = function(ev)
     local nmapb = function(lhs, cmd)
-      nmap(lhs, cmd, { buffer = ev.buf })
+      vim.keymap.set("n", lhs, cmd, { buffer = ev.buf })
     end
     nmapb("gd", vim.lsp.buf.definition)
     nmapb("gr", vim.lsp.buf.references)
-    nmapb("<F2>", vim.lsp.buf.rename)
-    nmapb("<F3>", vim.lsp.buf.format)
-    nmapb("<F4>", vim.lsp.buf.code_action)
+    nmapb("cr", vim.lsp.buf.rename)
+    nmapb("cf", vim.lsp.buf.format)
+    nmapb("ca", vim.lsp.buf.code_action)
   end
 })
 
