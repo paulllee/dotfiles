@@ -126,7 +126,7 @@ require("lazy").setup({
   {
     "stevearc/oil.nvim",
     keys = {
-      { "-", "<CMD>Oil<CR>", noremap = true }
+      { "-", ":Oil<cr>", noremap = true }
     },
     opts = {}
   },
@@ -144,8 +144,8 @@ require("lazy").setup({
   {
     "ibhagwan/fzf-lua",
     keys = {
-      { "<Leader>f", "<CMD>FzfLua files<CR>" },
-      { "<Leader>g", "<CMD>FzfLua live_grep<CR>" }
+      { "<Leader>f", ":FzfLua files<cr>" },
+      { "<Leader>g", ":FzfLua live_grep<cr>" }
     },
     opts = {
       winopts = { backdrop = 100 }
