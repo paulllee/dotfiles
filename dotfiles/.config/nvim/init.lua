@@ -144,6 +144,7 @@ require("lazy").setup({
   {
     "ibhagwan/fzf-lua",
     keys = {
+      { "<Leader>d", ":FzfLua diagnostics_workspace<cr>" },
       { "<Leader>f", ":FzfLua files<cr>" },
       { "<Leader>g", ":FzfLua live_grep<cr>" }
     },
