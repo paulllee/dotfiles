@@ -1,0 +1,5 @@
+#!/usr/bin/env bash
+
+# [st]uff [s]ync to external drive
+
+rsync -avu --delete ~/stuff /Volumes/storage/stuff

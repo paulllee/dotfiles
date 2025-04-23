@@ -1,0 +1,16 @@
+#!/usr/bin/env bash
+
+# [w]eekly [n]ote
+
+day_of_week=$(date +%u)
+days_to_sub=$((day_of_week - 1))
+monday=$(date -v-"${days_to_sub}"d +%Y-%m-%d)
+weekly_note=~/stuff/weekly/W$monday.md
+
+if ! test -f $weekly_note; then
+  echo "# weekly picture" > $weekly_note
+  echo >> $weekly_note
+  echo "## (date)" >> $weekly_note
+fi
+
+$EDITOR $weekly_note
