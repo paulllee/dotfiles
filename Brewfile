@@ -8,11 +8,11 @@ brew "ripgrep"
 brew "starship"
 brew "uv"
 
-cask "alacritty", args: { no_quarantine: true }
 cask "discord"
 cask "mac-mouse-fix"
 cask "obsidian"
 cask "swish"
+cask "wezterm"
 
 tap "homebrew/cask-fonts"
 cask "font-jetbrains-mono-nerd-font"
