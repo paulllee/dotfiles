@@ -6,6 +6,13 @@ config.color_scheme = "Catppuccin Latte"
 config.font = wezterm.font("JetBrains Mono")
 config.font_size = 14.0
 
-config.hide_tab_bar_if_only_one_tab = true
+config.enable_tab_bar = false
+
+local wds = {
+  "TITLE",
+  "RESIZE",
+  "MACOS_FORCE_DISABLE_SHADOW",
+}
+config.window_decorations = table.concat(wds, "|")
 
 return config
