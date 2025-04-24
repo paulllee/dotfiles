@@ -8,8 +8,8 @@ brew "ripgrep"
 brew "starship"
 brew "uv"
 
+cask "alacritty", args: { no_quarantine: true }
 cask "discord"
-cask "kitty"
 cask "mac-mouse-fix"
 cask "obsidian"
 cask "swish"
