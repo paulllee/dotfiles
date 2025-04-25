@@ -1,18 +1,15 @@
-local wezterm = require("wezterm")
-local config = wezterm.config_builder()
+local wt = require("wezterm")
+local config = wt.config_builder()
 
 config.color_scheme = "Catppuccin Latte"
 
-config.font = wezterm.font("JetBrains Mono")
-config.font_size = 14.0
-
 config.enable_tab_bar = false
 
-local wds = {
-  "TITLE",
-  "RESIZE",
-  "MACOS_FORCE_DISABLE_SHADOW",
-}
-config.window_decorations = table.concat(wds, "|")
+config.font = wt.font("JetBrains Mono")
+config.font_size = 14.0
+
+if wt.target_triple:find("windows") ~= nil then
+  config.default_prog = { "pwsh.exe" }
+end
 
 return config
