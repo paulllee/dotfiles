@@ -1,0 +1,2 @@
+code --install-extension catppuccin.catppuccin-vsc
+code --install-extension vscodevim.vim
