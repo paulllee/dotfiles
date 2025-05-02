@@ -1,0 +1,22 @@
+let mapleader=" "
+let maplocalleader=" "
+
+set clipboard+=unnamedplus
+set scrolloff=10
+
+set number
+set relativenumber
+
+nnoremap <c-o> :action Back<cr>
+nnoremap <c-i> :action Forward<cr>
+
+nnoremap gd :action GotoDeclaration<cr>
+nnoremap gr :action FindUsages<cr>
+nnoremap cr :action RenameElement<cr>
+nnoremap cf :action ReformatCode<cr>
+nnoremap ca :action ShowIntentionActions<cr>
+
+nnoremap <leader>f :action GotoFile<cr>
+nnoremap <leader>g :action SearchEverywhere<cr>
+
+nnoremap <leader><cr> :source ~/.ideavimrc<cr>
