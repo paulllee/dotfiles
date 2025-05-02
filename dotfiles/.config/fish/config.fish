@@ -3,7 +3,7 @@ fish_add_path "$HOME/.local/bin"
 alias lg="lazygit"
 
 function qcd
-  cd "$(fd --hidden --maxdepth 3 --exclude '.git' --type d ~ | fzf)"
+  cd "$(fd --hidden --maxdepth 3 --exclude '.git' --type d . ~ | fzf)"
   clear
 end
 
