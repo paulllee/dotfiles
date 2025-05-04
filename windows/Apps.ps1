@@ -5,6 +5,7 @@ $Apps = @(
     "fzf",
     "gcc",
     "heidisql",
+    "jetbrains-mono",
     "klogg",
     "lazygit",
     "mongodb",
