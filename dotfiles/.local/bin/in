@@ -1,0 +1,7 @@
+#!/usr/bin/env bash
+
+# [in]box
+
+inbox_note=~/stuff/inbox.md
+touch $inbox_note
+$EDITOR $inbox_note
