@@ -39,6 +39,6 @@
     ],
     "window.commandCenter": false,
     "workbench.activityBar.location": "bottom",
-    "workbench.colorTheme": "Catppuccin Latte",
+    "workbench.colorTheme": "Catppuccin Mocha",
     "workbench.editor.showTabs": "none"
 }

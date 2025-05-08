@@ -4,23 +4,23 @@ gui:
   showFileIcons: true
 theme:
   activeBorderColor:
-    - '#40a02b'
+    - "#a6e3a1"
     - bold
   inactiveBorderColor:
-    - '#6c6f85'
+    - "#a6adc8"
   optionsTextColor:
-    - '#1e66f5'
+    - "#89b4fa"
   selectedLineBgColor:
-    - '#ccd0da'
+    - "#313244"
   cherryPickedCommitBgColor:
-    - '#bcc0cc'
+    - "#45475a"
   cherryPickedCommitFgColor:
-    - '#40a02b'
+    - "#a6e3a1"
   unstagedChangesColor:
-    - '#d20f39'
+    - "#f38ba8"
   defaultFgColor:
-    - '#4c4f69'
+    - "#cdd6f4"
   searchingActiveBorderColor:
-    - '#df8e1d'
+    - "#f9e2af"
 authorColors:
-  '*': '#7287fd'
+  "*": "#b4befe"
