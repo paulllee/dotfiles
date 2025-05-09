@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 
-# [in]box
+# [i]n[b]ox
 
 inbox_note=~/stuff/inbox.md
 touch $inbox_note

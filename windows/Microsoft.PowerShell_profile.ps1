@@ -16,8 +16,8 @@ function wn {
     & $Env:EDITOR $NotePath
 }
 
-# [in]box
-function in {
+# [i]n[b]ox
+function ib {
     $Inbox = "~/stuff/inbox.md"
     if (!(Test-Path -Path $Inbox)) {
         New-Item -Path $Inbox -ItemType File
