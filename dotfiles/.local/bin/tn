@@ -1,0 +1,7 @@
+#!/usr/bin/env bash
+
+# [t]oday [n]ote
+
+today_note=~/stuff/$(date +%Y).md
+touch $today_note
+$EDITOR $today_note

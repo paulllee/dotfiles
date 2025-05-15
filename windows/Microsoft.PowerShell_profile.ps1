@@ -5,15 +5,13 @@ function qcd {
     cd "$(fd --hidden --maxdepth 3 --exclude '.git' --type d ~ | fzf)"
 }
 
-# [w]eekly [n]ote
-function wn {
-    $Today = (Get-Date).Date
-    $Mon = $Today.AddDays(1 - $Today.DayOfWeek.value__).ToString("yyyy-MM-dd")
-    $NotePath = "~/stuff/weekly/W$Mon.md"
-    if (!(Test-Path -Path $NotePath)) {
-        Set-Content -Path $NotePath -Value " weekly picture"
+# [t]oday [n]ote
+function tn {
+    $TodayNote = "~/stuff/$((Get-Date).Year).md"
+    if (!(Test-Path -Path $TodayNote)) {
+        New-Item -Path $TodayNote -ItemType File
     }
-    & $Env:EDITOR $NotePath
+    & $Env:EDITOR $TodayNote
 }
 
 # [i]n[b]ox

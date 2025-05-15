@@ -1,7 +1,0 @@
-#!/usr/bin/env bash
-
-# [i]n[b]ox
-
-inbox_note=~/stuff/inbox.md
-touch $inbox_note
-$EDITOR $inbox_note
