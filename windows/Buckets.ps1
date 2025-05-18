@@ -1,0 +1,4 @@
+$Buckets = @(
+    "extras",
+    "nerd-fonts",
+)

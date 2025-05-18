@@ -7,14 +7,12 @@ adhoc scripts to get a windows machine up and running for my liking
 Set-ExecutionPolicy -ExecutionPolicy RemoteSigned -Scope CurrentUser
 Invoke-RestMethod -Uri https://get.scoop.sh | Invoke-Expression
 
-# install apps via scoop
-.\Install.ps1
+# mirror package installs with Apps.ps1 and Buckets.ps1 using scoop
+.\Sync.ps1
 
 # debloater - https://github.com/Raphire/Win11Debloat
 & ([scriptblock]::Create((irm "https://debloat.raphi.re/")))
 ```
-
-you can use `scoop update -a` to update all apps at any given time
 
 config paths are not 1 to 1 with macOS, please move configs to respective
 location on windows as needed (can be automated at some point)
