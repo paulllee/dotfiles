@@ -14,15 +14,6 @@ function tn {
     & $Env:EDITOR $TodayNote
 }
 
-# [i]n[b]ox
-function ib {
-    $Inbox = "~/stuff/inbox.md"
-    if (!(Test-Path -Path $Inbox)) {
-        New-Item -Path $Inbox -ItemType File
-    }
-    & $Env:EDITOR $Inbox
-}
-
 $Env:EDITOR = "nvim"
 
 $Env:FZF_DEFAULT_OPTS=@"
