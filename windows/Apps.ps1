@@ -1,4 +1,4 @@
-$Apps = @(
+$DesiredApps = @(
     "7zip",
     "discord",
     "fd",
@@ -21,5 +21,24 @@ $Apps = @(
     "tailscale",
     "uv",
     "wezterm",
-    "windirstat",
+    "windirstat"
 )
+
+function Get-InstalledApps {
+    return scoop list | ForEach-Object { $_.Name }
+}
+
+function Sync-Apps {
+    $InstalledApps = Get-InstalledApps
+
+    $InstalledApps `
+        | ForEach-Object { scoop update $_ }
+
+    $DesiredApps `
+        | Where-Object { $_ -notin $InstalledApps } `
+        | ForEach-Object { scoop install $_ }
+
+    $InstalledApps `
+        | Where-Object { $_ -notin $DesiredApps } `
+        | ForEach-Object { scoop uninstall $_ }
+}
