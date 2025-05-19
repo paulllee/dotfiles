@@ -7,7 +7,7 @@ adhoc scripts to get a windows machine up and running for my liking
 Set-ExecutionPolicy -ExecutionPolicy RemoteSigned -Scope CurrentUser
 Invoke-RestMethod -Uri https://get.scoop.sh | Invoke-Expression
 
-# mirror package installs with Apps.ps1 and Buckets.ps1 using scoop
+# brew bundle behavior but for scoop
 .\Sync.ps1
 
 # debloater - https://github.com/Raphire/Win11Debloat
@@ -15,7 +15,7 @@ Invoke-RestMethod -Uri https://get.scoop.sh | Invoke-Expression
 ```
 
 config paths are not 1 to 1 with macOS, please move configs to respective
-location on windows as needed (can be automated at some point)
+location on windows as needed (can be automated)
 
 ```
 nvim: ~/AppData/Local/nvim/init.lua
