@@ -1,3 +1,5 @@
+Plug "tpope/vim-surround"
+
 let mapleader=" "
 let maplocalleader=" "
 
