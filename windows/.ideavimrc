@@ -9,6 +9,9 @@ set scrolloff=10
 set number
 set relativenumber
 
+set ignorecase
+set smartcase
+
 nnoremap <c-o> :action Back<cr>
 nnoremap <c-i> :action Forward<cr>
 
