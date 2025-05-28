@@ -5,15 +5,6 @@ function qcd {
     cd "$(fd --hidden --maxdepth 3 --exclude '.git' --type d ~ | fzf)"
 }
 
-# [t]oday [n]ote
-function tn {
-    $TodayNote = "~/stuff/$((Get-Date).Year).md"
-    if (!(Test-Path -Path $TodayNote)) {
-        New-Item -Path $TodayNote -ItemType File
-    }
-    & $Env:EDITOR $TodayNote
-}
-
 $Env:EDITOR = "nvim"
 
 $Env:FZF_DEFAULT_OPTS=@"
