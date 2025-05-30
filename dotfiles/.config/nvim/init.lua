@@ -109,13 +109,9 @@ vim.opt.rtp:prepend(lazypath)
 
 require("lazy").setup({
   { "nvim-tree/nvim-web-devicons" },
-  { "windwp/nvim-autopairs",                     opts = {} },
-  { "lewis6991/gitsigns.nvim",                   opts = {} },
-  { "nvim-lualine/lualine.nvim",                 opts = {} },
-  { "MeanderingProgrammer/render-markdown.nvim", opts = {} },
-  { "mcauley-penney/visual-whitespace.nvim",     opts = {} },
-  { "lukas-reineke/virt-column.nvim",            opts = {} },
-  { "kylechui/nvim-surround",                    opts = {} },
+  { "windwp/nvim-autopairs",      opts = {} },
+  { "lewis6991/gitsigns.nvim",    opts = {} },
+  { "nvim-lualine/lualine.nvim",  opts = {} },
   {
     "catppuccin/nvim",
     name = "catppuccin",
