@@ -9,6 +9,7 @@ brew "starship"
 brew "uv"
 
 cask "discord"
+cask "firefox"
 cask "mac-mouse-fix"
 cask "obsidian"
 cask "swish"
