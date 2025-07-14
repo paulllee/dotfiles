@@ -8,6 +8,7 @@ brew "ripgrep"
 brew "starship"
 brew "uv"
 
+cask "anki"
 cask "discord"
 cask "firefox"
 cask "mac-mouse-fix"
