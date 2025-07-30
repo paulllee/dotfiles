@@ -53,6 +53,7 @@ ndel("grn")
 ndel("gra")
 ndel("grr")
 ndel("gri")
+ndel("grt")
 
 vim.api.nvim_create_autocmd("LspAttach", {
   callback = function(ev)
@@ -61,6 +62,7 @@ vim.api.nvim_create_autocmd("LspAttach", {
     end
     nmapb("gd", vim.lsp.buf.definition)
     nmapb("gr", vim.lsp.buf.references)
+    nmapb("gt", vim.lsp.buf.type_definition)
     nmapb("cr", vim.lsp.buf.rename)
     nmapb("cf", vim.lsp.buf.format)
     nmapb("ca", vim.lsp.buf.code_action)
