@@ -34,15 +34,6 @@ vim.api.nvim_create_autocmd("FileType", {
 vim.wo.number = true
 vim.wo.relativenumber = true
 
-vim.api.nvim_create_autocmd("BufWritePre", {
-  callback = function()
-    local save_pos = vim.fn.winsaveview()
-    -- remove trailing whitespace
-    vim.cmd([[%s/\s\+$//e]])
-    vim.fn.winrestview(save_pos)
-  end
-})
-
 -- mappings
 
 local ndel = function(lhs)
@@ -68,6 +59,17 @@ vim.api.nvim_create_autocmd("LspAttach", {
     nmapb("ca", vim.lsp.buf.code_action)
   end
 })
+
+local nmap = function(lhs, cmd)
+  vim.keymap.set("n", lhs, cmd)
+end
+
+nmap("<leader><leader>", function()
+  local save_pos = vim.fn.winsaveview()
+  -- remove trailing whitespace
+  vim.cmd([[%s/\s\+$//e]])
+  vim.fn.winrestview(save_pos)
+end)
 
 -- lsps/diagnostics
 
