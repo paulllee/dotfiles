@@ -85,7 +85,8 @@ local lsps = {
       }
     }
   },
-  markdown_oxide = {}
+  markdown_oxide = {},
+  vtsls = {}
 }
 if vim.fn.has("win32") == 1 then
   lsps.omnisharp = {}
