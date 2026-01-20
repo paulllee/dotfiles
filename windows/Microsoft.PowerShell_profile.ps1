@@ -10,7 +10,7 @@ $Env:EDITOR = "nvim"
 # gruvbox
 $Env:FZF_DEFAULT_OPTS=@"
 --color=bg+:#3C3836,bg:-1,spinner:#FABD2F,hl:#FE8019
---color=fg:#EBDBB2,header:83A598,info:#D3869B,pointer:#FABD2F
+--color=fg:#EBDBB2,header:#83A598,info:#D3869B,pointer:#FABD2F
 --color=marker:#B8BB26,fg+:#FBF1C7,prompt:#83A598,hl+:#FE8019
 --color=selected-bg:#504945
 --color=border:#504945,label:#EBDBB2
