@@ -1,5 +1,6 @@
 $DesiredApps = @(
     "7zip",
+    "claude-code",
     "discord",
     "fd",
     "fzf",
@@ -12,6 +13,7 @@ $DesiredApps = @(
     "mongodb",
     "neovim",
     "nodejs",
+    "obsidian",
     "postman",
     "rider",
     "ripgrep",
