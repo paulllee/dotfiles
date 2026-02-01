@@ -38,26 +38,26 @@ Usage:
 
 Options:
   -h  Print this help message
-  -d  Dotfiles sync
   -g  Gitconfig sync
   -m  Mac sync
   -p  Packages sync
+  -s  Symlink sync
 END
 )
 
-d_flag=0
 g_flag=0
 m_flag=0
 p_flag=0
+s_flag=0
 
-while getopts "hdgmp" FLAG
+while getopts "hgmps" FLAG
 do
   case "${FLAG}" in
     h) printf "$USAGE_MESSAGE\n" && exit 0 ;;
-    d) d_flag=1 ;;
     g) g_flag=1 ;;
     m) m_flag=1 ;;
     p) p_flag=1 ;;
+    s) s_flag=1 ;;
   esac
 done
 
@@ -72,12 +72,19 @@ if (( p_flag )); then  # MUST BE RAN FIRST!
   brew autoremove
 fi
 
-if (( d_flag )); then
-  printf_h "Dotfiles Sync"
+if (( s_flag )); then
+  printf_h "Symlink Sync"
 
-  rsync --exclude ".DS_Store" -avhP "$DOTFILES_PATH/dotfiles/" "$HOME/"
+  fd . "$DOTFILES_PATH/dotfiles" --hidden --type f -E ".DS_Store" \
+    --exec sh -c '
+      dest="$HOME/${1#$2/dotfiles/}"
+      mkdir -p "$(dirname "$dest")"
+      rm -f "$dest"
+      ln -s "$1" "$dest"
+      printf "Linked: %s\n" "${dest#$HOME/}"
+    ' sh {} "$DOTFILES_PATH"
 
-  fd . "$HOME/.local/bin" --type f --exec-batch chmod +x {}
+  fd . "$HOME/.local/bin" --type l --exec-batch chmod +x {}
 fi
 
 if (( g_flag )); then
