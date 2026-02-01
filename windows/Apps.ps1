@@ -10,6 +10,7 @@ $DesiredApps = @(
     "jetbrains-mono",
     "klogg",
     "lazygit",
+    "make",
     "mongodb",
     "neovim",
     "nodejs",
