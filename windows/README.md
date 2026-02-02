@@ -34,3 +34,5 @@ symlink creation requires admin rights...
 | ideavimrc | `windows/.ideavimrc` | `~/.ideavimrc` |
 | powershell | `windows/Microsoft.PowerShell_profile.ps1` | `~/Documents/PowerShell/Microsoft.PowerShell_profile.ps1` |
 | powershell | `windows/Microsoft.PowerShell_profile.ps1` | `~/Documents/WindowsPowerShell/Microsoft.PowerShell_profile.ps1` |
+| powershell | `windows/Microsoft.PowerShell_profile.ps1` | `~/OneDrive/Documents/PowerShell/Microsoft.PowerShell_profile.ps1` |
+| powershell | `windows/Microsoft.PowerShell_profile.ps1` | `~/OneDrive/Documents/WindowsPowerShell/Microsoft.PowerShell_profile.ps1` |
