@@ -11,3 +11,5 @@ Sync-Buckets
 Sync-Apps
 
 scoop cleanup -a
+
+. "$PSScriptRoot\Symlink.ps1"

@@ -7,20 +7,24 @@ adhoc scripts to get a windows machine up and running for my liking
 Set-ExecutionPolicy -ExecutionPolicy RemoteSigned -Scope CurrentUser
 Invoke-RestMethod -Uri https://get.scoop.sh | Invoke-Expression
 
-# brew bundle behavior but for scoop
+# install apps and symlink configs
 .\Sync.ps1
 
 # debloater - https://github.com/Raphire/Win11Debloat
 & ([scriptblock]::Create((irm "https://debloat.raphi.re/")))
 ```
 
-config paths are not 1 to 1 with macOS, please move configs to respective
-location on windows as needed (can be automated)
+## symlinks
 
-```
-nvim: ~/AppData/Local/nvim/init.lua
-lazygit: ~/AppData/Roaming/lazygit/config.yml
-wezterm: ~/.wezterm.lua
-ideavimrc: ~/.ideavimrc
-powershell: ~/Documents/PowerShell/Microsoft.PowerShell_profile.ps1 | $PROFILE
-```
+`Sync.ps1` automatically symlinks config files to their Windows locations:
+
+| config | source | destination |
+|--------|--------|-------------|
+| nvim | `dotfiles/.config/nvim/` | `~/AppData/Local/nvim/` |
+| lazygit | `dotfiles/.config/lazygit/config.yml` | `~/AppData/Roaming/lazygit/config.yml` |
+| wezterm | `dotfiles/.config/wezterm/wezterm.lua` | `~/.wezterm.lua` |
+| claude-code | `dotfiles/.claude/settings.json` | `~/.claude/settings.json` |
+| ideavimrc | `windows/.ideavimrc` | `~/.ideavimrc` |
+| powershell | `windows/Microsoft.PowerShell_profile.ps1` | `~/Documents/PowerShell/Microsoft.PowerShell_profile.ps1` |
+
+to create symlinks without admin rights, enable **Developer Mode** in Settings > For developers
