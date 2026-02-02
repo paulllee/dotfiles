@@ -8,6 +8,7 @@ $Symlinks = @{
     "dotfiles\.claude\settings.json"       = "$HOME\.claude\settings.json"
     "windows\.ideavimrc"                       = "$HOME\.ideavimrc"
     "windows\Microsoft.PowerShell_profile.ps1" = "$HOME\Documents\PowerShell\Microsoft.PowerShell_profile.ps1"
+    "windows\Microsoft.PowerShell_profile.ps1" = "$HOME\Documents\WindowsPowerShell\Microsoft.PowerShell_profile.ps1"
 }
 
 foreach ($Source in $Symlinks.Keys) {

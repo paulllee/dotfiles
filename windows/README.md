@@ -7,16 +7,23 @@ adhoc scripts to get a windows machine up and running for my liking
 Set-ExecutionPolicy -ExecutionPolicy RemoteSigned -Scope CurrentUser
 Invoke-RestMethod -Uri https://get.scoop.sh | Invoke-Expression
 
-# install apps and symlink configs
+# install apps
 .\Sync.ps1
 
 # debloater - https://github.com/Raphire/Win11Debloat
 & ([scriptblock]::Create((irm "https://debloat.raphi.re/")))
 ```
 
+open a new terminal as administrator
+
+```ps1
+# creates symlinks (administrator only)
+.\Symlink.ps1
+```
+
 ## symlinks
 
-`Sync.ps1` automatically symlinks config files to their Windows locations:
+symlink creation requires admin rights...
 
 | config | source | destination |
 |--------|--------|-------------|
@@ -26,5 +33,4 @@ Invoke-RestMethod -Uri https://get.scoop.sh | Invoke-Expression
 | claude-code | `dotfiles/.claude/settings.json` | `~/.claude/settings.json` |
 | ideavimrc | `windows/.ideavimrc` | `~/.ideavimrc` |
 | powershell | `windows/Microsoft.PowerShell_profile.ps1` | `~/Documents/PowerShell/Microsoft.PowerShell_profile.ps1` |
-
-to create symlinks without admin rights, enable **Developer Mode** in Settings > For developers
+| powershell | `windows/Microsoft.PowerShell_profile.ps1` | `~/Documents/WindowsPowerShell/Microsoft.PowerShell_profile.ps1` |
