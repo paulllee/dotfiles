@@ -2,15 +2,14 @@ $RepoRoot = Split-Path -Parent $PSScriptRoot
 
 $Symlinks = @(
     # shared
-    @("dotfiles\.config\nvim\init.lua",       "$env:LOCALAPPDATA\nvim\init.lua")
-    @("dotfiles\.config\nvim\.luarc.json",    "$env:LOCALAPPDATA\nvim\.luarc.json")
-    @("dotfiles\.config\lazygit\config.yml",  "$env:APPDATA\lazygit\config.yml")
-    @("dotfiles\.config\wezterm\wezterm.lua", "$HOME\.wezterm.lua")
-    @("dotfiles\.claude\settings.json",       "$HOME\.claude\settings.json")
-
+    @("dotfiles\.config\nvim\init.lua",       "$env:LOCALAPPDATA\nvim\init.lua"),
+    @("dotfiles\.config\nvim\.luarc.json",    "$env:LOCALAPPDATA\nvim\.luarc.json"),
+    @("dotfiles\.config\lazygit\config.yml",  "$env:APPDATA\lazygit\config.yml"),
+    @("dotfiles\.config\wezterm\wezterm.lua", "$HOME\.wezterm.lua"),
+    @("dotfiles\.claude\settings.json",       "$HOME\.claude\settings.json"),
     # windows only
-    @("windows\.ideavimrc",                       "$HOME\.ideavimrc")
-    @("windows\Microsoft.PowerShell_profile.ps1", "$HOME\Documents\PowerShell\Microsoft.PowerShell_profile.ps1")
+    @("windows\.ideavimrc",                       "$HOME\.ideavimrc"),
+    @("windows\Microsoft.PowerShell_profile.ps1", "$HOME\Documents\PowerShell\Microsoft.PowerShell_profile.ps1"),
     @("windows\Microsoft.PowerShell_profile.ps1", "$HOME\Documents\WindowsPowerShell\Microsoft.PowerShell_profile.ps1")
 )
 
