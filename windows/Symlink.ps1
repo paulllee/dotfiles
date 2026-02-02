@@ -11,6 +11,8 @@ $Symlinks = @(
     @("windows\.ideavimrc",                       "$HOME\.ideavimrc"),
     @("windows\Microsoft.PowerShell_profile.ps1", "$HOME\Documents\PowerShell\Microsoft.PowerShell_profile.ps1"),
     @("windows\Microsoft.PowerShell_profile.ps1", "$HOME\Documents\WindowsPowerShell\Microsoft.PowerShell_profile.ps1")
+    @("windows\Microsoft.PowerShell_profile.ps1", "$HOME\OneDrive\Documents\PowerShell\Microsoft.PowerShell_profile.ps1"),
+    @("windows\Microsoft.PowerShell_profile.ps1", "$HOME\OneDrive\Documents\WindowsPowerShell\Microsoft.PowerShell_profile.ps1")
 )
 
 foreach ($Link in $Symlinks) {
