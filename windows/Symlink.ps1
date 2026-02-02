@@ -1,22 +1,25 @@
 $RepoRoot = Split-Path -Parent $PSScriptRoot
 
-$Symlinks = @{
-    "dotfiles\.config\nvim\init.lua"       = "$env:LOCALAPPDATA\nvim\init.lua"
-    "dotfiles\.config\nvim\.luarc.json"    = "$env:LOCALAPPDATA\nvim\.luarc.json"
-    "dotfiles\.config\lazygit\config.yml"  = "$env:APPDATA\lazygit\config.yml"
-    "dotfiles\.config\wezterm\wezterm.lua" = "$HOME\.wezterm.lua"
-    "dotfiles\.claude\settings.json"       = "$HOME\.claude\settings.json"
-    "windows\.ideavimrc"                       = "$HOME\.ideavimrc"
-    "windows\Microsoft.PowerShell_profile.ps1" = "$HOME\Documents\PowerShell\Microsoft.PowerShell_profile.ps1"
-    "windows\Microsoft.PowerShell_profile.ps1" = "$HOME\Documents\WindowsPowerShell\Microsoft.PowerShell_profile.ps1"
-}
+$Symlinks = @(
+    # shared
+    @("dotfiles\.config\nvim\init.lua",       "$env:LOCALAPPDATA\nvim\init.lua")
+    @("dotfiles\.config\nvim\.luarc.json",    "$env:LOCALAPPDATA\nvim\.luarc.json")
+    @("dotfiles\.config\lazygit\config.yml",  "$env:APPDATA\lazygit\config.yml")
+    @("dotfiles\.config\wezterm\wezterm.lua", "$HOME\.wezterm.lua")
+    @("dotfiles\.claude\settings.json",       "$HOME\.claude\settings.json")
 
-foreach ($Source in $Symlinks.Keys) {
-    $SourcePath = Join-Path $RepoRoot $Source
-    $DestPath = $Symlinks[$Source]
+    # windows only
+    @("windows\.ideavimrc",                       "$HOME\.ideavimrc")
+    @("windows\Microsoft.PowerShell_profile.ps1", "$HOME\Documents\PowerShell\Microsoft.PowerShell_profile.ps1")
+    @("windows\Microsoft.PowerShell_profile.ps1", "$HOME\Documents\WindowsPowerShell\Microsoft.PowerShell_profile.ps1")
+)
+
+foreach ($Link in $Symlinks) {
+    $SourcePath = Join-Path $RepoRoot $Link[0]
+    $DestPath = $Link[1]
 
     if (-not (Test-Path $SourcePath)) {
-        Write-Host "$Source not found"
+        Write-Host "$($Link[0]) not found"
         continue
     }
 
