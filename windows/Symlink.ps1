@@ -30,9 +30,9 @@ foreach ($Source in $Symlinks.Keys) {
 
     try {
         New-Item -ItemType SymbolicLink -Path $DestPath -Target $SourcePath -Force
-        Write-Host "linked: $DestPath -> $Source" -ForegroundColor Green
+        Write-Host "Linked: $DestPath"
     }
     catch {
-        Write-Error "failed to create symlink at $DestPath for $_"
+        Write-Error "Failed to create symlink at $DestPath"
     }
 }
