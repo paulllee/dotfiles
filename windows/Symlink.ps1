@@ -7,6 +7,7 @@ $Symlinks = @(
     @("dotfiles\.config\lazygit\config.yml",  "$env:APPDATA\lazygit\config.yml"),
     @("dotfiles\.config\wezterm\wezterm.lua", "$HOME\.wezterm.lua"),
     @("dotfiles\.claude\settings.json",       "$HOME\.claude\settings.json"),
+    @("dotfiles\.tmux.conf",                  "$HOME\.tmux.conf"),
     # windows only
     @("windows\.ideavimrc",                       "$HOME\.ideavimrc"),
     @("windows\Microsoft.PowerShell_profile.ps1", "$HOME\Documents\PowerShell\Microsoft.PowerShell_profile.ps1"),

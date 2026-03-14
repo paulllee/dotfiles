@@ -16,6 +16,7 @@ $DesiredApps = @(
     "nodejs",
     "obsidian",
     "postman",
+    "psmux",
     "rider",
     "ripgrep",
     "screentogif",
