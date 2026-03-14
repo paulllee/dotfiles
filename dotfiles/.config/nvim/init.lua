@@ -20,16 +20,15 @@ vim.o.scrolloff = 10
 vim.o.undofile = true
 vim.o.wrap = false
 
-vim.o.ignorecase = true
-vim.o.smartcase = true
-
 vim.api.nvim_create_autocmd("FileType", {
   pattern = { "markdown" },
   callback = function()
-    vim.o.colorcolumn = "80"
-    vim.o.textwidth = 80
+    vim.o.wrap = true
   end
 })
+
+vim.o.ignorecase = true
+vim.o.smartcase = true
 
 vim.wo.number = true
 vim.wo.relativenumber = true
