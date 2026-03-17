@@ -1,8 +1,7 @@
 $DesiredBuckets = @(
     "main",
     "extras",
-    "nerd-fonts",
-    "psmux https://github.com/marlocarlo/scoop-psmux"
+    "nerd-fonts"
 )
 
 function Get-AddedBuckets {
