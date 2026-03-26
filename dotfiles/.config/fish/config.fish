@@ -1,6 +1,7 @@
 fish_add_path "$HOME/.local/bin"
 
 alias lg="lazygit"
+alias tmux="tmux -u"
 
 function qcd
   cd "$(fd --hidden --maxdepth 3 --exclude '.git' --type d . ~ | fzf)"
