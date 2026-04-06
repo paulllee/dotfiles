@@ -44,6 +44,7 @@ ndel("gra")
 ndel("grr")
 ndel("gri")
 ndel("grt")
+ndel("grx")
 
 vim.api.nvim_create_autocmd("LspAttach", {
   callback = function(ev)
@@ -87,9 +88,6 @@ local lsps = {
   markdown_oxide = {},
   vtsls = {}
 }
-if vim.fn.has("win32") == 1 then
-  lsps.omnisharp = {}
-end
 
 vim.diagnostic.config({
   virtual_lines = { current_line = true },
@@ -160,25 +158,24 @@ require("lazy").setup({
   },
   {
     "nvim-treesitter/nvim-treesitter",
+    branch = "main",
     build = ":TSUpdate",
     event = { "BufReadPost", "BufNewFile" },
-    config = function()
-      require("nvim-treesitter.configs").setup({
-        auto_install = true,
-        highlight = { enable = true },
-        indent = {
-          enable = true,
-          disable = { "markdown" }
-        }
-      })
-    end
+    opts = {
+      auto_install = true,
+      highlight = { enable = true },
+      indent = {
+        enable = true,
+        disable = { "markdown" }
+      }
+    }
   },
   {
     "neovim/nvim-lspconfig",
     dependencies = {
       "williamboman/mason.nvim",
       "williamboman/mason-lspconfig.nvim",
-      { "saghen/blink.cmp", version = "*", opts = {} },
+      { "saghen/blink.cmp", version = "*", opts = {} }
     },
     config = function()
       local cmp = require("blink.cmp").get_lsp_capabilities()
