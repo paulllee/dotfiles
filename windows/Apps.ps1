@@ -1,30 +1,10 @@
 $DesiredApps = @(
-    "7zip",
-    "claude-code",
-    "discord",
-    "fd",
-    "fzf",
-    "gcc",
-    "git",
-    "heidisql",
-    "jetbrains-mono",
-    "klogg",
-    "lazygit",
-    "make",
-    "mongodb",
-    "neovim",
-    "nodejs",
-    "obsidian",
-    "postman",
-    "rider",
-    "ripgrep",
-    "screentogif",
-    "starship",
-    "steam",
-    "tailscale",
-    "uv",
-    "wezterm",
-    "windirstat"
+    "main/7zip",
+    "main/git",
+    "extras/discord",
+    "extras/logitech-omm",
+    "games/steam",
+    "games/osulazer"
 )
 
 function Get-InstalledApps {
@@ -33,15 +13,16 @@ function Get-InstalledApps {
 
 function Sync-Apps {
     $InstalledApps = Get-InstalledApps
+    $DesiredAppNames = $DesiredApps | ForEach-Object { ($_ -split "/", 2)[-1] }
 
     $InstalledApps `
         | ForEach-Object { scoop update $_ }
 
     $DesiredApps `
-        | Where-Object { $_ -notin $InstalledApps } `
+        | Where-Object { ($_ -split "/", 2)[-1] -notin $InstalledApps } `
         | ForEach-Object { scoop install $_ }
 
     $InstalledApps `
-        | Where-Object { $_ -notin $DesiredApps } `
+        | Where-Object { $_ -notin $DesiredAppNames } `
         | ForEach-Object { scoop uninstall $_ }
 }

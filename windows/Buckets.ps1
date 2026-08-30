@@ -1,7 +1,7 @@
 $DesiredBuckets = @(
     "main",
     "extras",
-    "nerd-fonts"
+    "games"
 )
 
 function Get-AddedBuckets {
