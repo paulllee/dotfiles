@@ -23,7 +23,7 @@ vim.o.wrap = false
 vim.api.nvim_create_autocmd("FileType", {
   pattern = { "markdown" },
   callback = function()
-    vim.o.wrap = true
+    vim.bo.wrap = true
   end
 })
 
